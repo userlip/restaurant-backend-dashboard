@@ -14,6 +14,8 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        Customer::has(Note::factory(3)->create())->factory(10)->create();
+        Customer::factory(10)
+            ->has(Note::factory()->count(3), 'notes')
+            ->create();
     }
 }
