@@ -41,7 +41,7 @@ class PostResource extends Resource
     /**
      * The resource navigation sort order.
      */
-    protected static ?int $navigationSort = 0;
+    protected static ?int $navigationSort = 1;
 
     /**
      * Get the navigation badge for the resource.
