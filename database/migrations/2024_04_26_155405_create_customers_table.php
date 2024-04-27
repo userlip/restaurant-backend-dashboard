@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('contact_person');
-            $table->string('contact_person_number');
+            $table->string('address');
             $table->date('next_payment_date');
             $table->boolean('is_invoice');
             $table->double('agreed_price');
