@@ -10,8 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class CustomerResource extends Resource
 {
@@ -40,6 +39,16 @@ class CustomerResource extends Resource
     protected static ?int $navigationSort = 0;
 
     /**
+     * The resource navigation badge
+     *
+     * @return string|null
+     */
+    public static function getNavigationBadge(): ?string
+    {
+        return number_format(static::getModel()::count());
+    }
+
+    /**
      * The resource form.
      *
      * @param Form $form
@@ -49,15 +58,104 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Grid::make()
+                    ->columns(3)
+                    ->schema([
+                        Forms\Components\Section::make()
+                            ->columnSpan(3)
+                            ->columns()
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->columnSpanFull()
+                                    ->placeholder("Enter the customer name")
+                                    ->autofocus()
+                                    ->maxLength(255),
+
+                                Forms\Components\TextInput::make('email')
+                                    ->required()
+                                    ->columnSpanFull()
+                                    ->email()
+                                    ->placeholder("Enter the customer email")
+                                    ->maxLength(255),
+
+                                Forms\Components\TextInput::make('address')
+                                    ->required()
+                                    ->placeholder('Enter the customer address')
+                                    ->columnSpanFull()
+                                    ->maxLength(255),
+
+                                PhoneInput::make('phone')
+                                    ->required()
+                                    ->placeholder("Enter the customer phone")
+                                    ->defaultCountry('DE'),
+
+                                PhoneInput::make('whatsapp_number')
+                                    ->required()
+                                    ->placeholder("Enter the customer whatsapp"),
+
+                                Forms\Components\TextInput::make('contact_person')
+                                    ->required()
+                                    ->columnSpanFull()
+                                    ->placeholder("Enter the customer contact person")
+                                    ->maxLength(255),
+
+                                Forms\Components\Toggle::make('is_invoice')
+                                    ->columnSpanFull()
+                                    ->required(),
+
+                                Forms\Components\DatePicker::make('next_payment_date')
+                                    ->required()
+                                    ->columnSpanFull()
+                                    ->default(now()),
+
+                                Forms\Components\TextInput::make('agreed_price')
+                                    ->required()
+                                    ->numeric()
+                                    ->default(0.00)
+                                    ->columnSpan(1)
+                                    ->placeholder("Enter the customer contact person number")
+                                    ->maxLength(255),
+
+                                Forms\Components\Textarea::make('impressum')
+                                    ->columnSpanFull()
+                                    ->placeholder('Enter the impressum')
+                                    ->required(),
+                            ]),
+                    ]),
+
             ]);
     }
 
+    /**
+     * The resource table
+     *
+     * @param Table $table
+     * @return Table
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('email')
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('phone')
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('contact_person')
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
