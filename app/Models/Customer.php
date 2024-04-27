@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
@@ -27,18 +28,8 @@ class Customer extends Model
         'next_payment_date' => 'date'
     ];
 
-    public function getNextPaymentDatePrettyAttribute() : Carbon | string
+    public function notes() : HasMany
     {
-        return $this->next_payment_date->format('F d Y');
-    }
-
-    public function getCreatedAtPrettyAttribute() : Carbon | string
-    {
-        return $this->created_at->format('F d Y');
-    }
-
-    public function getCreatedAtTimeAttribute() : Carbon | string
-    {
-        return $this->created_at->format('h:m a');
+        return $this->hasMany(Note::class)->latest();
     }
 }
