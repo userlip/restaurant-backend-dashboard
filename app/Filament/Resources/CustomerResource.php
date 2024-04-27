@@ -136,6 +136,7 @@ class CustomerResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(Customer::latest('id'))
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
@@ -150,6 +151,7 @@ class CustomerResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('contact_person')
+                    ->limit(20)
                     ->sortable()
                     ->searchable(),
 
@@ -162,6 +164,7 @@ class CustomerResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
