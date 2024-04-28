@@ -71,7 +71,7 @@ class WebsitesRelationManager extends RelationManager
             ->recordTitleAttribute('seo_title')
             ->columns([
                 CuratorColumn::make('logo')
-                    ->height(75),
+                    ->height(50),
 
                 Tables\Columns\TextColumn::make('seo_title')
                     ->limit(30)
@@ -90,7 +90,7 @@ class WebsitesRelationManager extends RelationManager
                     ->searchable(),
 
                 CuratorColumn::make('favicon')
-                    ->height(75),
+                    ->height(50),
             ])
             ->filters([
                 //

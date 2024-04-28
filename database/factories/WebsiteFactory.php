@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\WebsiteThemesEnums;
 use App\Models\Customer;
+use Awcodes\Curator\Models\Media;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,11 +21,11 @@ class WebsiteFactory extends Factory
     {
         return [
             'customer_id' => Customer::first()->id,
-            'theme' => WebsiteThemesEnums::THEME_1,
+            'theme' => rand(0, 1) ? WebsiteThemesEnums::THEME_1 : WebsiteThemesEnums::THEME_2,
             'seo_title' => fake()->sentence,
-            'seo_description' => fake()->paragraph,
-            'favicon' => fake()->imageUrl,
-            'logo' => fake()->imageUrl,
+            'seo_description' => fake()->sentence,
+            'favicon' => Media::first()->id,
+            'logo' => Media::latest('id')->first()->id,
         ];
     }
 }
