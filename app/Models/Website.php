@@ -11,6 +11,7 @@ class Website extends Model
     use HasFactory;
 
     protected $fillable = [
+        'customer_id',
         'theme',
         'seo_title',
         'seo_description',

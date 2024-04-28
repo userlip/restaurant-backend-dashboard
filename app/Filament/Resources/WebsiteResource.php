@@ -1,41 +1,76 @@
 <?php
 
-namespace App\Filament\Resources\CustomerResource\RelationManagers;
+namespace App\Filament\Resources;
 
 use App\Enums\CuratorPicksImageTypes;
 use App\Enums\WebsiteThemesEnums;
+use App\Filament\Resources\WebsiteResource\Pages;
+use App\Filament\Resources\WebsiteResource\RelationManagers;
+use App\Models\Website;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Components\Tables\CuratorColumn;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class WebsitesRelationManager extends RelationManager
+class WebsiteResource extends Resource
 {
-    /**
-     * The relation manager relationship
-     *
-     * @var string
-     */
-    protected static string $relationship = 'websites';
 
     /**
-     * The record title attribute for the relation manager
+     * The resource model
      *
      * @var string|null
      */
-    protected static ?string $recordTitleAttribute = "seo_title";
+    protected static ?string $model = Website::class;
 
-    public function form(Form $form): Form
+    /**
+     * The resource navigation icon
+     *
+     * @var string|null
+     */
+    protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
+
+    /**
+     * The resource navigation group
+     *
+     * @var string|null
+     */
+    protected static ?string $navigationGroup = 'Customers';
+
+    /**
+     * The resource navigation sort
+     *
+     * @var int|null
+     */
+    protected static ?int $navigationSort = 1;
+
+    /**
+     * The resource navigation badge
+     *
+     * @return string|null
+     */
+    public static function getNavigationBadge(): ?string
+    {
+        return number_format(static::getModel()::count());
+    }
+
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
+                        Forms\Components\Select::make('customer_id')
+                            ->relationship('customer', 'name')
+                            ->placeholder('Select a Customer')
+                            ->preload()
+                            ->searchable('name')
+                            ->required(),
+
                         Forms\Components\TextInput::make('seo_title')
                             ->required()
                             ->autofocus()
@@ -52,32 +87,28 @@ class WebsitesRelationManager extends RelationManager
                             ->placeholder('Select a theme')
                             ->options(WebsiteThemesEnums::getKeyValuePairs()),
 
-                        CuratorPicker::make('logo')
+                        Forms\Components\FileUpload::make('logo')
                             ->acceptedFileTypes(CuratorPicksImageTypes::getImageMimeTypes())
-                            ->constrained()
                             ->required(),
 
-                        CuratorPicker::make('favicon')
+                        Forms\Components\FileUpload::make('favicon')
                             ->acceptedFileTypes(CuratorPicksImageTypes::getImageMimeTypes())
-                            ->constrained()
                             ->required(),
                     ])
             ]);
     }
 
-    /**
-     * The table of the relation manager
-     *
-     * @param Table $table
-     * @return Table
-     */
-    public function table(Table $table): Table
+    public static function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('seo_title')
             ->columns([
-                CuratorColumn::make('logo')
+                Tables\Columns\ImageColumn::make('logo')
                     ->height(50),
+
+                Tables\Columns\TextColumn::make('customer.name')
+                    ->limit(30)
+                    ->sortable()
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('seo_title')
                     ->limit(30)
@@ -95,14 +126,11 @@ class WebsitesRelationManager extends RelationManager
                     ->sortable()
                     ->searchable(),
 
-                CuratorColumn::make('favicon')
+                Tables\Columns\ImageColumn::make('favicon')
                     ->height(50),
             ])
             ->filters([
                 //
-            ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -113,5 +141,21 @@ class WebsitesRelationManager extends RelationManager
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListWebsites::route('/'),
+            'create' => Pages\CreateWebsite::route('/create'),
+            'edit' => Pages\EditWebsite::route('/{record}/edit'),
+        ];
     }
 }
