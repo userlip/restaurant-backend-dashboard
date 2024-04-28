@@ -28,8 +28,23 @@ class Customer extends Model
         'next_payment_date' => 'date'
     ];
 
+    /**
+     * The Notes relationship of the Customer model
+     *
+     * @return HasMany
+     */
     public function notes() : HasMany
     {
         return $this->hasMany(Note::class)->latest();
+    }
+
+    /**
+     * The Website relationship of the Customer model
+     *
+     * @return HasMany
+     */
+    public function websites() : HasMany
+    {
+        return $this->hasMany(Website::class);
     }
 }
