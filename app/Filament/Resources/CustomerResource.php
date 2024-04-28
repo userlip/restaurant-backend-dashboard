@@ -136,7 +136,7 @@ class CustomerResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(Customer::latest('id'))
+            ->query(static::getModel()::latest('id'))
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()

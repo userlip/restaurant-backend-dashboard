@@ -72,6 +72,7 @@ class WebsitesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->query(static::getModel()::latest('id'))
             ->recordTitleAttribute('seo_title')
             ->columns([
                 Tables\Columns\ImageColumn::make('logo')

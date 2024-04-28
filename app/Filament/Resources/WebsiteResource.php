@@ -101,6 +101,7 @@ class WebsiteResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(static::getModel()::latest('id'))
             ->columns([
                 Tables\Columns\ImageColumn::make('logo')
                     ->height(50),
