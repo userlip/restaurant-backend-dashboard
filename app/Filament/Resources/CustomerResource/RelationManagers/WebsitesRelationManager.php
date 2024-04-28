@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CustomerResource\RelationManagers;
 
+use App\Enums\CuratorPicksImageTypes;
 use App\Enums\WebsiteThemesEnums;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Components\Tables\CuratorColumn;
@@ -49,10 +50,12 @@ class WebsitesRelationManager extends RelationManager
                             ->options(WebsiteThemesEnums::getKeyValuePairs()),
 
                         CuratorPicker::make('logo')
+                            ->acceptedFileTypes(CuratorPicksImageTypes::getImageMimeTypes())
                             ->constrained()
                             ->required(),
 
                         CuratorPicker::make('favicon')
+                            ->acceptedFileTypes(CuratorPicksImageTypes::getImageMimeTypes())
                             ->constrained()
                             ->required(),
                     ])
