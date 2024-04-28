@@ -24,8 +24,8 @@ class WebsiteFactory extends Factory
             'theme' => rand(0, 1) ? WebsiteThemesEnums::THEME_1 : WebsiteThemesEnums::THEME_2,
             'seo_title' => fake()->sentence,
             'seo_description' => fake()->sentence,
-            'favicon' => Media::first()->id,
-            'logo' => Media::latest('id')->first()->id,
+            'favicon' => fake()->imageUrl,
+            'logo' => fake()->imageUrl,
         ];
     }
 }

@@ -52,14 +52,12 @@ class WebsitesRelationManager extends RelationManager
                             ->placeholder('Select a theme')
                             ->options(WebsiteThemesEnums::getKeyValuePairs()),
 
-                        CuratorPicker::make('logo')
+                        Forms\Components\FileUpload::make('logo')
                             ->acceptedFileTypes(CuratorPicksImageTypes::getImageMimeTypes())
-                            ->constrained()
                             ->required(),
 
-                        CuratorPicker::make('favicon')
+                        Forms\Components\FileUpload::make('favicon')
                             ->acceptedFileTypes(CuratorPicksImageTypes::getImageMimeTypes())
-                            ->constrained()
                             ->required(),
                     ])
             ]);
@@ -76,7 +74,7 @@ class WebsitesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('seo_title')
             ->columns([
-                CuratorColumn::make('logo')
+                Tables\Columns\ImageColumn::make('logo')
                     ->height(50),
 
                 Tables\Columns\TextColumn::make('seo_title')
@@ -95,7 +93,7 @@ class WebsitesRelationManager extends RelationManager
                     ->sortable()
                     ->searchable(),
 
-                CuratorColumn::make('favicon')
+                Tables\Columns\ImageColumn::make('favicon')
                     ->height(50),
             ])
             ->filters([
