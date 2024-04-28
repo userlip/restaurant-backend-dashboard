@@ -60,13 +60,13 @@ class NotesRelationManager extends RelationManager
             ->recordTitleAttribute('note')
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->limit()
+                    ->limit(40)
                     ->sortable()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('note')
                     ->html()
-                    ->limit()
+                    ->limit(40)
                     ->sortable()
                     ->searchable(),
 
