@@ -5,7 +5,7 @@ namespace App\Enums;
 class WebsiteThemesEnums
 {
     public const THEME_1 = 'Theme 1';
-    public const THEME_2 = 'Theme 1';
+    public const THEME_2 = 'Theme 2';
 
     /**
      * Method to return an associative array of the themes

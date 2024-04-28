@@ -46,8 +46,7 @@ class WebsitesRelationManager extends RelationManager
 
                         Forms\Components\Select::make('theme')
                             ->required()
-                            ->options(WebsiteThemesEnums::getKeyValuePairs())
-                            ->default(WebsiteThemesEnums::THEME_1),
+                            ->options(WebsiteThemesEnums::getKeyValuePairs()),
 
                         CuratorPicker::make('logo')
                             ->constrained()
