@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\CustomerResource\RelationManagers;
 
+use App\Enums\WebsiteThemesEnums;
+use Awcodes\Curator\Components\Forms\CuratorPicker;
+use Awcodes\Curator\Components\Tables\CuratorColumn;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -41,7 +44,18 @@ class WebsitesRelationManager extends RelationManager
                             ->required()
                             ->maxLength(255),
 
+                        Forms\Components\Select::make('theme')
+                            ->required()
+                            ->options(WebsiteThemesEnums::getKeyValuePairs())
+                            ->default(WebsiteThemesEnums::THEME_1),
 
+                        CuratorPicker::make('logo')
+                            ->constrained()
+                            ->required(),
+
+                        CuratorPicker::make('favicon')
+                            ->constrained()
+                            ->required(),
                     ])
             ]);
     }
@@ -57,7 +71,8 @@ class WebsitesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('seo_title')
             ->columns([
-                Tables\Columns\ImageColumn::make('logo'),
+                CuratorColumn::make('logo')
+                    ->height(75),
 
                 Tables\Columns\TextColumn::make('seo_title')
                     ->limit(30)
@@ -75,7 +90,8 @@ class WebsitesRelationManager extends RelationManager
                     ->sortable()
                     ->searchable(),
 
-                Tables\Columns\ImageColumn::make('favicon'),
+                CuratorColumn::make('favicon')
+                    ->height(75),
             ])
             ->filters([
                 //

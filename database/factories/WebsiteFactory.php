@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\WebsiteThemesEnums;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,7 @@ class WebsiteFactory extends Factory
     {
         return [
             'customer_id' => Customer::first()->id,
-            'theme' => fake()->sentence,
+            'theme' => WebsiteThemesEnums::THEME_1,
             'seo_title' => fake()->sentence,
             'seo_description' => fake()->paragraph,
             'favicon' => fake()->imageUrl,
