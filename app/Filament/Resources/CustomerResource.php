@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Models\Customer;
+use App\Trait\ResourceModelCountNavigationBadge;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,6 +15,8 @@ use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class CustomerResource extends Resource
 {
+    use ResourceModelCountNavigationBadge;
+
     /**
      * The resource Model
      */
@@ -37,16 +40,6 @@ class CustomerResource extends Resource
      * @var int|null
      */
     protected static ?int $navigationSort = 0;
-
-    /**
-     * The resource navigation badge
-     *
-     * @return string|null
-     */
-    public static function getNavigationBadge(): ?string
-    {
-        return number_format(static::getModel()::count());
-    }
 
     /**
      * The resource form.

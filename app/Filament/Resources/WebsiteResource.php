@@ -7,6 +7,7 @@ use App\Enums\WebsiteThemesEnums;
 use App\Filament\Resources\WebsiteResource\Pages;
 use App\Filament\Resources\WebsiteResource\RelationManagers;
 use App\Models\Website;
+use App\Trait\ResourceModelCountNavigationBadge;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Components\Tables\CuratorColumn;
 use Filament\Forms;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class WebsiteResource extends Resource
 {
+    use ResourceModelCountNavigationBadge;
 
     /**
      * The resource model
@@ -47,16 +49,6 @@ class WebsiteResource extends Resource
      * @var int|null
      */
     protected static ?int $navigationSort = 1;
-
-    /**
-     * The resource navigation badge
-     *
-     * @return string|null
-     */
-    public static function getNavigationBadge(): ?string
-    {
-        return number_format(static::getModel()::count());
-    }
 
     public static function form(Form $form): Form
     {
