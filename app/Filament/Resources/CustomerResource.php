@@ -173,10 +173,16 @@ class CustomerResource extends Resource
             ]);
     }
 
+    /**
+     * The resource's registered relation managers
+     *
+     * @return string[]
+     */
     public static function getRelations(): array
     {
         return [
             RelationManagers\NotesRelationManager::class,
+            RelationManagers\WebsitesRelationManager::class,
         ];
     }
 
