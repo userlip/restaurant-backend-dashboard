@@ -9,10 +9,23 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class LeadRelationManager extends RelationManager
 {
     protected static string $relationship = 'lead';
+
+    /**
+     * The visibility of the relation manager
+     *
+     * @param Model $ownerRecord
+     * @param string $pageClass
+     * @return bool
+     */
+    public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
+    {
+        return $ownerRecord?->lead !== null;
+    }
 
     public function form(Form $form): Form
     {
