@@ -88,6 +88,12 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
+
+                Tables\Columns\CheckboxColumn::make('is_converted_lead')
+                    ->label('Converted')
+                    ->alignCenter()
+                    ->disabled()
+                    ->getStateUsing(fn (Customer $record) => $record?->lead !== null)
             ])
             ->filters([
                 //
