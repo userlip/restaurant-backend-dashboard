@@ -3,6 +3,9 @@
 namespace App\Jobs;
 
 use App\Models\Lead;
+use App\Models\User;
+use Filament\Notifications\Actions\Action;
+use Filament\Notifications\Notification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -17,13 +20,54 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        private string $query
+        private string $query,
+        private User $user,
     ) {}
 
     /**
      * Execute the job.
      */
     public function handle(): void
+    {
+        $data = $this->fetchLeads();
+
+        foreach ($data['data'] as $restaurant) {
+            // If Website is null or contains "facebook"
+            if ($restaurant['website'] == null || strpos($restaurant['website'], 'facebook') !== false) {
+                // Save it to the file
+                $name = $restaurant['name'];
+                $address = $restaurant['full_address'];
+                $phone = $restaurant['phone_number'];
+                $link = $restaurant['place_link'];
+
+                if (! Lead::where('name', $name)->exists()) {
+                    Lead::create([
+                        'name' => $name,
+                        'address' => $address,
+                        'phone' => $phone,
+                        'link' => $link
+                    ]);
+                }
+            }
+        }
+
+        Notification::make()
+            ->title('Successfully fetched and saved new leads')
+            ->body("Successfully fetched and saved new leads with the search term of: '{$this->query}'")
+            ->actions([
+                Action::make('Go to Leads')
+                    ->url(route('filament.admin.resources.leads.index'))
+            ])
+            ->success()
+            ->sendToDatabase($this->user);
+    }
+
+    /**
+     * Fetches the leads using the API and makes a database notification for the sales operator to get notified at
+     *
+     * @return mixed
+     */
+    public function fetchLeads()
     {
         $curl = curl_init();
 
@@ -47,24 +91,10 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
 
         $data = json_decode($response, true);
 
-        foreach ($data['data'] as $restaurant) {
-            // If Website is null or contains "facebook"
-            if ($restaurant['website'] == null || strpos($restaurant['website'], 'facebook') !== false) {
-                // Save it to the file
-                $name = $restaurant['name'];
-                $address = $restaurant['full_address'];
-                $phone = $restaurant['phone_number'];
-                $link = $restaurant['place_link'];
-
-                if (! Lead::where('name', $name)->exists()) {
-                    Lead::create([
-                        'name' => $name,
-                        'address' => $address,
-                        'phone' => $phone,
-                        'link' => $link
-                    ]);
-                }
-            }
+        if ($data === null) {
+            $this->fetchLeads();
         }
+
+        return $data;
     }
 }
