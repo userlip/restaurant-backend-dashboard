@@ -6,6 +6,7 @@ use App\Enums\LeadStatusEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Lead extends Model
 {
@@ -34,5 +35,15 @@ class Lead extends Model
     public function customer() : BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * The Notes polymorphic relationship of Lead to Note
+     *
+     * @return MorphMany
+     */
+    public function notes() : MorphMany
+    {
+        return $this->morphMany(Note::class, 'noteable')->latest();
     }
 }

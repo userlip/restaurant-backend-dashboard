@@ -20,7 +20,6 @@ class NoteFactory extends Factory
         return [
             'title' => fake()->sentence,
             'note' => fake()->paragraph,
-            'customer_id' => Customer::first()->id,
         ];
     }
 }

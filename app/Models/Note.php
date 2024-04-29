@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Note extends Model
 {
@@ -15,8 +16,13 @@ class Note extends Model
         'note',
     ];
 
-    public function customer() : BelongsTo
+    /**
+     * The polymorphic note relationship for Customer and Lead
+     *
+     * @return MorphTo
+     */
+    public function noteable() : MorphTo
     {
-        return $this->belongsTo(Customer::class);
+        return $this->morphTo();
     }
 }
