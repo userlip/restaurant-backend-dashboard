@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\LeadStatusEnums;
 use App\Filament\Resources\LeadResource\Pages;
 use App\Filament\Resources\LeadResource\RelationManagers;
 use App\Models\Lead;
@@ -14,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class LeadResource extends Resource
 {
@@ -47,13 +49,38 @@ class LeadResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->autofocus()
+                            ->placeholder('Enter the name')
+                            ->unique()
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('address')
+                            ->placeholder('Enter the address')
+                            ->maxLength(255),
+
+                        PhoneInput::make('phone')
+                            ->placeholder('Enter the phone'),
+
+                        Forms\Components\TextInput::make('link')
+                            ->placeholder('Enter the address')
+                            ->maxLength(255),
+
+                        Forms\Components\Select::make('status')
+                            ->options(LeadStatusEnums::getKeyValuePairs())
+                            ->required()
+                            ->default(LeadStatusEnums::NEW)
+                    ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->query(static::getModel()::latest('id'))
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->limit(30)
@@ -77,6 +104,15 @@ class LeadResource extends Resource
                     ->openUrlInNewTab()
                     ->sortable()
                     ->searchable(),
+
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state) => match($state) {
+                        LeadStatusEnums::PROCESSED => Color::Green,
+                        default => Color::Yellow,
+                    })
+                    ->formatStateUsing(fn (string $state) => ucfirst($state))
+                    ->sortable(),
             ])
             ->filters([
                 //
