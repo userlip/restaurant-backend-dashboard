@@ -2,18 +2,22 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\LeadStatusEnums;
 use App\Filament\Resources\LeadResource\Pages;
 use App\Filament\Resources\LeadResource\RelationManagers;
 use App\Models\Lead;
+use App\Service\LeadService;
 use App\Trait\ResourceModelCountNavigationBadge;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Actions\Action;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class LeadResource extends Resource
 {
@@ -47,13 +51,38 @@ class LeadResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->autofocus()
+                            ->placeholder('Enter the name')
+                            ->unique()
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('address')
+                            ->placeholder('Enter the address')
+                            ->maxLength(255),
+
+                        PhoneInput::make('phone')
+                            ->placeholder('Enter the phone'),
+
+                        Forms\Components\TextInput::make('link')
+                            ->placeholder('Enter the address')
+                            ->maxLength(255),
+
+                        Forms\Components\Select::make('status')
+                            ->options(LeadStatusEnums::getKeyValuePairs())
+                            ->required()
+                            ->default(LeadStatusEnums::NEW)
+                    ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->query(static::getModel()::latest('id'))
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->limit(30)
@@ -71,18 +100,65 @@ class LeadResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('link')
-                    ->limit(30)
+                    ->limit(20)
                     ->url(fn (Lead $record) => $record->link)
                     ->color(Color::Blue)
                     ->openUrlInNewTab()
                     ->sortable()
                     ->searchable(),
+
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state) => match($state) {
+                        LeadStatusEnums::PROCESSED => Color::Green,
+                        default => Color::Yellow,
+                    })
+                    ->formatStateUsing(fn (string $state) => ucfirst($state))
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('convert_to_customer')
+                    ->label('Convert')
+                    ->icon('heroicon-o-arrow-uturn-right')
+                    ->color(Color::Orange)
+                    ->requiresConfirmation()
+                    ->modalHeading('Do you want to convert this Lead into Customer?')
+                    ->modalWidth(MaxWidth::ExtraLarge)
+                    ->disabled(fn (Lead $record) => $record?->customer_id !== null)
+                    ->fillForm(fn (Lead $record) => [
+                        'name' => $record->name,
+                        'address' => $record->address,
+                        'phone' => $record->phone,
+                        'whatsapp_number' => $record->phone,
+                    ])
+                    ->form([
+                        CustomerResource::getFormSchema()
+                    ])
+                    ->action(function (Lead $record, array $data) {
+                        $service = (app(LeadService::class))
+                            ->convertToCustomer($record, $data);
+
+                        if ($service) {
+                            Notification::make()
+                                ->title('Converted Successfully!')
+                                ->actions([
+                                    Action::make('Redirect me to Customer')
+                                        ->url(route('filament.admin.resources.customers.index'))
+                                ])
+                                ->success()
+                                ->send();
+                        } else {
+                            Notification::make()
+                                ->title('Failed to Convert!')
+                                ->body('Please try again')
+                                ->warning()
+                                ->send();
+                        }
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -94,7 +170,7 @@ class LeadResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\NotesRelationManager::class,
         ];
     }
 

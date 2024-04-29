@@ -7,10 +7,12 @@ use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Models\Customer;
 use App\Trait\ResourceModelCountNavigationBadge;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class CustomerResource extends Resource
@@ -51,72 +53,7 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Grid::make()
-                    ->columns(3)
-                    ->schema([
-                        Forms\Components\Section::make()
-                            ->columnSpan(3)
-                            ->columns()
-                            ->schema([
-                                Forms\Components\TextInput::make('name')
-                                    ->required()
-                                    ->columnSpanFull()
-                                    ->placeholder("Enter the customer name")
-                                    ->autofocus()
-                                    ->maxLength(255),
-
-                                Forms\Components\TextInput::make('email')
-                                    ->required()
-                                    ->columnSpanFull()
-                                    ->email()
-                                    ->placeholder("Enter the customer email")
-                                    ->maxLength(255),
-
-                                Forms\Components\TextInput::make('address')
-                                    ->required()
-                                    ->placeholder('Enter the customer address')
-                                    ->columnSpanFull()
-                                    ->maxLength(255),
-
-                                PhoneInput::make('phone')
-                                    ->required()
-                                    ->placeholder("Enter the customer phone")
-                                    ->defaultCountry('DE'),
-
-                                PhoneInput::make('whatsapp_number')
-                                    ->required()
-                                    ->placeholder("Enter the customer whatsapp"),
-
-                                Forms\Components\TextInput::make('contact_person')
-                                    ->required()
-                                    ->columnSpanFull()
-                                    ->placeholder("Enter the customer contact person")
-                                    ->maxLength(255),
-
-                                Forms\Components\Toggle::make('is_invoice')
-                                    ->columnSpanFull()
-                                    ->required(),
-
-                                Forms\Components\DatePicker::make('next_payment_date')
-                                    ->required()
-                                    ->columnSpanFull()
-                                    ->default(now()),
-
-                                Forms\Components\TextInput::make('agreed_price')
-                                    ->required()
-                                    ->numeric()
-                                    ->default(0.00)
-                                    ->columnSpan(1)
-                                    ->placeholder("Enter the customer contact person number")
-                                    ->maxLength(255),
-
-                                Forms\Components\Textarea::make('impressum')
-                                    ->columnSpanFull()
-                                    ->placeholder('Enter the impressum')
-                                    ->required(),
-                            ]),
-                    ]),
-
+                self::getFormSchema()
             ]);
     }
 
@@ -151,6 +88,12 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
+
+                Tables\Columns\CheckboxColumn::make('is_converted_lead')
+                    ->label('Converted')
+                    ->alignCenter()
+                    ->disabled()
+                    ->getStateUsing(fn (Customer $record) => $record?->lead !== null)
             ])
             ->filters([
                 //
@@ -174,6 +117,7 @@ class CustomerResource extends Resource
     public static function getRelations(): array
     {
         return [
+            RelationManagers\LeadRelationManager::class,
             RelationManagers\NotesRelationManager::class,
             RelationManagers\WebsitesRelationManager::class,
         ];
@@ -186,5 +130,77 @@ class CustomerResource extends Resource
             'create' => Pages\CreateCustomer::route('/create'),
             'edit' => Pages\EditCustomer::route('/{record}/edit'),
         ];
+    }
+
+
+    /**
+     * Returns the form schema of the Customer Resource
+     *
+     * @return Grid
+     */
+    public static function getFormSchema(): Grid
+    {
+        return Grid::make()
+            ->columns(3)
+            ->schema([
+                Forms\Components\Section::make()
+                    ->columnSpan(3)
+                    ->columns()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->columnSpanFull()
+                            ->placeholder("Enter the customer name")
+                            ->autofocus()
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('email')
+                            ->required()
+                            ->columnSpanFull()
+                            ->email()
+                            ->placeholder("Enter the customer email")
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('address')
+                            ->required()
+                            ->placeholder('Enter the customer address')
+                            ->columnSpanFull()
+                            ->maxLength(255),
+
+                        PhoneInput::make('phone')
+                            ->required()
+                            ->placeholder("Enter the customer phone")
+                            ->defaultCountry('DE'),
+
+                        PhoneInput::make('whatsapp_number')
+                            ->required()
+                            ->placeholder("Enter the customer whatsapp"),
+
+                        Forms\Components\TextInput::make('contact_person')
+                            ->required()
+                            ->columnSpanFull()
+                            ->placeholder("Enter the customer contact person")
+                            ->maxLength(255),
+
+                        Forms\Components\Toggle::make('is_invoice')
+                            ->columnSpanFull()
+                            ->required(),
+
+                        Forms\Components\DatePicker::make('next_payment_date')
+                            ->required()
+                            ->columnSpanFull()
+                            ->default(now()),
+
+                        MoneyInput::make('agreed_price')
+                            ->required()
+                            ->columnSpan(1)
+                            ->minValue(0),
+
+                        Forms\Components\Textarea::make('impressum')
+                            ->columnSpanFull()
+                            ->placeholder('Enter the impressum')
+                            ->required(),
+                    ]),
+            ]);
     }
 }

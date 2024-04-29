@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Customer extends Model
 {
@@ -29,13 +31,13 @@ class Customer extends Model
     ];
 
     /**
-     * The Notes relationship of the Customer model
+     * The Notes polymorphic relationship of the Customer model
      *
      * @return HasMany
      */
-    public function notes() : HasMany
+    public function notes() : MorphMany
     {
-        return $this->hasMany(Note::class)->latest();
+        return $this->morphMany(Note::class, 'noteable')->latest();
     }
 
     /**
@@ -46,5 +48,15 @@ class Customer extends Model
     public function websites() : HasMany
     {
         return $this->hasMany(Website::class);
+    }
+
+    /**
+     * The Lead relationship of the Customer it was converted on
+     *
+     * @return HasOne
+     */
+    public function lead() : HasOne
+    {
+        return $this->hasOne(Lead::class);
     }
 }
