@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class CustomerResource extends Resource
@@ -183,13 +184,10 @@ class CustomerResource extends Resource
                             ->columnSpanFull()
                             ->default(now()),
 
-                        Forms\Components\TextInput::make('agreed_price')
+                        MoneyInput::make('agreed_price')
                             ->required()
-                            ->numeric()
-                            ->default(0.00)
                             ->columnSpan(1)
-                            ->placeholder("Enter the customer contact person number")
-                            ->maxLength(255),
+                            ->minValue(0),
 
                         Forms\Components\Textarea::make('impressum')
                             ->columnSpanFull()
