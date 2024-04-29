@@ -6,15 +6,17 @@ use App\Enums\LeadStatusEnums;
 use App\Filament\Resources\LeadResource\Pages;
 use App\Filament\Resources\LeadResource\RelationManagers;
 use App\Models\Lead;
+use App\Service\LeadService;
 use App\Trait\ResourceModelCountNavigationBadge;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Actions\Action;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class LeadResource extends Resource
@@ -98,7 +100,7 @@ class LeadResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('link')
-                    ->limit(30)
+                    ->limit(20)
                     ->url(fn (Lead $record) => $record->link)
                     ->color(Color::Blue)
                     ->openUrlInNewTab()
@@ -119,6 +121,44 @@ class LeadResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('convert_to_customer')
+                    ->label('Convert')
+                    ->icon('heroicon-o-arrow-uturn-right')
+                    ->color(Color::Orange)
+                    ->requiresConfirmation()
+                    ->modalHeading('Do you want to convert this Lead into Customer?')
+                    ->modalWidth(MaxWidth::ExtraLarge)
+                    ->disabled(fn (Lead $record) => $record?->customer_id !== null)
+                    ->fillForm(fn (Lead $record) => [
+                        'name' => $record->name,
+                        'address' => $record->address,
+                        'phone' => $record->phone,
+                        'whatsapp_number' => $record->phone,
+                    ])
+                    ->form([
+                        CustomerResource::getFormSchema()
+                    ])
+                    ->action(function (Lead $record, array $data) {
+                        $service = (app(LeadService::class))
+                            ->convertToCustomer($record, $data);
+
+                        if ($service) {
+                            Notification::make()
+                                ->title('Converted Successfully!')
+                                ->actions([
+                                    Action::make('Redirect me to Customer')
+                                        ->url(route('filament.admin.resources.customers.index'))
+                                ])
+                                ->success()
+                                ->send();
+                        } else {
+                            Notification::make()
+                                ->title('Failed to Convert!')
+                                ->body('Please try again')
+                                ->warning()
+                                ->send();
+                        }
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
