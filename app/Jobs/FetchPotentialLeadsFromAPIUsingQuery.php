@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Enums\LeadStatusEnums;
 use App\Models\Lead;
 use App\Models\User;
 use Filament\Notifications\Actions\Action;
@@ -45,7 +46,8 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
                         'name' => $name,
                         'address' => $address,
                         'phone' => $phone,
-                        'link' => $link
+                        'link' => $link,
+                        'status' => LeadStatusEnums::NEW,
                     ]);
                 }
             }
