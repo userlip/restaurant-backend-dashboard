@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Enums\LeadStatusEnums;
 use App\Models\Lead;
 use App\Models\User;
+use App\Service\LeadService;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 use Illuminate\Bus\Queueable;
@@ -30,7 +31,8 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
      */
     public function handle(): void
     {
-        $data = $this->fetchLeads();
+        $service = app(LeadService::class);
+        $data = $service->fetchLeads($this->query);
 
         foreach ($data['data'] as $restaurant) {
             // If Website is null or contains "facebook"
@@ -47,6 +49,7 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
                         'address' => $address,
                         'phone' => $phone,
                         'link' => $link,
+                        'search_term' => $this->query,
                         'status' => LeadStatusEnums::NEW,
                     ]);
                 }
@@ -62,41 +65,5 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
             ])
             ->success()
             ->sendToDatabase($this->user);
-    }
-
-    /**
-     * Fetches the leads using the API and makes a database notification for the sales operator to get notified at
-     *
-     * @return mixed
-     */
-    public function fetchLeads()
-    {
-        $curl = curl_init();
-
-        $query = urlencode($this->query);
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://maps-data.p.rapidapi.com/searchmaps.php?query=" . $query . "&limit=500&country=de&lang=de&zoom=13",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "X-RapidAPI-Host: maps-data.p.rapidapi.com",
-                "X-RapidAPI-Key: aff74e61b2msh5bbea73eadf04e4p1f2d78jsn83ceea7b1158"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-
-        $data = json_decode($response, true);
-
-        if ($data === null) {
-            $this->fetchLeads();
-        }
-
-        return $data;
     }
 }

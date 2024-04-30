@@ -63,6 +63,12 @@ class WebsiteResource extends Resource
                             ->searchable('name')
                             ->required(),
 
+                        Forms\Components\TextInput::make('domain')
+                            ->required()
+                            ->autofocus()
+                            ->placeholder('Enter the domain')
+                            ->maxLength(255),
+
                         Forms\Components\TextInput::make('seo_title')
                             ->required()
                             ->autofocus()
@@ -100,23 +106,29 @@ class WebsiteResource extends Resource
 
                 Tables\Columns\TextColumn::make('customer.name')
                     ->badge()
-                    ->limit(30)
+                    ->limit(20)
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('domain')
+                    ->badge()
+                    ->limit(20)
                     ->sortable()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('seo_title')
-                    ->limit(30)
+                    ->limit(20)
                     ->sortable()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('seo_description')
-                    ->limit(30)
+                    ->limit(20)
                     ->sortable()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('theme')
                     ->badge()
-                    ->limit(30)
+                    ->limit(20)
                     ->sortable()
                     ->searchable(),
 

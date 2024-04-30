@@ -117,6 +117,10 @@ class LeadResource extends Resource
                     ->sortable(),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('search_term')
+                    ->attribute('search_term')
+                    ->options((app(LeadService::class))->getLeadSearchTerms(true)),
+
                 Tables\Filters\SelectFilter::make('status')
                     ->options(LeadStatusEnums::getKeyValuePairs())
             ])
