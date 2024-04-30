@@ -117,7 +117,8 @@ class LeadResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options(LeadStatusEnums::getKeyValuePairs())
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -158,7 +159,8 @@ class LeadResource extends Resource
                                 ->warning()
                                 ->send();
                         }
-                    })
+                    }),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -170,6 +172,7 @@ class LeadResource extends Resource
     public static function getRelations(): array
     {
         return [
+            RelationManagers\CustomerRelationManager::class,
             RelationManagers\NotesRelationManager::class,
         ];
     }
