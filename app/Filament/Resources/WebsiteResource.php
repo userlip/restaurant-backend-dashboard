@@ -99,6 +99,7 @@ class WebsiteResource extends Resource
                     ->height(50),
 
                 Tables\Columns\TextColumn::make('customer.name')
+                    ->badge()
                     ->limit(30)
                     ->sortable()
                     ->searchable(),
