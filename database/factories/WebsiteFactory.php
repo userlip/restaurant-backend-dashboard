@@ -21,6 +21,7 @@ class WebsiteFactory extends Factory
     {
         return [
             'customer_id' => Customer::first()->id,
+            'domain' => fake()->domainName,
             'theme' => rand(0, 1) ? WebsiteThemesEnums::THEME_1 : WebsiteThemesEnums::THEME_2,
             'seo_title' => fake()->sentence,
             'seo_description' => fake()->sentence,
