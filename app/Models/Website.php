@@ -13,6 +13,7 @@ class Website extends Model
     protected $fillable = [
         'customer_id',
         'theme',
+        'domain',
         'seo_title',
         'seo_description',
         'favicon',
