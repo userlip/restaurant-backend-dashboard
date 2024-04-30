@@ -27,7 +27,8 @@ class Lead extends Model
         'address',
         'phone',
         'link',
-        'status'
+        'search_term',
+        'status',
     ];
 
     /**
