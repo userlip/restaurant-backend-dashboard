@@ -10,6 +10,8 @@ class Website extends Model
 {
     use HasFactory;
 
+    public const PORKBUN_QUERY_WEBSITE = 'https://porkbun.com/checkout/search?q=';
+
     protected $fillable = [
         'customer_id',
         'theme',
