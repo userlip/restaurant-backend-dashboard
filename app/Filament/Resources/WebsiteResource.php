@@ -8,15 +8,14 @@ use App\Filament\Resources\WebsiteResource\Pages;
 use App\Filament\Resources\WebsiteResource\RelationManagers;
 use App\Models\Website;
 use App\Trait\ResourceModelCountNavigationBadge;
-use Awcodes\Curator\Components\Forms\CuratorPicker;
-use Awcodes\Curator\Components\Tables\CuratorColumn;
+use App\Utils\WhoIsJsonApiChecker;
+use dacoto\DomainValidator\Validator\Domain;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class WebsiteResource extends Resource
 {
@@ -65,8 +64,30 @@ class WebsiteResource extends Resource
 
                         Forms\Components\TextInput::make('domain')
                             ->required()
-                            ->autofocus()
+                            ->live(debounce: 750)
                             ->placeholder('Enter the domain')
+                            ->hintAction(
+                                Forms\Components\Actions\Action::make('purchase_or_check_domain')
+                                    ->label('Purchase/Check Domain')
+                                    ->icon('heroicon-o-link')
+                                    ->requiresConfirmation()
+                                    ->modalHeading("You'll be redirected to porkbun's website")
+                                    ->openUrlInNewTab()
+                                    ->url(function (Forms\Get $get) {
+                                        $domain = strtolower(trim($get('domain')));
+
+                                        if (! self::validateDomain($domain)) {
+                                            return null;
+                                        }
+
+                                        return Website::PORKBUN_QUERY_WEBSITE . $domain;
+                                    })
+                                    ->visible(function (Forms\Get $get) {
+                                        $domain = strtolower(trim($get('domain')));
+
+                                        return self::validateDomain($domain);
+                                    })
+                            )
                             ->maxLength(255),
 
                         Forms\Components\TextInput::make('seo_title')
@@ -163,5 +184,20 @@ class WebsiteResource extends Resource
             'create' => Pages\CreateWebsite::route('/create'),
             'edit' => Pages\EditWebsite::route('/{record}/edit'),
         ];
+    }
+
+    /**
+     * Validates if the domain provided matches the regex pattern
+     *
+     * @param string $domain
+     * @return bool
+     */
+    public static function validateDomain(?string $domain) : bool
+    {
+        return \Validator::make([
+            'domain' => $domain,
+        ], [
+            'domain' => ['sometimes', 'regex:' . WhoIsJsonApiChecker::REGEX_PATTERN]
+        ])->passes();
     }
 }
