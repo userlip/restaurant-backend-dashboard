@@ -16,7 +16,7 @@ class WhoIsJsonApiChecker
 
     private ?string $accessKey;
 
-    public const REGEX_PATTERN = '/^[A-Za-z0-9]{1,63}(?:-[A-Za-z0-9]{1,63})*(?:-(?!\.[A-Za-z0-9]{1,63}$))?(?:\.[A-Za-z0-9]{1,63})+$/i';
+    public const REGEX_PATTERN = '/^(?:\*\.)?[a-z0-9]+(?:[\-.][a-z0-9]+)*\.[a-z]{2,6}$/i';
 
     public function __construct()
     {
