@@ -16,6 +16,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class WebsiteResource extends Resource
 {
@@ -74,7 +75,7 @@ class WebsiteResource extends Resource
                                     ->modalHeading("You'll be redirected to porkbun's website")
                                     ->openUrlInNewTab()
                                     ->url(function (Forms\Get $get) {
-                                        $domain = strtolower(trim($get('domain')));
+                                        $domain = str_replace(' ', '-', strtolower(trim($get('domain'))));
 
                                         if (! self::validateDomain($domain)) {
                                             return null;
@@ -83,7 +84,7 @@ class WebsiteResource extends Resource
                                         return Website::PORKBUN_QUERY_WEBSITE . $domain;
                                     })
                                     ->visible(function (Forms\Get $get) {
-                                        $domain = strtolower(trim($get('domain')));
+                                        $domain = str_replace(' ', '-', strtolower(trim($get('domain'))));
 
                                         return self::validateDomain($domain);
                                     })
@@ -194,10 +195,14 @@ class WebsiteResource extends Resource
      */
     public static function validateDomain(?string $domain) : bool
     {
+        if ($domain === "") {
+            return false;
+        }
+
         return \Validator::make([
             'domain' => $domain,
         ], [
-            'domain' => ['sometimes', 'regex:' . WhoIsJsonApiChecker::REGEX_PATTERN]
+            'domain' => ['string', 'required', 'regex:' . WhoIsJsonApiChecker::REGEX_PATTERN]
         ])->passes();
     }
 }
