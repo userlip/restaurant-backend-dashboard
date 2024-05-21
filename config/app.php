@@ -189,5 +189,6 @@ return [
     ])->toArray(),
 
 
-    'who_is_json_access_key' => env('WHO_IS_JSON_API_ACCESS_KEY')
+    'who_is_json_access_key' => env('WHO_IS_JSON_API_ACCESS_KEY'),
+    'chat_gpt_api_key' => env('CHAT_GPT_API_KEY')
 ];
