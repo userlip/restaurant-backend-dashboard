@@ -6,6 +6,7 @@ use App\Enums\CuratorPicksImageTypes;
 use App\Enums\WebsiteThemesEnums;
 use App\Filament\Resources\WebsiteResource\Pages;
 use App\Filament\Resources\WebsiteResource\RelationManagers;
+use App\Forms\Components\FillWithGpt;
 use App\Models\Website;
 use App\Trait\ResourceModelCountNavigationBadge;
 use App\Utils\WhoIsJsonApiChecker;
@@ -17,6 +18,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Livewire\Component;
 
 class WebsiteResource extends Resource
 {
@@ -60,6 +62,7 @@ class WebsiteResource extends Resource
                             ->relationship('customer', 'name')
                             ->placeholder('Select a Customer')
                             ->preload()
+                            ->live()
                             ->searchable('name')
                             ->required(),
 
@@ -67,7 +70,7 @@ class WebsiteResource extends Resource
                             ->required()
                             ->live(debounce: 750)
                             ->placeholder('Enter the domain')
-                            ->hintAction(
+                            ->hintActions([
                                 Forms\Components\Actions\Action::make('purchase_or_check_domain')
                                     ->label('Purchase/Check Domain')
                                     ->icon('heroicon-o-link')
@@ -88,7 +91,7 @@ class WebsiteResource extends Resource
 
                                         return self::validateDomain($domain);
                                     })
-                            )
+                            ])
                             ->maxLength(255),
 
                         Forms\Components\TextInput::make('seo_title')
@@ -100,7 +103,14 @@ class WebsiteResource extends Resource
                         Forms\Components\TextInput::make('seo_description')
                             ->required()
                             ->placeholder('Enter the seo description')
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->hintActions([
+                                Forms\Components\Actions\Action::make('fill_with_gpt')
+                                    ->visible(fn (Forms\Get $get) => $get('customer_id'))
+                                    ->view('components.fill-with-gpt', [
+                                        'field' => 'seo_description',
+                                    ]),
+                            ]),
 
                         Forms\Components\Select::make('theme')
                             ->required()
@@ -121,7 +131,7 @@ class WebsiteResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(static::getModel()::latest('id'))
+            ->defaultSort('id', 'desc')
             ->columns([
                 Tables\Columns\ImageColumn::make('logo')
                     ->height(50),
