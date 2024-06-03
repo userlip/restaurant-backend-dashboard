@@ -6,8 +6,8 @@
             class="flex p-[2.5rem_0.875rem_1.25rem_0.875rem] tablet:p-[1.875rem_2.5rem_1.25rem_2.5rem] justify-between items-center w-full">
             <div class="big-tablet:flex items-center justify-start big-tablet:gap-[2.5rem]">
                 <div class="flex flex-1 gap-[0.54888rem] tablet:gap-[0.875rem] items-center w-full h-full">
-                    <span class="uppercase font-bold font-alt text-[1.48988rem] tablet:text-[2.375rem]">
-                        EAT WEB
+                    <span class="font-bold font-alt text-[1.48988rem] tablet:text-[2.375rem]">
+                       <x-pages.logo/>
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="tablet:hidden" width="2" height="33"
                         viewBox="0 0 2 33" fill="none">
@@ -64,7 +64,7 @@
             <div class="tablet:flex tablet:flex-col tablet:self-stretch tablet:justify-between">
                 <div
                     class="flex self-stretch flex-col p-[6.25rem_0.875rem] tablet:p-[8rem_2.5rem_4.6875rem_2.5rem] desktop:p-[14rem_15rem] big-tablet:p-[6rem_3.75rem_4.6875rem_3.75rem] items-center tablet:items-start gap-[1.25rem] tablet:gap-[3.0625rem] justify-center tablet:bg-none bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_3.14%,rgba(255,255,255,0.70)_44.5%,rgba(255,255,255,0.00)_100%)]">
-                    <h2 class="text-[1.125rem] uppercase">WELCOME TO EAT WEB</h2>
+                    <h2 class="text-[1.125rem] uppercase">WELCOME TO {{ config('app.name') }}</h2>
                     <div
                         class="relative text-[2.75rem] tablet:text-[3.75rem] font-bold tracking-[-0.0625rem] text-center tablet:text-left capitalize leading-[100%] tablet:flex tablet:flex-col">
                         Du machst das <span>essen, wir deine</span> <span>Website<span class="relative">

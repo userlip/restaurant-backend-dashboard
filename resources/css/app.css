@@ -46,3 +46,8 @@ body {
   border-radius: 1.875rem;
   background: url('/public/assets/laptop.jpg') lightgray 50% / cover no-repeat;
 }
+
+.app-logo {
+  width: 371px;
+  height: auto;
+}
