@@ -4,7 +4,8 @@
             <div class="flex items-center gap-[4.46675rem]">
                 <div class="flex items-center gap-[0.54888rem] tablet:gap-[0.875rem]">
                     <span class="font-alt font-bold text-[1.48988rem] tablet:text-[2.375rem] text-white uppercase">
-                        EAT WEB
+                        <x-pages.logo
+                            variant='black_no_slogan'/>
                     </span>
                     <svg class="tablet:hidden" xmlns="http://www.w3.org/2000/svg" width="1" height="32" viewBox="0 0 1 32" fill="#fff">
                         <path d="M0.5 0L0.499999 32" stroke="white" stroke-width="0.627308"/>
