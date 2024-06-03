@@ -84,5 +84,5 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="1960" height="2" viewBox="0 0 1960 2" fill="none">
         <path opacity="0.2" d="M0 1H1960" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
-    <p class="text-white leading-[150%] text-[1rem] tracking-[0.0625]">© 2024 <span class="text-[#FC1919] font-bold">EAT WEB</span><span class="font-bold">.</span> All rights reserved</p>
+    <p class="text-white leading-[150%] text-[1rem] tracking-[0.0625]">©2024 <span class="text-[#FC1919] font-bold">{{ config('app.name') }}</span><span class="font-bold">.</span> All rights reserved</p>
 </footer>
