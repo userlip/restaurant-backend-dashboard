@@ -1,7 +1,7 @@
 @extends('layouts.app-layout')
 @section('content')
     <div
-        class="hero relative tablet:pb-[6rem] big-tablet:pb-[10rem] laptop:pb-[12rem] min-h-screen gap-[2.5rem] max-w-[100vw]">
+        class="hero relative tablet:pb-[6rem] big-tablet:pb-[10rem] laptop:pb-[12rem] gap-[2.5rem] max-w-[100vw]">
         <header
             class="flex mx-auto max-w-[94rem] p-[2.5rem_0.875rem_1.25rem_0.875rem] tablet:p-[1.875rem_2.5rem_1.25rem_2.5rem] justify-between items-center w-full">
             <div class="big-tablet:flex items-center justify-start big-tablet:gap-[2.5rem]">
@@ -83,7 +83,7 @@
                 </div>
             </div>
             <div
-                class="hidden absolute bottom-4 inset-x-0 tablet:flex justify-between items-end h-full self-stretch p-[0rem_2.5rem_4rem_2.5rem] big-tablet:p-[0rem_3.75rem_4rem_3.75rem] desktop:p-[0rem_15rem_4rem_15rem]">
+                class="hidden max-w-[94rem] mx-auto absolute bottom-4 inset-x-0 tablet:flex justify-between items-end h-full self-stretch p-[0rem_2.5rem_4rem_2.5rem] big-tablet:p-[0rem_3.75rem_4rem_3.75rem] ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="39" height="31" viewBox="0 0 39 31" fill="none">
                     <path d="M2 11L19.5 28.5L37 11" stroke="#FC1919" stroke-width="2.5" stroke-linecap="round" />
                     <path d="M9.5 1.5L19 10.5L28.5 1.5" stroke="#FC1919" stroke-opacity="0.5" stroke-width="1.5"
