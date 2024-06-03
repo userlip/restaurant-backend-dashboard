@@ -3,7 +3,7 @@
     <div
         class="hero relative tablet:pb-[6rem] big-tablet:pb-[10rem] laptop:pb-[12rem] min-h-screen gap-[2.5rem] max-w-[100vw]">
         <header
-            class="flex p-[2.5rem_0.875rem_1.25rem_0.875rem] tablet:p-[1.875rem_2.5rem_1.25rem_2.5rem] justify-between items-center w-full">
+            class="flex mx-auto max-w-[94rem] p-[2.5rem_0.875rem_1.25rem_0.875rem] tablet:p-[1.875rem_2.5rem_1.25rem_2.5rem] justify-between items-center w-full">
             <div class="big-tablet:flex items-center justify-start big-tablet:gap-[2.5rem]">
                 <div class="flex flex-1 gap-[0.54888rem] tablet:gap-[0.875rem] items-center w-full h-full">
                     <span class="font-bold font-alt text-[1.48988rem] tablet:text-[2.375rem]">
@@ -60,10 +60,10 @@
                 </button>
             </div>
         </header>
-        <div class="flex flex-col flex-1 items-center self-stretch justify-between max-w-[92.5rem]">
+        <div class="flex flex-col mx-auto max-w-[94rem] flex-1 items-center self-stretch justify-between">
             <div class="tablet:flex tablet:flex-col tablet:self-stretch tablet:justify-between">
                 <div
-                    class="flex self-stretch flex-col p-[6.25rem_0.875rem] tablet:p-[8rem_2.5rem_4.6875rem_2.5rem] desktop:p-[14rem_15rem] big-tablet:p-[6rem_3.75rem_4.6875rem_3.75rem] items-center tablet:items-start gap-[1.25rem] tablet:gap-[3.0625rem] justify-center tablet:bg-none bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_3.14%,rgba(255,255,255,0.70)_44.5%,rgba(255,255,255,0.00)_100%)]">
+                    class="flex self-stretch items-center flex-col p-[6.25rem_0.875rem] tablet:p-[8rem_2.5rem_4.6875rem_2.5rem] desktop:py-[15rem] big-tablet:p-[6rem_3.75rem_4.6875rem_3.75rem] items-center tablet:items-start gap-[1.25rem] tablet:gap-[3.0625rem] justify-center tablet:bg-none bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_3.14%,rgba(255,255,255,0.70)_44.5%,rgba(255,255,255,0.00)_100%)]">
                     <h2 class="text-[1.125rem] uppercase">WELCOME TO {{ config('app.name') }}</h2>
                     <div
                         class="relative text-[2.75rem] tablet:text-[3.75rem] font-bold tracking-[-0.0625rem] text-center tablet:text-left capitalize leading-[100%] tablet:flex tablet:flex-col">
@@ -193,7 +193,7 @@
         </div>
     </div>
     <div
-        class="flex overflow-hidden flex-col justify-center items-center gap-[3.75rem] tablet:gap-[5.625rem] self-stretch p-[0rem_0.875rem] tablet:p-[0rem_2.5rem] desktop:p-[0rem_16.75rem] my-[5.625rem] tablet:my-[7.5rem] big-tablet:my-[10rem] desktop:my-[11.25rem] tablet:max-w-[120rem]">
+        class="flex overflow-hidden mx-auto max-w-[92.5rem flex-col justify-center items-center gap-[3.75rem] tablet:gap-[5.625rem] self-stretch p-[0rem_0.875rem] tablet:p-[0rem_2.5rem] desktop:p-[0rem_16.75rem] my-[5.625rem] tablet:my-[7.5rem] big-tablet:my-[10rem] desktop:my-[11.25rem] tablet:max-w-[120rem]">
         <div class="flex flex-col gap-[1.875rem] self-stretch">
             <div
                 class="flex flex-col tablet:flex-row items-center tablet:justify-start gap-[0.625rem] self-stretch justify-center">
