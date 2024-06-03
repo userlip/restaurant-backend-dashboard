@@ -1,5 +1,48 @@
 @import 'tippy.js/dist/tippy.css';
+@import "@fontsource/poppins";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+    font-family: "Involve";
+    src: url("/public/assets/fonts/Involve-Regular.otf") format("otf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Involve";
+    src: url("/public/assets/fonts/Involve-Bold.otf") format('otf');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+html {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.hero {
+  background: url('/public/assets/hero-image.jpg') lightgray 50% / cover no-repeat;
+  backdrop-filter: blur(4px);
+}
+
+.example-image {
+  border-radius: 1.25rem;
+  background: url('/public/assets/example-image.jpg') lightgray 0px 0.315px / 100% 100.197% no-repeat;
+}
+
+.image-laptop {
+  border-radius: 1.875rem;
+  background: url('/public/assets/laptop.jpg') lightgray 50% / cover no-repeat;
+}
