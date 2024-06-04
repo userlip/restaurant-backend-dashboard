@@ -1,3 +1,6 @@
+@php
+  $languageThreeLetterCode = App\Helper\Helper::getLanguageThreeLetterCode(App::getLocale());
+@endphp
 <section>
   <div
     class="hero relative tablet:pb-[6rem] big-tablet:pb-[10rem] laptop:pb-[12rem] gap-[2.5rem] max-w-[100vw]">
@@ -47,8 +50,10 @@
         </div>
       </div>
       <div class="flex items-center tablet:gap-[2.5rem]">
-        <button class="hidden z-10 tablet:flex font-alt text-[1.25rem] tracking-[0.0625rem]">
-          {{ \App\Helper\Helper::getLanguageThreeLetterCode(App::currentLocale()) }}
+        <button
+          data-language='{{ App::currentLocale() }}'
+          class="hidden language-selected z-10 tablet:flex font-alt text-[1.25rem] tracking-[0.0625rem]">
+          {{ $languageThreeLetterCode }}
         </button>
         <button
           class="hidden z-10 laptop:flex justify-center items-center gap-[1.5rem] rounded-full bg-black hover:bg-black/80 transition-colors text-white p-[1.125rem_2.875rem]">
@@ -73,7 +78,8 @@
           <h2 class="text-[1.125rem] uppercase">
             {{ __('pages/home.welcome_to_app_name', ['app_name' => config('app.name')]) }}
           </h2>
-          <div class="relative text-[2.75rem] tablet:text-[3.75rem] font-bold tracking-[-0.0625rem] text-center tablet:text-left capitalize leading-[100%] tablet:flex tablet:flex-col">
+          <div
+            class="relative text-[2.75rem] tablet:text-[3.75rem] font-bold tracking-[-0.0625rem] text-center tablet:text-left capitalize leading-[100%] tablet:flex tablet:flex-col">
             <div class='flex items-end w-[29rem]'>
               <p>
                 {{ __('pages/home.hero_title') }}
@@ -83,7 +89,8 @@
               </span>
             </div>
           </div>
-          <h3 class="capitalize text-base text-center w-[22rem] tablet:text-left tablet:flex tablet:flex-col tablet:text-[1.25rem]">
+          <h3
+            class="capitalize text-base text-center w-[22rem] tablet:text-left tablet:flex tablet:flex-col tablet:text-[1.25rem]">
             {{ __('pages/home.hero_benefits') }}
           </h3>
           <button
@@ -172,10 +179,12 @@
     <div
       class="flex flex-col items-start text-[1.625rem] desktop:text-[3.75rem] tablet:text-[2.5rem] gap-[1.25rem] p-[0rem_0.875rem] self-stretch tablet:p-[0rem_5.625rem] tablet:gap-[0.625rem] big-tablet:p-[0rem_12.5rem] desktop:p-[0rem_15rem]">
       <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.home') }}</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.benefits_of_a_website') }}</a>
+      <a href="#"
+         class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.benefits_of_a_website') }}</a>
       <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.prices') }}</a>
       <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.contact') }}</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.questions_and_answers') }}</a>
+      <a href="#"
+         class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.questions_and_answers') }}</a>
       <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.about_us') }}</a>
     </div>
     <div
@@ -184,22 +193,22 @@
       <div
         class="flex justify-between items-start self-stretch tablet:pl-[8.75rem] laptop:pl-[10rem] tablet:justify-start">
         <button id="en" data-lang="en"
-                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
+                class="rounded-[4rem] {{ $languageThreeLetterCode === 'en' ? 'bg-[#FC1919] text-white' : '' }} flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
                 wire:click="changeLocale('en')">
           ENG
         </button>
-        <button id="due" data-lang="due"
-                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
+        <button id="de" data-lang="de"
+                class="rounded-[4rem] {{ $languageThreeLetterCode === 'de' ? 'bg-[#FC1919] text-white' : '' }} flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
                 wire:click="changeLocale('de')">
           DEU
         </button>
-        <button id="tur" data-lang="tur"
-                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
+        <button id="tr" data-lang="tr"
+                class="rounded-[4rem] {{ $languageThreeLetterCode === 'tr' ? 'bg-[#FC1919] text-white' : '' }} flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
                 wire:click="changeLocale('tr')">
           TÜR
         </button>
         <button id="ar" data-lang="ar"
-                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
+                class="rounded-[4rem] {{ $languageThreeLetterCode === 'ar' ? 'bg-[#FC1919] text-white' : '' }} flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
                 wire:click="changeLocale('ar')">
           عربي
         </button>
@@ -233,7 +242,8 @@
       <div
         class="flex rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">{{ __('pages/home.present_your_restaurant') }}</h2>
+          <h2
+            class="font-medium leading-[160%] text-[1.125rem] uppercase">{{ __('pages/home.present_your_restaurant') }}</h2>
           <p class="text-[0.875rem] leading-[160%] text-body">
             {{ __('pages/home.present_your_restaurant_description') }}
           </p>

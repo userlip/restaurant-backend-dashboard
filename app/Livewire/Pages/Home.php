@@ -30,6 +30,9 @@ class Home extends Component
             if ($token) {
                 \Cache::put($token, $locale, now()->addDays(2));
             }
+
+            $this->reset();
+            $this->js('window.location.reload()');
         }
     }
 }
