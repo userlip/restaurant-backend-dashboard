@@ -6,9 +6,9 @@
       class="flex mx-auto max-w-[94rem] p-[2.5rem_0.875rem_1.25rem_0.875rem] tablet:p-[1.875rem_2.5rem_1.25rem_2.5rem] justify-between items-center w-full">
       <div class="big-tablet:flex items-center justify-start big-tablet:gap-[2.5rem]">
         <div class="flex flex-1 gap-[0.54888rem] tablet:gap-[0.875rem] items-center w-full h-full">
-                    <span class="font-bold font-alt text-[1.48988rem] tablet:text-[2.375rem]">
-                       <x-pages.logo />
-                    </span>
+          <span class="font-bold font-alt text-[1.48988rem] tablet:text-[2.375rem]">
+             <x-pages.logo />
+          </span>
           <svg xmlns="http://www.w3.org/2000/svg" class="tablet:hidden" width="2" height="33"
                viewBox="0 0 2 33" fill="none">
             <path d="M0.782227 0.5L0.782225 32.5" stroke="black" stroke-width="0.627308" />
@@ -18,12 +18,14 @@
             <path d="M1 0L0.999998 51" stroke="black" />
           </svg>
           <div class="flex flex-col">
-                        <span
-                          class="tracking-[0.03294rem] text-[0.54888rem] tablet:text-[0.875rem] tablet:tracking-[0.0525rem] uppercase">WEB
-                            SITES</span>
             <span
-              class="tracking-[0.03294rem] text-[0.54888rem] tablet:text-[0.875rem] tablet:tracking-[0.0525rem] uppercase">FOR
-                            RESTAURANTS</span>
+              class="tracking-[0.03294rem] text-[0.54888rem] tablet:text-[0.875rem] tablet:tracking-[0.0525rem] uppercase">
+              {{ __('pages/home.websites') }}
+            </span>
+            <span
+              class="tracking-[0.03294rem] text-[0.54888rem] tablet:text-[0.875rem] tablet:tracking-[0.0525rem] uppercase">
+              {{ __('pages/home.for_restaurants') }}
+            </span>
           </div>
         </div>
         <div class="hidden big-tablet:flex gap-4 items-center">
@@ -35,22 +37,27 @@
           </svg>
           <div class="flex w-full flex-col items-start justify-center gap-[0.125rem]">
             <span class="text-[1.125rem] font-bold tracking-[0.0625rem]">+49 1577 021 7672</span>
-            <span class="text-[#5E5D5A] text-[0.75rem] tracking-[0.0625rem]">Mon- Fri, <span
-                class="font-bold">09:00 - 18:00</span></span>
+            <span class="text-[#5E5D5A] text-[0.75rem] tracking-[0.0625rem]">
+              Mon- Fri,
+              <span
+                class="font-bold">
+                09:00 - 18:00
+              </span>
+            </span>
           </div>
         </div>
       </div>
       <div class="flex items-center tablet:gap-[2.5rem]">
         <button class="hidden z-10 tablet:flex font-alt text-[1.25rem] tracking-[0.0625rem]">
-          ENG
+          {{ \App\Helper\Helper::getLanguageThreeLetterCode(App::currentLocale()) }}
         </button>
         <button
           class="hidden z-10 laptop:flex justify-center items-center gap-[1.5rem] rounded-full bg-black hover:bg-black/80 transition-colors text-white p-[1.125rem_2.875rem]">
-          Contact Us
+          {{ __('pages/home.contact_us') }}
         </button>
         <button id="drawer-button" class="flex z-10 items-center justify-center tablet:gap-[1.5rem]">
           <div class="hidden tablet:flex font-thin tracking-[0.0625rem] text-[0.875rem]">
-            Menu
+            {{ __('pages/home.menu') }}
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" width="47" height="16" viewBox="0 0 47 16"
                fill="none">
@@ -64,21 +71,25 @@
       <div class="tablet:flex tablet:flex-col tablet:self-stretch tablet:justify-between">
         <div
           class="flex self-stretch items-center flex-col p-[6.25rem_0.875rem] tablet:p-[8rem_2.5rem_4.6875rem_2.5rem] desktop:py-[15rem] big-tablet:p-[6rem_3.75rem_4.6875rem_3.75rem] items-center tablet:items-start gap-[1.25rem] tablet:gap-[3.0625rem] justify-center tablet:bg-none bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_3.14%,rgba(255,255,255,0.70)_44.5%,rgba(255,255,255,0.00)_100%)]">
-          <h2 class="text-[1.125rem] uppercase">WELCOME TO {{ config('app.name') }}</h2>
-          <div
-            class="relative text-[2.75rem] tablet:text-[3.75rem] font-bold tracking-[-0.0625rem] text-center tablet:text-left capitalize leading-[100%] tablet:flex tablet:flex-col">
-            Du machst das <span>essen, wir deine</span> <span>Website<span class="relative">
-                                <svg class="absolute bottom-4 -right-[18px]" xmlns="http://www.w3.org/2000/svg"
-                                     width="14" height="14" viewBox="0 0 14 14" fill="#FC1919">
-                                    <circle cx="7" cy="7" r="7" fill="#FC1919" />
-                                </svg></span></span>
+          <h2 class="text-[1.125rem] uppercase">
+            {{ __('pages/home.welcome_to_app_name', ['app_name' => config('app.name')]) }}
+          </h2>
+          <div class="relative text-[2.75rem] tablet:text-[3.75rem] font-bold tracking-[-0.0625rem] text-center tablet:text-left capitalize leading-[100%] tablet:flex tablet:flex-col">
+            <div class='flex items-end w-[29rem]'>
+              <p>
+                {{ __('pages/home.hero_title') }}
+                <span style='color: #FC1919'>.</span>
+              </p>
+              </span>
+            </span>
+            </div>
           </div>
-          <h3
-            class="capitalize text-base text-center tablet:text-left tablet:flex tablet:flex-col tablet:text-[1.25rem]">
-            schnelle, zuverlässige, individuelle <span>Website für dein Restaurant</span></h3>
+          <h3 class="capitalize text-base text-center w-[22rem] tablet:text-left tablet:flex tablet:flex-col tablet:text-[1.25rem]">
+            {{ __('pages/home.hero_benefits') }}
+          </h3>
           <button
             class="hidden z-10 tablet:flex laptop:hidden justify-center items-center gap-[1.5rem] rounded-full bg-black hover:bg-black/80 transition-colors text-white p-[1.125rem_2.875rem]">
-            Contact Us
+            {{ __('pages/home.contact_us') }}
           </button>
         </div>
       </div>
@@ -90,7 +101,7 @@
                 stroke-linecap="round" />
         </svg>
         <div class="flex gap-[0.625rem] items-center justify-center">
-          <span class="text-white text-[0.75rem] tracking-[0.0625rem]">follow us:</span>
+          <span class="text-white text-[0.75rem] tracking-[0.0625rem]">{{ __('pages/home.follow_us') }}</span>
           <a class="p-[0.73206rem] flex items-center justify-center gap-[0.6655rem]" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 26"
                  fill="none">
@@ -133,7 +144,7 @@
         class="self-stretch justify-between flex flex-col pb-[5rem] flex-1 items-center tablet:hidden max-w-[92.5rem]">
         <button
           class="flex justify-center items-center gap-[1.5rem] rounded-full bg-black hover:bg-black/80 transition-colors text-white p-[1.125rem_2.875rem]">
-          Contact Us
+          {{ __('pages/home.contact_us') }}
         </button>
       </div>
     </div>
@@ -141,14 +152,14 @@
   <div id="drawer"
        class="flex flex-col justify-between items-start pb-[3.75rem] fixed bg-white inset-0 h-[100dvh] w-screen z-40 transition-transform -translate-y-[150dvh] duration-300 ease-in-out">
     <div class="flex w-full justify-between items-center p-[2.5rem_0.875rem_0rem_0.875rem]">
-      <span class="font-light text-[0.875rem] tracking-[0.0625rem] text-body">Menu</span>
+      <span class="font-light text-[0.875rem] tracking-[0.0625rem] text-body">{{ __('pages/home.menu') }}</span>
       <div class="flex items-center desktop:gap-[3.75rem]">
         <button class="hidden desktop:flex font-alt text-[1.25rem] tracking-[0.0625rem]">
           ENG
         </button>
         <button
           class="hidden desktop:flex p-[1.125rem_2.875rem] font-medium tracking-[0.0625rem] items-center justify-center gap-[1.5rem] rounded-[22.1875rem] bg-black hover:bg-black/80 text-white">
-          Contact Us
+          {{ __('pages/home.contact_us') }}
         </button>
         <button id="close-drawer" class="flex gap-[1.5rem] items-center">
           <span class="font-light text-[0.875rem] tracking-[0.0625rem] text-body">Close</span>
@@ -161,16 +172,16 @@
     </div>
     <div
       class="flex flex-col items-start text-[1.625rem] desktop:text-[3.75rem] tablet:text-[2.5rem] gap-[1.25rem] p-[0rem_0.875rem] self-stretch tablet:p-[0rem_5.625rem] tablet:gap-[0.625rem] big-tablet:p-[0rem_12.5rem] desktop:p-[0rem_15rem]">
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">HOME</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">Vorteile einer website</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">preise</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">kontakt</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">Fragen und Antworten</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">Über uns</a>
+      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.home') }}</a>
+      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.benefits_of_a_website') }}</a>
+      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.prices') }}</a>
+      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.contact') }}</a>
+      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.questions_and_answers') }}</a>
+      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.about_us') }}</a>
     </div>
     <div
       class="flex flex-col items-start gap-[1.875rem] self-stretch p-[0rem_0.875rem] tablet:p-0 tablet:pl-[1.875rem] big-tablet:pl-[3.75rem] laptop:pl-[2.5rem]">
-      <span class="text-[0.75rem] tracking-[0.0625rem] text-body">Language</span>
+      <span class="text-[0.75rem] tracking-[0.0625rem] text-body">{{ __('pages/home.language') }}</span>
       <div
         class="flex justify-between items-start self-stretch tablet:pl-[8.75rem] laptop:pl-[10rem] tablet:justify-start">
         <button id="en" data-lang="en"
@@ -205,24 +216,24 @@
     <div class="flex flex-col gap-[1.875rem] self-stretch ">
       <div
         class="flex flex-col tablet:flex-row items-center tablet:justify-start gap-[0.625rem] self-stretch justify-center">
-        <h3 class="font-alt text-[1.25rem] leading-[120%] tablet:order-last">benefits</h3>
+        <h3 class="font-alt text-[1.25rem] leading-[120%] tablet:order-last">{{ __('pages/home.benefits') }}</h3>
         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10"
              fill="#FC1919">
           <circle cx="5.5" cy="5" r="5" fill="#FC1919" />
         </svg>
       </div>
       <h2 class="font-bold text-[1.875rem] tablet:text-[2.125rem] laptop:text-[2.5rem] text-center tablet:text-left">
-        Deine Website</h2>
+        {{ __('pages/home.your_website') }}
+      </h2>
     </div>
     <div class="flex flex-wrap self-stretch items-start content-start gap-[1.25rem]">
       <div
         class="flex rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">Präsentiere Dein Restaurant</h2>
-          <p class="text-[0.875rem] leading-[160%] text-body">Eine Website ermöglicht es Ihnen, das einzigartige
-            Ambiente, die Küche und die Geschichte Ihres Restaurants zu vermitteln. Sie ist eine Gelegenheit,
-            Ihre Markenidentität zu präsentieren und einen unvergesslichen Eindruck bei den Besuchern zu
-            hinterlassen.</p>
+          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">{{ __('pages/home.present_your_restaurant') }}</h2>
+          <p class="text-[0.875rem] leading-[160%] text-body">
+            {{ __('pages/home.present_your_restaurant_description') }}
+          </p>
         </div>
         <svg class="w-[3.75rem] h-[3.75rem] flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="60"
              height="60" viewBox="0 0 60 60" fill="none">
@@ -237,10 +248,12 @@
       <div
         class="flex rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">24/7 Erreichbarkeit</h2>
-          <p class="text-[0.875rem] leading-[160%] text-body">Anders als Dein  physisches Restaurant ist eine
-            Website rund um die Uhr zugänglich. Kunden können sich jederzeit über Deine Speisekarte informieren,
-            Bestellungen aufgeben oder Reservierungen vornehmen, auch außerhalb Deiner Öffnungszeiten.</p>
+          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">
+            {{ __('pages/home.accessibility') }}
+          </h2>
+          <p class="text-[0.875rem] leading-[160%] text-body">
+            {{ __('pages/home.accessibility_description') }}
+          </p>
         </div>
         <svg class="w-[3.75rem] h-[3.75rem] flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="60"
              height="60" viewBox="0 0 60 60" fill="none">
@@ -276,10 +289,12 @@
       <div
         class="flex rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">Direkte Kommunikation</h2>
-          <p class="text-[0.875rem] leading-[160%] text-body">Deine Website dient als direkter
-            Kommunikationskanal mit Deinen Kunden. Du kannst Aktualisierungen, Sonderaktionen und
-            Veranstaltungen bekannt geben und so einen treuen Kundenstamm aufbauen.</p>
+          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">
+            {{ __('pages/home.direct_communication') }}
+          </h2>
+          <p class="text-[0.875rem] leading-[160%] text-body">
+            {{ __('pages/home.direct_communication_description') }}
+          </p>
         </div>
         <svg class="w-[3.75rem] h-[3.75rem] flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="60"
              height="60" viewBox="0 0 60 60" fill="none">
@@ -294,11 +309,12 @@
       <div
         class="flex rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">Erhöhte Sichtbarkeit</h2>
-          <p class="text-[0.875rem] leading-[160%] text-body">Eine Website fungiert als virtuelles Schaufenster
-            für Dein Restaurant und macht es für potenzielle Kunden über Suchmaschinen und Online-Verzeichnisse
-            leicht auffindbar. Du vergrößert Deine Reichweite über Deinen physischen Standort hinaus und ziehst
-            sowohl Einheimische als auch Touristen an.</p>
+          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">
+            {{ __('pages/home.increased_visibility') }}
+          </h2>
+          <p class="text-[0.875rem] leading-[160%] text-body">
+            {{ __('pages/home.increased_visibility_description') }}
+          </p>
         </div>
         <svg class="w-[3.75rem] h-[3.75rem] flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="60"
              height="60" viewBox="0 0 60 60" fill="none">
@@ -312,10 +328,12 @@
       <div
         class="flex rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">Präsentation der Speisekarte</h2>
-          <p class="text-[0.875rem] leading-[160%] text-body">Wenn Du Deine Speisekarte online präsentierst,
-            können sich Deine Kunden vor dem Besuch über Gerichte, Zutaten und Preise informieren. Diese
-            Transparenz kann Deine Essensentscheidungen positiv beeinflussen.</p>
+          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">
+            {{ __('pages/home.presentation_of_the_menu') }}
+          </h2>
+          <p class="text-[0.875rem] leading-[160%] text-body">
+            {{ __('pages/home.presentation_of_the_menu_description') }}
+          </p>
         </div>
         <svg class="w-[3.75rem] h-[3.75rem] flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="60"
              height="60" viewBox="0 0 60 60" fill="none">
@@ -328,11 +346,12 @@
       <div
         class="flex rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">Online - Reservierungen und
-            Bestellungen</h2>
-          <p class="text-[0.875rem] leading-[160%] text-body">Durch die Integration von Reservierungs-und Online
-            Bestellsystem wird das Kundenerlebnis optimiert. Es verkürzt die Wartezeiten, erhöht die
-            Bequemlichkeit und geht auf unterschiedliche Kundenpräferenzen ein.</p>
+          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">
+            {{ __('pages/home.online_reservation_and_orders') }}
+          </h2>
+          <p class="text-[0.875rem] leading-[160%] text-body">
+            {{ __('pages/home.online_reservation_and_orders_description') }}
+          </p>
         </div>
         <svg class="w-[3.75rem] h-[3.75rem] flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="60"
              height="60" viewBox="0 0 60 60" fill="none">
@@ -353,11 +372,12 @@
       <div
         class="flex rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">Kundenrezensionen und Testimonials
+          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase">
+            {{ __('pages/home.customers_reviews_and_testimonials') }}
           </h2>
-          <p class="text-[0.875rem] leading-[160%] text-body">Eine Website bietet eine Plattform zur Präsentation
-            von Kundenrezensionen und Erfahrungsberichten. Positives Feedback kann Vertrauen schaffen und die
-            Entscheidungen potenzieller Kunden beeinflussen.</p>
+          <p class="text-[0.875rem] leading-[160%] text-body">
+            {{ __('pages/home.customers_reviews_and_testimonials_description') }}
+          </p>
         </div>
         <svg class="w-[3.75rem] h-[3.75rem] flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="60"
              height="60" viewBox="0 0 60 60" fill="none">
@@ -375,13 +395,16 @@
       <div
         class="flex bg-[#FC1010] rounded-[1.25rem] border-[3px] border-[#F6F6F6] h-[21.5rem] min-w-[20.75rem] min-h-[21.5rem] p-[1.875rem] flex-col justify-between items-start flex-1">
         <div class="flex flex-col gap-[1.25rem] items-start self-stretch">
-          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase text-white">Du bist unsicher ?</h2>
-          <p class="text-[0.875rem] leading-[160%] text-white">Ruf uns  an oder schreib eine E-Mail und wir
-            vereinbaren einen unverbindlichen Gesprächstermin!</p>
+          <h2 class="font-medium leading-[160%] text-[1.125rem] uppercase text-white">
+            {{ __('pages/home.are_you_unsure') }}
+          </h2>
+          <p class="text-[0.875rem] leading-[160%] text-white">
+            {{ __('pages/home.are_you_unsure_description') }}
+          </p>
         </div>
         <button
           class="rounded-[22.1875rem] p-[1.125rem_2.875rem] flex items-center justify-center gap-[1.5rem] bg-white hover:bg-white/80 text-[#FC1919] font-medium text-[1.25rem] tracking-[0.0625rem] leading-[120%]">
-          Kontakt
+          {{ __('pages/home.contact') }}
           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-[1.5px] w-[0.8rem] h-[0.8rem]" width="11"
                height="10" viewBox="0 0 11 10" fill="#FC1919">
             <path
@@ -397,9 +420,15 @@
               fill="white" />
           </svg>
           <div class="flex flex-col gap-[0.125rem] justify-center">
-            <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">+49 1577 021 7672</span>
-            <span class="text-[0.75rem] tracking-[0.0625rem]">Mon - Fri <span class="font-bold">09:00 -
-                                18:00</span></span>
+            <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">
+              +49 1577 021 7672
+            </span>
+            <span class="text-[0.75rem] tracking-[0.0625rem]">
+              Mon - Fri
+              <span class="font-bold">
+                09:00 - 18:00
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -450,7 +479,7 @@
       <div class="flex flex-col items-center self-stretch gap-[3.75rem]">
         <div class="flex flex-col items-center gap-[1.875rem] self-stretch">
           <h3 class="relative text-[1.875rem] font-alt font-bold text-white leading-[120%]">
-            preis
+            {{ __('pages/home.price') }}
             <svg class="absolute -bottom-4 -left-14 w-[3.26675rem] h-[3.26675rem]"
                  xmlns="http://www.w3.org/2000/svg" width="65" height="65" viewBox="0 0 65 65"
                  fill="none">
@@ -491,13 +520,15 @@
           </h1>
           <h1
             class="text-white hidden tablet:block text-center laptop:text-[2.5rem] text-[2.125rem] font-bold leading-[120%]">
-            Starte jetzt mit Deinem persönlichen Rundum Sorglos Paket für <span class="text-[#FC1919]">€
-                            40</span> / Monat Festpreis!
+            {{ __('pages/home.price_header') }}
+            <span class="text-[#FC1919]">
+              € 40
+            </span>
+            / {{ __('pages/home.price_per_month') }}
           </h1>
         </div>
         <p class="font-light leading-[160%] text-[0.875rem] tablet:text-[1rem] text-center text-white">
-          Bei Uns gibt es keine versteckten Kosten. Wir haben ein Paket mit Rundumservice und sind monatlich
-          flexibel.  Du hast eine Frage, schreib Uns direkt ?
+          {{ __('pages/home.price_description') }}
         </p>
       </div>
       <div
@@ -505,7 +536,7 @@
       </div>
       <button
         class="flex gap-[0.625rem] font-medium leading-[120%] text-[1.25rem] items-center justify-center rounded-[6.25rem] bg-white hover:bg-white/80 p-[1.125rem_2.875rem] text-black">
-        Du hast eine Frage?
+        {{ __('pages/home.do_you_have_a_question') }}
       </button>
     </div>
   </div>
@@ -514,15 +545,16 @@
     <div class="flex flex-col gap-[1.875rem] self-stretch">
       <div
         class="flex flex-col items-center tablet:flex-row tablet:justify-start gap-[0.625rem] self-stretch justify-center">
-        <h3 class="font-alt text-[1.25rem] leading-[120%] tablet:order-last">kontakt</h3>
+        <h3 class="font-alt text-[1.25rem] leading-[120%] tablet:order-last">{{ __('pages/home.contact') }}</h3>
         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10"
              fill="#FC1919">
           <circle cx="5.5" cy="5" r="5" fill="#FC1919" />
         </svg>
       </div>
       <h2
-        class="font-bold text-[1.875rem] tablet:text-[2.125rem] laptop:text-[2.5rem] text-center tablet:text-left big-tablet:flex big-tablet:flex-col leading-[120%]">
-        Lass uns über dein <span>Projekt sprechen</span></h2>
+        class="font-bold text-[1.875rem] laptop:w-[29rem] tablet:text-[2.125rem] laptop:text-[2.5rem] text-center tablet:text-left big-tablet:flex big-tablet:flex-col leading-[120%]">
+        {{ __('pages/home.contact_us_description') }}
+      </h2>
     </div>
     <div class="flex gap-[3.75rem] flex-col big-tablet:flex-row big-tablet:justify-between self-stretch">
       <div class="flex big-tablet:order-last big-tablet:flex-1 flex-col items-center gap-[3.75rem] self-stretch">
@@ -530,7 +562,7 @@
           <div class="flex flex-col self-stretch items-start">
             <label for="name"
                    class="text-[0.875rem] font-light tracking-[0.0625rem] leading-[120%] flex p-[0rem_1.25rem] items-start gap-[0.625rem] self-stretch">
-              Enter Your Name ...
+              {{ __('pages/home.enter_your_name') }} ...
             </label>
             <div class="flex justify-between p-[1rem_1.25rem] items-center self-stretch border-b border-black">
               <input type="text" id="name"
@@ -550,7 +582,7 @@
           <div class="flex flex-col self-stretch items-start">
             <label for="email"
                    class="text-[0.875rem] font-light tracking-[0.0625rem] leading-[120%] flex p-[0rem_1.25rem] items-start gap-[0.625rem] self-stretch">
-              Enter Your Email ...
+              {{ __('pages/home.enter_your_email') }} ...
             </label>
             <div class="flex justify-between p-[1rem_1.25rem] items-center self-stretch border-b border-black">
               <input type="email" id="email"
@@ -570,7 +602,7 @@
           <div class="flex flex-col self-stretch items-start">
             <label for="phone"
                    class="text-[0.875rem] font-light tracking-[0.0625rem] leading-[120%] flex p-[0rem_1.25rem] items-start gap-[0.625rem] self-stretch">
-              Enter Your Phone ...
+              {{ __('pages/home.enter_your_email') }} ...
             </label>
             <div class="flex justify-between p-[1rem_1.25rem] items-center self-stretch border-b border-black">
               <input type="text" id="phone"
@@ -590,7 +622,7 @@
         </div>
         <button
           class="group flex tablet:flex-1 tablet:w-full font-medium leading-[120%] text-[1.25rem] items-center justify-center text-white rounded-[6.25rem] gap-[1.25rem] p-[1.125rem_2.875rem] bg-[#FC1919] hover:bg-[#FC1919]/80">
-          Sent
+          {{ __('pages/home.sent') }}
           <svg class="group-hover:translate-x-1 transition stroke-[1.5px]" xmlns="http://www.w3.org/2000/svg"
                width="12" height="12" viewBox="0 0 12 12" fill="#fff">
             <path
@@ -624,46 +656,46 @@
             </svg>
             <div class="flex flex-col justify-center items-start gap-[0.125rem]">
               <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">company@mail.com</span>
-              <span class="text-body text-[0.75rem] tracking-[0.0625rem]">We respond within <span
+              <span class="text-body text-[0.75rem] tracking-[0.0625rem]">{{ __('pages/home.we_respond_within') }} <span
                   class="font-bold">24 hrs</span></span>
             </div>
           </div>
         </div>
         <button
           class="flex flex-col big-tablet:-mb-6 big-tablet:bg-transparent big-tablet:hover:bg-transparent big-tablet:items-start items-center justify-center gap-[0.625rem] self-stretch rounded-[3.0625rem] bg-black hover:bg-black/80">
-                    <span class="flex p-[0.6875rem] gap-[1.25rem] items-start">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 23 24"
-                             fill="000">
-                            <g clip-path="url(#clip0_1_2074)">
-                                <path class="fill-white big-tablet:fill-black"
-                                      d="M1.17627 20.6447L1.25847 20.8691C1.24794 20.8434 1.21787 20.7649 1.17627 20.6447ZM4.42907 15.5595C4.57341 14.3537 5.06359 13.6786 5.9873 12.9865C7.30897 12.0493 8.95993 12.5795 8.95993 12.5795V9.43419C9.3613 9.42384 9.76282 9.44784 10.1598 9.50591V13.5536C10.1598 13.5536 8.50935 13.0234 7.18768 13.9611C6.26447 14.6527 5.77329 15.3283 5.62945 16.5341C5.62494 17.1888 5.74673 18.0447 6.30757 18.7847C6.16891 18.713 6.02757 18.6312 5.88356 18.5395C4.64809 17.7025 4.42305 16.4468 4.42907 15.5595ZM16.9767 3.61859C16.0675 2.61346 15.7236 1.59864 15.5994 0.885742H16.7431C16.7431 0.885742 16.515 2.75497 18.177 4.59319L18.2001 4.6179C17.7522 4.33364 17.3414 3.99811 16.9767 3.61859ZM22.4864 6.46823V10.4345C22.4864 10.4345 21.0269 10.3768 19.9468 10.0996C18.4387 9.71188 17.4693 9.11724 17.4693 9.11724C17.4693 9.11724 16.7997 8.69318 16.7456 8.66362V16.8539C16.7456 17.31 16.6218 18.4488 16.2444 19.3987C15.7517 20.6413 14.9914 21.457 14.8516 21.6237C14.8516 21.6237 13.9268 22.7262 12.2954 23.4687C10.8249 24.1384 9.53381 24.1215 9.14788 24.1384C9.14788 24.1384 6.91603 24.2276 4.90772 22.9109C4.47343 22.6206 4.06805 22.2919 3.69681 21.929L3.70684 21.9363C5.71565 23.253 7.947 23.1638 7.947 23.1638C8.33343 23.1469 9.62453 23.1638 11.0946 22.4941C12.7245 21.7516 13.6507 20.6491 13.6507 20.6491C13.789 20.4824 14.5528 19.6667 15.0435 18.4236C15.4199 17.4742 15.5447 16.3349 15.5447 15.8788V7.68951C15.5989 7.71955 16.268 8.14361 16.268 8.14361C16.268 8.14361 17.2378 8.73874 18.7459 9.12596C19.8265 9.40317 21.2855 9.46084 21.2855 9.46084V6.35289C21.7847 6.46581 22.2102 6.49634 22.4864 6.46823Z"
-                                      fill="black" fill-opacity="0.4" />
-                                <path class="fill-white big-tablet:fill-black"
-                                      d="M21.2858 6.35289V9.45987C21.2858 9.45987 19.8268 9.4022 18.7462 9.12499C17.2381 8.73728 16.2682 8.14264 16.2682 8.14264C16.2682 8.14264 15.5991 7.71858 15.545 7.68854V15.8798C15.545 16.3358 15.4212 17.4752 15.0438 18.4246C14.5511 19.6677 13.7908 20.4833 13.651 20.6501C13.651 20.6501 12.7257 21.7526 11.0948 22.4951C9.62481 23.1648 8.33372 23.1479 7.94729 23.1648C7.94729 23.1648 5.71594 23.254 3.70712 21.9372L3.6971 21.93C3.48501 21.7228 3.28537 21.504 3.09917 21.2747C2.45813 20.4862 2.06519 19.5538 1.96645 19.2877C1.96628 19.2866 1.96628 19.2855 1.96645 19.2844C1.80757 18.822 1.47377 17.7117 1.51938 16.6363C1.60007 14.739 2.26166 13.5744 2.43658 13.2827C2.89984 12.4871 3.50237 11.7752 4.21735 11.1789C4.84828 10.6642 5.56341 10.2548 6.33342 9.96728C7.16583 9.62972 8.05719 9.44878 8.95972 9.43419V12.5795C8.95972 12.5795 7.30876 12.0512 5.98759 12.9865C5.06388 13.6786 4.5737 14.3537 4.42936 15.5595C4.42334 16.4468 4.64838 17.7025 5.88284 18.54C6.02685 18.632 6.16819 18.7138 6.30686 18.7852C6.52252 19.068 6.785 19.3144 7.08372 19.5146C8.28961 20.2846 9.30003 20.3384 10.5921 19.8383C11.4537 19.5039 12.1023 18.7503 12.403 17.9153C12.5919 17.3938 12.5894 16.8689 12.5894 16.3262V0.885742H15.5966C15.7209 1.59864 16.0648 2.61346 16.9739 3.61859C17.3387 3.99811 17.7494 4.33364 18.1974 4.6179C18.3297 4.75602 19.0063 5.43887 19.8749 5.85808C20.324 6.07477 20.7974 6.24079 21.2858 6.35289Z"
-                                      fill="black" />
-                                <path class="fill-white big-tablet:fill-black"
-                                      d="M0.77002 18.3219V18.3243L0.844197 18.5284C0.835677 18.5046 0.808111 18.4324 0.77002 18.3219Z"
-                                      fill="black" />
-                                <path class="fill-white big-tablet:fill-black"
-                                      d="M6.33369 9.96731C5.56368 10.2548 4.84855 10.6643 4.21762 11.1789C3.50241 11.7766 2.90003 12.4899 2.43735 13.287C2.26243 13.5778 1.60085 14.7434 1.52015 16.6407C1.47454 17.7161 1.80834 18.8264 1.96722 19.2887C1.96705 19.2899 1.96705 19.291 1.96722 19.2921C2.06746 19.5558 2.4589 20.4882 3.09994 21.2791C3.28615 21.5084 3.48579 21.7272 3.69787 21.9344C3.01834 21.4799 2.4123 20.9305 1.89956 20.304C1.26404 19.5223 0.872098 18.5996 0.769853 18.3272C0.769732 18.3253 0.769732 18.3233 0.769853 18.3214V18.318C0.61047 17.8562 0.275668 16.7454 0.32228 15.6685C0.402973 13.7712 1.06456 12.6066 1.23948 12.3149C1.70202 11.5177 2.30442 10.8043 3.01975 10.2067C3.65055 9.69192 4.36571 9.28244 5.13582 8.99513C5.61618 8.80242 6.11658 8.66025 6.6284 8.57108C7.39973 8.44088 8.18752 8.4296 8.9625 8.53764V9.43421C8.05913 9.4485 7.16688 9.62944 6.33369 9.96731Z"
-                                      fill="black" />
-                                <path class="fill-white big-tablet:fill-black"
-                                      d="M15.5994 0.885727H12.5922V16.3266C12.5922 16.8694 12.5922 17.3928 12.4057 17.9157C12.102 18.7503 11.456 19.5039 10.5949 19.8383C9.3023 20.3404 8.29188 20.2846 7.08649 19.5145C6.78725 19.3153 6.52409 19.0697 6.30762 18.7876C7.33458 19.3173 8.25378 19.3081 9.39251 18.8661C10.2531 18.5317 10.9001 17.7781 11.2029 16.9431C11.3923 16.4216 11.3898 15.8968 11.3898 15.3544V-0.0893555H15.5423C15.5423 -0.0893555 15.4956 0.294474 15.5994 0.885727ZM21.286 5.49362V6.35287C20.7985 6.2406 20.326 6.07458 19.8777 5.85806C19.0091 5.43886 18.3324 4.75601 18.2001 4.61789C18.3537 4.71536 18.513 4.80404 18.6773 4.88347C19.7333 5.3933 20.7733 5.54547 21.286 5.49362Z"
-                                      fill="black" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_1_2074">
-                                    <rect width="22" height="24" fill="white" transform="translate(0.5)" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="29" height="28" viewBox="0 0 29 28"
-                             fill="none">
-                            <path class="fill-white big-tablet:fill-black"
-                                  d="M19.3885 2.33337H9.61183C5.36516 2.33337 2.8335 4.86504 2.8335 9.11171V18.8767C2.8335 23.135 5.36516 25.6667 9.61183 25.6667H19.3768C23.6235 25.6667 26.1552 23.135 26.1552 18.8884V9.11171C26.1668 4.86504 23.6352 2.33337 19.3885 2.33337ZM14.5002 18.5267C12.0035 18.5267 9.9735 16.4967 9.9735 14C9.9735 11.5034 12.0035 9.47337 14.5002 9.47337C16.9968 9.47337 19.0268 11.5034 19.0268 14C19.0268 16.4967 16.9968 18.5267 14.5002 18.5267ZM21.4068 8.02671C21.3485 8.16671 21.2668 8.29504 21.1618 8.41171C21.0452 8.51671 20.9168 8.59837 20.7768 8.65671C20.6368 8.71504 20.4852 8.75004 20.3335 8.75004C20.0185 8.75004 19.7268 8.63337 19.5052 8.41171C19.4002 8.29504 19.3185 8.16671 19.2602 8.02671C19.2018 7.88671 19.1668 7.73504 19.1668 7.58337C19.1668 7.43171 19.2018 7.28004 19.2602 7.14004C19.3185 6.98837 19.4002 6.87171 19.5052 6.75504C19.7735 6.48671 20.1818 6.35837 20.5552 6.44004C20.6368 6.45171 20.7068 6.47504 20.7768 6.51004C20.8468 6.53337 20.9168 6.56837 20.9868 6.61504C21.0452 6.65004 21.1035 6.70837 21.1618 6.75504C21.2668 6.87171 21.3485 6.98837 21.4068 7.14004C21.4652 7.28004 21.5002 7.43171 21.5002 7.58337C21.5002 7.73504 21.4652 7.88671 21.4068 8.02671Z"
-                                  fill="black" />
-                        </svg>
-                    </span>
+            <span class="flex p-[0.6875rem] gap-[1.25rem] items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 23 24"
+               fill="000">
+                <g clip-path="url(#clip0_1_2074)">
+                  <path class="fill-white big-tablet:fill-black"
+                        d="M1.17627 20.6447L1.25847 20.8691C1.24794 20.8434 1.21787 20.7649 1.17627 20.6447ZM4.42907 15.5595C4.57341 14.3537 5.06359 13.6786 5.9873 12.9865C7.30897 12.0493 8.95993 12.5795 8.95993 12.5795V9.43419C9.3613 9.42384 9.76282 9.44784 10.1598 9.50591V13.5536C10.1598 13.5536 8.50935 13.0234 7.18768 13.9611C6.26447 14.6527 5.77329 15.3283 5.62945 16.5341C5.62494 17.1888 5.74673 18.0447 6.30757 18.7847C6.16891 18.713 6.02757 18.6312 5.88356 18.5395C4.64809 17.7025 4.42305 16.4468 4.42907 15.5595ZM16.9767 3.61859C16.0675 2.61346 15.7236 1.59864 15.5994 0.885742H16.7431C16.7431 0.885742 16.515 2.75497 18.177 4.59319L18.2001 4.6179C17.7522 4.33364 17.3414 3.99811 16.9767 3.61859ZM22.4864 6.46823V10.4345C22.4864 10.4345 21.0269 10.3768 19.9468 10.0996C18.4387 9.71188 17.4693 9.11724 17.4693 9.11724C17.4693 9.11724 16.7997 8.69318 16.7456 8.66362V16.8539C16.7456 17.31 16.6218 18.4488 16.2444 19.3987C15.7517 20.6413 14.9914 21.457 14.8516 21.6237C14.8516 21.6237 13.9268 22.7262 12.2954 23.4687C10.8249 24.1384 9.53381 24.1215 9.14788 24.1384C9.14788 24.1384 6.91603 24.2276 4.90772 22.9109C4.47343 22.6206 4.06805 22.2919 3.69681 21.929L3.70684 21.9363C5.71565 23.253 7.947 23.1638 7.947 23.1638C8.33343 23.1469 9.62453 23.1638 11.0946 22.4941C12.7245 21.7516 13.6507 20.6491 13.6507 20.6491C13.789 20.4824 14.5528 19.6667 15.0435 18.4236C15.4199 17.4742 15.5447 16.3349 15.5447 15.8788V7.68951C15.5989 7.71955 16.268 8.14361 16.268 8.14361C16.268 8.14361 17.2378 8.73874 18.7459 9.12596C19.8265 9.40317 21.2855 9.46084 21.2855 9.46084V6.35289C21.7847 6.46581 22.2102 6.49634 22.4864 6.46823Z"
+                        fill="black" fill-opacity="0.4" />
+                  <path class="fill-white big-tablet:fill-black"
+                        d="M21.2858 6.35289V9.45987C21.2858 9.45987 19.8268 9.4022 18.7462 9.12499C17.2381 8.73728 16.2682 8.14264 16.2682 8.14264C16.2682 8.14264 15.5991 7.71858 15.545 7.68854V15.8798C15.545 16.3358 15.4212 17.4752 15.0438 18.4246C14.5511 19.6677 13.7908 20.4833 13.651 20.6501C13.651 20.6501 12.7257 21.7526 11.0948 22.4951C9.62481 23.1648 8.33372 23.1479 7.94729 23.1648C7.94729 23.1648 5.71594 23.254 3.70712 21.9372L3.6971 21.93C3.48501 21.7228 3.28537 21.504 3.09917 21.2747C2.45813 20.4862 2.06519 19.5538 1.96645 19.2877C1.96628 19.2866 1.96628 19.2855 1.96645 19.2844C1.80757 18.822 1.47377 17.7117 1.51938 16.6363C1.60007 14.739 2.26166 13.5744 2.43658 13.2827C2.89984 12.4871 3.50237 11.7752 4.21735 11.1789C4.84828 10.6642 5.56341 10.2548 6.33342 9.96728C7.16583 9.62972 8.05719 9.44878 8.95972 9.43419V12.5795C8.95972 12.5795 7.30876 12.0512 5.98759 12.9865C5.06388 13.6786 4.5737 14.3537 4.42936 15.5595C4.42334 16.4468 4.64838 17.7025 5.88284 18.54C6.02685 18.632 6.16819 18.7138 6.30686 18.7852C6.52252 19.068 6.785 19.3144 7.08372 19.5146C8.28961 20.2846 9.30003 20.3384 10.5921 19.8383C11.4537 19.5039 12.1023 18.7503 12.403 17.9153C12.5919 17.3938 12.5894 16.8689 12.5894 16.3262V0.885742H15.5966C15.7209 1.59864 16.0648 2.61346 16.9739 3.61859C17.3387 3.99811 17.7494 4.33364 18.1974 4.6179C18.3297 4.75602 19.0063 5.43887 19.8749 5.85808C20.324 6.07477 20.7974 6.24079 21.2858 6.35289Z"
+                        fill="black" />
+                  <path class="fill-white big-tablet:fill-black"
+                        d="M0.77002 18.3219V18.3243L0.844197 18.5284C0.835677 18.5046 0.808111 18.4324 0.77002 18.3219Z"
+                        fill="black" />
+                  <path class="fill-white big-tablet:fill-black"
+                        d="M6.33369 9.96731C5.56368 10.2548 4.84855 10.6643 4.21762 11.1789C3.50241 11.7766 2.90003 12.4899 2.43735 13.287C2.26243 13.5778 1.60085 14.7434 1.52015 16.6407C1.47454 17.7161 1.80834 18.8264 1.96722 19.2887C1.96705 19.2899 1.96705 19.291 1.96722 19.2921C2.06746 19.5558 2.4589 20.4882 3.09994 21.2791C3.28615 21.5084 3.48579 21.7272 3.69787 21.9344C3.01834 21.4799 2.4123 20.9305 1.89956 20.304C1.26404 19.5223 0.872098 18.5996 0.769853 18.3272C0.769732 18.3253 0.769732 18.3233 0.769853 18.3214V18.318C0.61047 17.8562 0.275668 16.7454 0.32228 15.6685C0.402973 13.7712 1.06456 12.6066 1.23948 12.3149C1.70202 11.5177 2.30442 10.8043 3.01975 10.2067C3.65055 9.69192 4.36571 9.28244 5.13582 8.99513C5.61618 8.80242 6.11658 8.66025 6.6284 8.57108C7.39973 8.44088 8.18752 8.4296 8.9625 8.53764V9.43421C8.05913 9.4485 7.16688 9.62944 6.33369 9.96731Z"
+                        fill="black" />
+                  <path class="fill-white big-tablet:fill-black"
+                        d="M15.5994 0.885727H12.5922V16.3266C12.5922 16.8694 12.5922 17.3928 12.4057 17.9157C12.102 18.7503 11.456 19.5039 10.5949 19.8383C9.3023 20.3404 8.29188 20.2846 7.08649 19.5145C6.78725 19.3153 6.52409 19.0697 6.30762 18.7876C7.33458 19.3173 8.25378 19.3081 9.39251 18.8661C10.2531 18.5317 10.9001 17.7781 11.2029 16.9431C11.3923 16.4216 11.3898 15.8968 11.3898 15.3544V-0.0893555H15.5423C15.5423 -0.0893555 15.4956 0.294474 15.5994 0.885727ZM21.286 5.49362V6.35287C20.7985 6.2406 20.326 6.07458 19.8777 5.85806C19.0091 5.43886 18.3324 4.75601 18.2001 4.61789C18.3537 4.71536 18.513 4.80404 18.6773 4.88347C19.7333 5.3933 20.7733 5.54547 21.286 5.49362Z"
+                        fill="black" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_1_2074">
+                        <rect width="22" height="24" fill="white" transform="translate(0.5)" />
+                    </clipPath>
+                </defs>
+            </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="29" height="28" viewBox="0 0 29 28"
+                   fill="none">
+                  <path class="fill-white big-tablet:fill-black"
+                        d="M19.3885 2.33337H9.61183C5.36516 2.33337 2.8335 4.86504 2.8335 9.11171V18.8767C2.8335 23.135 5.36516 25.6667 9.61183 25.6667H19.3768C23.6235 25.6667 26.1552 23.135 26.1552 18.8884V9.11171C26.1668 4.86504 23.6352 2.33337 19.3885 2.33337ZM14.5002 18.5267C12.0035 18.5267 9.9735 16.4967 9.9735 14C9.9735 11.5034 12.0035 9.47337 14.5002 9.47337C16.9968 9.47337 19.0268 11.5034 19.0268 14C19.0268 16.4967 16.9968 18.5267 14.5002 18.5267ZM21.4068 8.02671C21.3485 8.16671 21.2668 8.29504 21.1618 8.41171C21.0452 8.51671 20.9168 8.59837 20.7768 8.65671C20.6368 8.71504 20.4852 8.75004 20.3335 8.75004C20.0185 8.75004 19.7268 8.63337 19.5052 8.41171C19.4002 8.29504 19.3185 8.16671 19.2602 8.02671C19.2018 7.88671 19.1668 7.73504 19.1668 7.58337C19.1668 7.43171 19.2018 7.28004 19.2602 7.14004C19.3185 6.98837 19.4002 6.87171 19.5052 6.75504C19.7735 6.48671 20.1818 6.35837 20.5552 6.44004C20.6368 6.45171 20.7068 6.47504 20.7768 6.51004C20.8468 6.53337 20.9168 6.56837 20.9868 6.61504C21.0452 6.65004 21.1035 6.70837 21.1618 6.75504C21.2668 6.87171 21.3485 6.98837 21.4068 7.14004C21.4652 7.28004 21.5002 7.43171 21.5002 7.58337C21.5002 7.73504 21.4652 7.88671 21.4068 8.02671Z"
+                        fill="black" />
+              </svg>
+            </span>
         </button>
       </div>
     </div>
@@ -683,44 +715,50 @@
         </div>
         <h2
           class="font-bold text-[1.875rem] tablet:text-[2.125rem] laptop:text-[2.5rem] text-center tablet:text-left leading-[120%]">
-          Questions & Answers</h2>
+          {{ __('pages/home.questions_and_answers') }}
+        </h2>
       </div>
       <div class="flex flex-wrap text-center gap-[3.75rem] self-stretch content-start items-start">
         <div
           class="flex min-w-[20.75rem] text-center flex-col gap-[1.875rem] flex-1 items-center tablet:items-start tablet:text-left">
           <h3 class="text-[#FC1919] text-[1.25rem] font-bold leading-[120%]">01</h3>
           <div class="flex flex-col gap-[1.5rem] self-stretch items-start">
-            <h2 class="font-medium text-[1.25rem] leading-[120%] uppercase">Warum bin ich bei euch gut
-              aufgehoben?</h2>
-            <p class="text-body font-light leading-[160%]">Weil wir kein Fan von komplizierten Dingen sind. Wir
-              wollen individuell auf dich eingehen und in die direkte und schnelle Umsetzung gehen, weil Du
-              definitiv wichtigeres zu tun hast.</p>
+            <h2 class="font-medium text-[1.25rem] leading-[120%] uppercase">
+              {{ __('pages/home.why_in_good_hands') }}
+            </h2>
+            <p class="text-body font-light leading-[160%]">
+              {{ __('pages/home.why_in_good_hands_description') }}
+            </p>
           </div>
         </div>
         <div
           class="flex min-w-[20.75rem] text-center flex-col gap-[1.875rem] flex-1 items-center tablet:items-start tablet:text-left">
           <h3 class="text-[#FC1919] text-[1.25rem] font-bold leading-[120%]">02</h3>
           <div class="flex flex-col gap-[1.5rem] self-stretch items-start">
-            <h2 class="font-medium text-[1.25rem] leading-[120%] uppercase">Was ist, wenn es mir nicht gefällt
-              oder ich insolvent gehe ?</h2>
-            <p class="text-body font-light leading-[160%]">Uns liegt es am Herzen, dass es Dir gefällt und
-              Deine Zahlen steigen. Wir sind monatlich flexibel.</p>
+            <h2 class="font-medium text-[1.25rem] leading-[120%] uppercase">
+              {{ __('pages/home.what_if_i_dont_like_it_or_go_bankrupt') }}
+            </h2>
+            <p class="text-body font-light leading-[160%]">
+              {{ __('pages/home.what_if_i_dont_like_it_or_go_bankrupt_description') }}
+            </p>
           </div>
         </div>
         <div
           class="flex min-w-[20.75rem] text-center flex-col gap-[1.875rem] flex-1 items-center tablet:items-start tablet:text-left">
           <h3 class="text-[#FC1919] text-[1.25rem] font-bold leading-[120%]">03</h3>
           <div class="flex flex-col gap-[1.5rem] self-stretch items-start">
-            <h2 class="font-medium text-[1.25rem] text-center leading-[120%] uppercase">Was hat mein
-              Unternehmen davon ?</h2>
-            <p class="text-body font-light text-center leading-[160%]">Mehr Besucherzahlen, durch Online
-              Präsenz  =  mehr Gäste.</p>
+            <h2 class="font-medium text-[1.25rem] text-center leading-[120%] uppercase">
+              {{ __('pages/home.how_does_my_company_benefit') }}
+            </h2>
+            <p class="text-body font-light text-center leading-[160%]">
+              {{ __('pages/home.how_does_my_company_benefit_description') }}
+            </p>
           </div>
         </div>
       </div>
       <button
         class="flex font-medium leading-[120%] text-[1.25rem] items-center justify-center text-white rounded-[6.25rem] gap-[1.25rem] p-[1.125rem_2.875rem] bg-[#FC1919] hover:bg-[#FC1919]/80">
-        Frag Uns Was
+        {{ __('pages/home.ask_us_what') }}
       </button>
     </div>
   </div>
@@ -733,7 +771,8 @@
           class="flex flex-col items-center tablet:flex-row tablet:justify-start gap-[0.625rem] self-stretch justify-center">
           <h3 class="big-tablet:hidden font-alt text-[1.25rem] leading-[120%] tablet:order-last">about us</h3>
           <h3 class="hidden big-tablet:block font-alt text-[1.25rem] leading-[120%] tablet:order-last lowercase">
-            Über Uns</h3>
+            {{ __('pages/home.about_us') }}
+          </h3>
           <svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10"
                fill="#FC1919">
             <circle cx="5.5" cy="5" r="5" fill="#FC1919" />
@@ -741,20 +780,21 @@
         </div>
         <h2
           class="font-bold text-[1.875rem] tablet:text-[2.125rem] laptop:text-[2.5rem] text-center tablet:text-left leading-[120%]">
-          Wir helfen Dir ein höheres Level im Restaurant Business zu erreichen</h2>
+          {{ __('pages/home.about_us_header') }}
+        </h2>
       </div>
       <div class="big-tablet:hidden image-laptop self-stretch h-[15.625rem] tablet:h-[26.0625rem]"></div>
       <div class="flex flex-col gap-[1.875rem] self-stretch">
-        <p class="text-[1.25rem] font-medium uppercase text-center tablet:text-left">Ein Restaurant zu führen ist
-          nicht leicht und wird oft unterschätzt, man hat alle Hände voll zu tun und genau da kommen Wir ins
-          Spiel.</p>
-        <p class="text-[#808080] text-center text-[0.875rem] capitalize tablet:text-left">Wir kümmern Uns um Deine
-          Online- Präsenz. Erstellen eine individuelle Website für Dich und behalten alles im Auge, damit Du Dich
-          um Deine Gäste  kümmern kannst.</p>
+        <p class="text-[1.25rem] font-medium uppercase text-center tablet:text-left">
+          {{ __('pages/home.about_us_header_description') }}
+        </p>
+        <p class="text-[#808080] text-center text-[0.875rem] capitalize tablet:text-left">
+          {{ __('pages/home.about_us_header_subtext') }}
+        </p>
       </div>
       <button
         class="flex text-white rounded-[22.1875rem] gap-[1.5rem] justify-center items-center p-[1.125rem_2.875rem] bg-[#FC1919] hover:bg-[#FC1919]/80">
-        Kontakt
+        {{ __('pages/home.contact') }}
         <svg class="stroke-[1.5px]" xmlns="http://www.w3.org/2000/svg" width="11" height="10"
              viewBox="0 0 11 10" fill="#fff">
           <path
