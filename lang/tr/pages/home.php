@@ -1,0 +1,67 @@
+<?php
+
+return [
+    'welcome_to_app_name' => ":app_name'a HOŞGELDİNİZ",
+    'contact_us' => "Bize Ulaşın",
+    'websites' => "Web Siteleri",
+    'for_restaurants' => "Restoranlar İçin",
+    'home' => "Ana Sayfa",
+    'benefits_of_a_website' => "Bir web sitesinin faydaları",
+    'prices' => "Fiyatlar",
+    'contact' => 'İletişim',
+    'questions_and_answers' => 'Sorular ve Yanıtlar',
+    'about_us' => 'Hakkımızda',
+    'language' => 'Dil',
+    'menu' => 'Menü',
+    'hero_title' => 'Yemek yaparsın, biz web siteni yaparız',
+    'hero_benefits' => 'Restoranınız için hızlı, güvenilir, özel web sitesi',
+    'follow_us' => 'Bizi takip edin:',
+    'benefits' => 'Faydalar',
+    'your_website' => 'Sizin Web Siteniz',
+    'present_your_restaurant' => 'Restoranınızı Tanıtın',
+    'present_your_restaurant_description' => 'Bir web sitesi, restoranınızın eşsiz ambiyansını, mutfağını ve tarihini aktarmanızı sağlar. Marka kimliğinizi sergileme ve ziyaretçilere unutulmaz bir izlenim bırakma fırsatı sunar.',
+    'accessibility' => '7/24 Erişilebilirlik',
+    'accessibility_description' => 'Fiziksel restoranınızın aksine, bir web sitesi günün her saati erişilebilir. Müşterileriniz diledikleri zaman menünüze, sipariş vermeye veya rezervasyon yapmaya erişebilirler, hatta iş saatleriniz dışında bile.',
+    'direct_communication' => 'Doğrudan İletişim',
+    'direct_communication_description' => 'Web siteniz müşterilerinizle doğrudan iletişim kurmanızı sağlar. Güncellemeleri, özel promosyonları ve etkinlikleri duyurabilir, böylece sadık bir müşteri kitlesi oluşturabilirsiniz.',
+    'increased_visibility' => 'Artan Görünürlük',
+    'increased_visibility_description' => 'Bir web sitesi, restoranınız için sanal bir vitrin işlevi görür, bu da potansiyel müşterilerin sizi arama motorları ve çevrimiçi dizinler aracılığıyla kolayca bulabileceği anlamına gelir. Fiziksel konumunuzun ötesinde ulaşımınızı genişletir, hem yerel halkı hem de turistleri çeker.',
+    'presentation_of_the_menu' => 'Menünün Sunumu',
+    'presentation_of_the_menu_description' => 'Menünüzü çevrimiçi olarak sunarak, müşterileriniz ziyaret etmeden önce yemekler, malzemeler ve fiyatlar hakkında bilgi edinebilirler. Bu şeffaflık, yemek seçimlerini olumlu yönde etkileyebilir.',
+    'online_reservation_and_orders' => 'Çevrimiçi Rezervasyonlar ve Siparişler',
+    'online_reservation_and_orders_description' => 'Rezervasyon ve çevrimiçi sipariş sistemlerini entegre ederek, müşteri deneyimi optimize edilir. Bekleme sürelerini azaltır, kullanım kolaylığını artırır ve çeşitli müşteri tercihlerine hitap eder.',
+    'customers_reviews_and_testimonials' => 'Müşteri Yorumları ve Referanslar',
+    'customers_reviews_and_testimonials_description' => 'Bir web sitesi, müşteri yorumlarını ve referansları sergilemek için bir platform sağlar. Olumlu geri bildirim güven oluşturabilir ve potansiyel müşterilerin kararlarını etkileyebilir.',
+    'are_you_unsure' => 'Emin değil misiniz?',
+    'are_you_unsure_description' => 'Bize bir telefon açın veya bir e-posta gönderin, bağlayıcı olmayan bir danışma toplantısı ayarlayalım!',
+    'price' => 'Fiyat',
+    'price_header' => 'Şimdi kişisel endişesiz paketinizle başlayın',
+    'price_per_month' => 'Aylık sabit fiyat!',
+    'price_description' => 'Bizimle gizli maliyet yok. Kapsamlı bir hizmet paketi sunuyoruz ve aylık esneklik sağlıyoruz. Bir sorunuz mu var? Bize doğrudan ulaşın.',
+    'do_you_have_a_question' => 'Bir sorunuz mu var?',
+    'contact_us_description' => "Projemiz hakkında konuşalım",
+
+    'enter_your_name' => 'Adınızı girin',
+    'enter_your_email' => 'E-postanızı girin',
+    'enter_your_phone' => 'Telefonunuzu girin',
+
+    'sent' => 'Gönderildi',
+
+    'we_respond_within' => 'Şu süre içinde yanıt veriyoruz',
+    'why_in_good_hands' => 'Neden bizde güvende olduğumu?',
+    'why_in_good_hands_description' => 'Çünkü karmaşık şeylerden hoşlanmıyoruz. Size bireysel olarak hizmet sunmayı ve hızlı uygulamaya geçmeyi istiyoruz, çünkü kesinlikle daha önemli işleriniz var.',
+
+    'what_if_i_dont_like_it_or_go_bankrupt' => 'Peki beğenmezsem veya iflas edersem ne olur?',
+    'what_if_i_dont_like_it_or_go_bankrupt_description' => 'Beğenmeniz ve sayılarınızın artması bizim için önemlidir. Aylık esneklik sağlıyoruz.',
+
+    'how_does_my_company_benefit' => 'Şirketim bundan nasıl faydalanır?',
+    'how_does_my_company_benefit_description' => 'Daha fazla ziyaretçi, çevrimiçi varlık aracılığıyla = daha fazla misafir.',
+
+    'ask_us_what' => 'Bize ne sormak istersiniz?',
+
+    'about_us_header' => 'Restoran işinizde daha yüksek bir seviyeye ulaşmanıza yardımcı oluyoruz',
+    'about_us_header_description' => 'BİR RESTORAN İŞLETMEK KOLAY DEĞİL VE SIKLIKLA HAFİFE ALINIYOR, ELLERİNİZİN DOLU OLDUĞU VE BİZİM DEVREYE GİRDİĞİMİZ YER BURASI.',
+    'about_us_header_subtext' => 'Çevrimiçi varlığınızı biz hallederiz. Sizin için özel bir web sitesi oluşturuyoruz ve her şeyi gözetiyoruz, böylece misafirlerinize odaklanabilirsiniz.',
+
+    'footer_text' => 'Sizi tanışmaktan ve birlikte restoranınızı bir sonraki seviyeye taşımaktan memnuniyet duyarız!',
+];

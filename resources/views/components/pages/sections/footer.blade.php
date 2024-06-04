@@ -3,7 +3,7 @@
         <div class="flex big-tablet:-mt-32 min-w-[23.125rem] max-w-[37.5rem] big-tablet:items-start big-tablet:flex-1 flex-col tablet:items-start items-center justify-center gap-[1.875rem] self-stretch">
             <div class="flex items-center gap-[4.46675rem]">
                 <div class="flex items-center gap-[0.54888rem] tablet:gap-[0.875rem]">
-                    <span class="font-alt font-bold text-[1.48988rem] tablet:text-[2.375rem] text-white uppercase">
+                    <span class="font-alt font-bold text-[1.48988rem] w-[310px] tablet:text-[2.375rem] text-white uppercase">
                         <x-pages.logo
                             variant='black_no_slogan'/>
                     </span>
@@ -14,16 +14,13 @@
                         <path d="M1 0L0.999998 51" stroke="white"/>
                     </svg>
                     <div class="flex flex-col text-white">
-                        <span class="text-[0.54888rem] tablet:text-[0.875rem] tracking-[0.03294rem] uppercase">WEB SITES</span>
-                        <span class="text-[0.54888rem] tablet:text-[0.875rem] tracking-[0.03294rem] uppercase">FOR RESTAURANTS</span>
+                        <span class="text-[0.54888rem] tablet:text-[0.875rem] tracking-[0.03294rem] uppercase">{{ __('pages/home.websites') }}</span>
+                        <span class="text-[0.54888rem] tablet:text-[0.875rem] tracking-[0.03294rem] uppercase">{{ __('pages/home.for_restaurants') }}</span>
                     </div>
                 </div>
             </div>
-            <p class="tablet:hidden flex justify-center tablet:justify-start items-center gap-[0.625rem] self-stretch text-[#999] text-[0.75rem] tablet:text-[1rem] font-light leading-[160%]">
-                Lorem ipsum dolor sit amet consectetur. Ac proin lectus a facilisis. Pharetra arcu curabitur nisi mauris egestas egestas. Netus et sed consectetur ac ut et et. Sit enim accumsan gravida gravida dui magnis nulla diam at.
-            </p>
             <p class="hidden tablet:flex justify-center tablet:justify-start items-center gap-[0.625rem] self-stretch text-[#999] text-[0.75rem] tablet:text-[1rem] font-light leading-[160%]">
-                Wir freuen Uns Dich kennenzulernen und gemeinsam Dein Restaurant auf das nächste Level zu bringen!
+                {{ __('pages/home.footer_text') }}
             </p>
         </div>
         <div class="flex big-tablet:flex-1 flex-col border-[3px] tablet:min-w-[25rem] border-[#F8F8F8] bg-[#F8F8F8] rounded-[1.25rem] p-[1.5rem_1.25rem] justify-center items-center gap-[1.25rem] self-stretch">

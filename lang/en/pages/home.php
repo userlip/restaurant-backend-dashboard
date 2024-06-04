@@ -1,0 +1,67 @@
+<?php
+
+return [
+    'welcome_to_app_name' => "WELCOME TO :app_name",
+    'contact_us' => "Contact Us",
+    'websites' => "Websites",
+    'for_restaurants' => "For Restaurants",
+    'home' => "Home",
+    'benefits_of_a_website' => "Benefits of a website",
+    'prices' => "Prices",
+    'contact' => 'Contact',
+    'questions_and_answers' => 'Questions and Answers',
+    'about_us' => 'About Us',
+    'language' => 'Language',
+    'menu' => 'Menu',
+    'hero_title' => 'You make the food, we make your website',
+    'hero_benefits' => 'Fast, reliable, custom website for your restaurant',
+    'follow_us' => 'Follow Us:',
+    'benefits' => 'Benefits',
+    'your_website' => 'Your Website',
+    'present_your_restaurant' => 'Present Your Restaurant',
+    'present_your_restaurant_description' => 'A website allows you to convey the unique ambiance, cuisine, and history of your restaurant. It is an opportunity to showcase your brand identity and leave a lasting impression on visitors.',
+    'accessibility' => '24/7 Accessibility',
+    'accessibility_description' => 'Unlike your physical restaurant, a website is accessible around the clock. Customers can access your menu, place orders, or make reservations at any time, even outside your business hours.',
+    'direct_communication' => 'Direct Communication',
+    'direct_communication_description' => 'Your website serves as a direct communication channel with your customers. You can announce updates, special promotions, and events, thus building a loyal customer base.',
+    'increased_visibility' => 'Increased Visibility',
+    'increased_visibility_description' => 'A website acts as a virtual storefront for your restaurant, making it easily discoverable by potential customers through search engines and online directories. You expand your reach beyond your physical location, attracting both locals and tourists.',
+    'presentation_of_the_menu' => 'Presentation of the Menu',
+    'presentation_of_the_menu_description' => 'By presenting your menu online, your customers can learn about dishes, ingredients, and prices before visiting. This transparency can positively influence their dining decisions.',
+    'online_reservation_and_orders' => 'Online Reservations and Orders',
+    'online_reservation_and_orders_description' => 'By integrating reservation and online ordering systems, the customer experience is optimized. It reduces wait times, increases convenience, and caters to various customer preferences.',
+    'customers_reviews_and_testimonials' => 'Customer Reviews and Testimonials',
+    'customers_reviews_and_testimonials_description' => 'A website provides a platform for showcasing customer reviews and testimonials. Positive feedback can build trust and influence the decisions of potential customers.',
+    'are_you_unsure' => 'Are you unsure?',
+    'are_you_unsure_description' => 'Call us or send an email, and we will arrange a non-binding consultation!',
+    'price' => 'Price',
+    'price_header' => 'Start now with your personal worry-free package for',
+    'price_per_month' => 'Month fixed price!',
+    'price_description' => 'There are no hidden costs with us. We offer a comprehensive service package and are flexible on a monthly basis. Have a question? Contact us directly.',
+    'do_you_have_a_question' => 'Do you have a question?',
+    'contact_us_description' => "Let's talk about your project",
+
+    'enter_your_name' => 'Enter your name',
+    'enter_your_email' => 'Enter your email',
+    'enter_your_phone' => 'Enter your phone',
+
+    'sent' => 'Sent',
+
+    'we_respond_within' => 'We respond within',
+    'why_in_good_hands' => 'Why am I in good hands?',
+    'why_in_good_hands_description' => 'Because we are not fans of complicated things. We want to tailor our services to you individually and proceed with direct and fast implementation because you definitely have more important things to do.',
+
+    'what_if_i_dont_like_it_or_go_bankrupt' => 'What if I don\'t like it or go bankrupt?',
+    'what_if_i_dont_like_it_or_go_bankrupt_description' => 'We care that you like it and your numbers increase. We are flexible on a monthly basis.',
+
+    'how_does_my_company_benefit' => 'How does my company benefit?',
+    'how_does_my_company_benefit_description' => 'More visitors, through online presence = more guests.',
+
+    'ask_us_what' => 'Ask Us What',
+
+    'about_us_header' => 'We help you reach a higher level in the restaurant business',
+    'about_us_header_description' => 'RUNNING A RESTAURANT IS NOT EASY AND IS OFTEN UNDERESTIMATED, YOU HAVE YOUR HANDS FULL AND THAT\'S WHERE WE COME IN.',
+    'about_us_header_subtext' => 'We take care of your online presence. Create a custom website for you and keep an eye on everything so you can focus on your guests.',
+
+    'footer_text' => 'We look forward to meeting you and taking your restaurant to the next level together!',
+];

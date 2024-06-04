@@ -39,7 +39,7 @@ function initialize() {
 }
 
 function getUserLang() {
-  return localStorage.getItem("eatweb-lang") || "due"
+  return document.querySelector('.language-selected').dataset.language || "de"
 }
 
 function handleLanChange(lang) {
@@ -53,12 +53,11 @@ function handleLanChange(lang) {
       btn.classList.remove("text-white")
     }
   })
-  location.reload()
 }
 
 document.getElementById("en").addEventListener("click", () => handleLanChange("en"))
-document.getElementById("due").addEventListener("click", () => handleLanChange("due"))
-document.getElementById("tur").addEventListener("click", () => handleLanChange("tur"))
+document.getElementById("de").addEventListener("click", () => handleLanChange("de"))
+document.getElementById("tr").addEventListener("click", () => handleLanChange("tr"))
 document.getElementById("ar").addEventListener("click", () => handleLanChange("ar"))
 
 document.addEventListener("DOMContentLoaded", initialize)
