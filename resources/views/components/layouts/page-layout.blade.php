@@ -7,11 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{ config('app.name') }}</title>
 
+  @stack('head')
+
+  @livewireStyles
+
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <main>
-      @yield('content')
+      {{ $slot }}
     </main>
 
     <x-pages.sections.footer />

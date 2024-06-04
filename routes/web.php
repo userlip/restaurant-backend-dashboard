@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', Home::class)->name('home');
 // Route::get('/article/{post:slug}', PostShow::class)->name('post.show');
-Route::get('/', fn () => view('home'));
+Route::get('/', \App\Livewire\Pages\Home::class);
