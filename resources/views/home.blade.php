@@ -184,19 +184,23 @@
       <div
         class="flex justify-between items-start self-stretch tablet:pl-[8.75rem] laptop:pl-[10rem] tablet:justify-start">
         <button id="en" data-lang="en"
-                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]">
+                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
+                wire:click="changeLocale('en')">
           ENG
         </button>
         <button id="due" data-lang="due"
-                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]">
+                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
+                wire:click="changeLocale('de')">
           DEU
         </button>
         <button id="tur" data-lang="tur"
-                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]">
+                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
+                wire:click="changeLocale('tr')">
           TÜR
         </button>
         <button id="ar" data-lang="ar"
-                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]">
+                class="rounded-[4rem] flex items-center justify-center flex-col gap-[0.625rem] p-[0.625rem_1.3125rem] w-[5.125rem] h-[4rem] font-alt tracking-[0.0625rem]"
+                wire:click="changeLocale('ar')">
           عربي
         </button>
       </div>

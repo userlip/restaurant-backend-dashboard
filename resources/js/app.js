@@ -53,7 +53,7 @@ function handleLanChange(lang) {
       btn.classList.remove("text-white")
     }
   })
-  location.reload()
+  // location.reload()
 }
 
 document.getElementById("en").addEventListener("click", () => handleLanChange("en"))
