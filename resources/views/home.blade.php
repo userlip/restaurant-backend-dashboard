@@ -513,10 +513,6 @@
               </defs>
             </svg>
           </h3>
-          <h1 class="text-white tablet:hidden text-center text-[1.875rem] font-bold leading-[120%]">
-            Get a full package of services for a fixed price! Only <span class="text-[#FC1919]">€ 40</span> per
-            month!
-          </h1>
           <h1
             class="text-white hidden tablet:block text-center laptop:text-[2.5rem] text-[2.125rem] font-bold leading-[120%]">
             {{ __('pages/home.price_header') }}
