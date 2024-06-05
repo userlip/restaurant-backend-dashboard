@@ -433,13 +433,13 @@
     <div class="relative w-full h-[11.00156rem] tablet:h-[21.88525rem] big-tablet:h-[34.375rem] swiper-container overflow-hidden">
       <div class="swiper-wrapper">
         <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
-          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-3.jpg') }}" alt="gallery image" />
+          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-3.webp') }}" alt="gallery image" />
         </div>
         <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
-          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-1.jpg') }}" alt="gallery image" />
+          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-1.webp') }}" alt="gallery image" />
         </div>
         <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
-          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-2.jpg') }}" alt="gallery image" />
+          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-2.webp') }}" alt="gallery image" />
         </div>
       </div>
     </div>
