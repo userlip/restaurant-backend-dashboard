@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class ThemeResource extends Resource
 {
@@ -45,7 +46,9 @@ class ThemeResource extends Resource
                                         Forms\Components\Section::make('Header')
                                             ->collapsible()
                                             ->schema([
-                                                Forms\Components\FileUpload::make('header_logo'),
+                                                Forms\Components\FileUpload::make('header_logo')
+                                                    ->directory('template-1')
+                                                    ->image(),
 
                                                 Forms\Components\TextInput::make('contact_number')
                                                     ->default('+1 232 222 4445 777')
@@ -58,8 +61,7 @@ class ThemeResource extends Resource
                                                 Forms\Components\Repeater::make('nav_links')
                                                     ->schema([
                                                         Forms\Components\TextInput::make('label'),
-                                                        Forms\Components\TextInput::make('url')
-                                                            ->url(),
+                                                        Forms\Components\TextInput::make('url'),
                                                     ]),
 
                                                 Forms\Components\Toggle::make('is_search_visible')
@@ -81,7 +83,10 @@ class ThemeResource extends Resource
                                                     ->label('Visible')
                                                     ->hint('If then background image is visible')
                                                     ->default(true),
-                                                Forms\Components\FileUpload::make('background_image'),
+
+                                                Forms\Components\FileUpload::make('background_image')
+                                                    ->directory('template-1')
+                                                    ->image(),
                                             ]),
 
                                         Forms\Components\Section::make('Text Content')
@@ -123,7 +128,29 @@ class ThemeResource extends Resource
 
                                                         Forms\Components\TextInput::make('operating_hours')
                                                             ->default('12 : 00 - 22 : 30')
-                                                    ])
+                                                    ]),
+
+                                                Forms\Components\Section::make('Weekdays Operations')
+                                                    ->label('This is for the mobile responsive version of the restaurant operations')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('weekdays_mobile_day')
+                                                            ->label('Day of the Week')
+                                                            ->hint('Monday, Tuesday, Wednesday ...'),
+
+                                                        Forms\Components\TextInput::make('weekdays_mobile_operating_hours')
+                                                            ->default('12 : 00 - 22 : 30')
+                                                    ]),
+
+                                                Forms\Components\Section::make('Weekends Operations')
+                                                    ->label('This is for the mobile responsive version of the restaurant operations')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('weekends_mobile_day')
+                                                            ->label('Day of the Week')
+                                                            ->hint('Saturday, Sunday, Saturday - Sunday'),
+
+                                                        Forms\Components\TextInput::make('weekends_mobile_operating_hours')
+                                                            ->default('12 : 00 - 22 : 30')
+                                                    ]),
                                             ])
                                     ]),
                             ]),
