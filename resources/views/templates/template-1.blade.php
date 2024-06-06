@@ -138,10 +138,10 @@
             {!! data_get($hero, 'subtext', '&nbsp;') !!}
           </p>
         </div>
-        @if(($contactTitle = data_get($header, 'contact_us_title')) || ($contactLink = data_get($header, 'contact_us_link')))
-          <a href="{{ $contactLink ?? "#"}}"
+        @if(data_get($hero, 'is_contact_us_visible') && (data_get($hero, 'contact_us_title') || data_get($hero, 'contact_us_link')))
+          <a href="{{ data_get($hero, 'contact_us_link', '#')}}"
              class="group scroll-link relative text-[1rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[10.66488rem] h-[5.08131rem]">
-            {{ $contactTitle }}
+            {{ data_get($hero, 'contact_us_title') }}
             <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
                  xmlns="http://www.w3.org/2000/svg" width="165" height="61" viewBox="0 0 165 61" fill="none">
               <path
