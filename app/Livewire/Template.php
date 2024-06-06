@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Theme;
 use Livewire\Component;
 
 class Template extends Component
@@ -17,7 +18,14 @@ class Template extends Component
             ]
         };
 
-        return view($template['view'])
+        $data = collect(Theme::first()->data)
+            ->mapWithKeys(function (array $item) {
+                return [
+                    $item['type'] => $item['data'],
+                ];
+            });
+
+        return view($template['view'], ['page_data' => $data])
             ->layout($template['layout']);
     }
 
