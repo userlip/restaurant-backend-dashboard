@@ -620,58 +620,66 @@
     </div>
   @endif
 {{-- END: Menu Section --}}
+
+{{-- START: Gallery --}}
+@if(data_get($menu, 'is_section_visible'))
   <div
     class="flex flex-col bg-[#161616] gap-[2.5rem] p-[6.25rem_0.875rem] tablet:p-[6.25rem_0rem] tablet:gap-[5rem] justify-center items-center self-stretch">
-    <div class="flex flex-col items-center justify-center gap-[1rem] self-stretch text-center">
-      <h1 class="font-mea text-[1.875rem] desktop:text-[2.5rem] text-[#E1BC84]">Gallery</h1>
-      <h2 class="font-antic text-[2.5rem] desktop:text-[2.875rem]">Lorem ipsum dolor.</h2>
-      <p class="text-[#AAA] text-[0.875rem] font-thin tracking-[0.0625rem] leading-[170%] tablet:flex tablet:flex-col">
-        Lorem ipsum dolor sit amet consectetur. Gravida accumsan <span>accumsan et lectus ipsum nulla erat.</span></p>
-    </div>
-    <div
-      class="relative w-full h-[11.00156rem] tablet:h-[21.88525rem] big-tablet:h-[34.375rem] swiper-container overflow-hidden">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
-          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-3.webp') }}"
-               alt="gallery image" />
-        </div>
-        <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
-          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-1.webp') }}"
-               alt="gallery image" />
-        </div>
-        <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
-          <img class="object-cover w-full h-full" src="{{ asset('/assets/templates/1/gallery-2.webp') }}"
-               alt="gallery image" />
+    @if(data_get($menu, 'is_top_section_visible'))
+      <div class="flex flex-col items-center justify-center gap-[1rem] self-stretch text-center">
+        <h1 class="font-mea text-[1.875rem] desktop:text-[2.5rem] text-[#E1BC84]">
+          {{ data_get($menu, 'section_title') }}
+        </h1>
+        <h2 class="font-antic text-[2.5rem] desktop:text-[2.875rem]">
+          {{ data_get($menu, 'header') }}
+        </h2>
+        <p class="text-[#AAA] text-[0.875rem] font-thin tracking-[0.0625rem] leading-[170%] tablet:flex tablet:flex-col">
+          {!! data_get($menu, 'subtext') !!}
+        </p>
+      </div>
+    @endif
+    @if(data_get($menu, 'is_top_section_visible'))
+      <div
+        class="relative w-full h-[11.00156rem] tablet:h-[21.88525rem] big-tablet:h-[34.375rem] swiper-container overflow-hidden">
+        <div class="swiper-wrapper">
+          @foreach(data_get($menu, 'gallery') as $image)
+            <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
+              <img class="object-cover w-full h-full" src="{{ asset('/storage/' . $image) }}"
+                   alt="gallery image" />
+            </div>
+          @endforeach
         </div>
       </div>
-    </div>
-    <div
-      class="flex w-full justify-center tablet:gap-[2.5rem] items-center px-[0.875rem] tablet:px-[4.375rem] big-tablet:px-[10rem] laptop:px-[20rem] desktop:px-[34rem]">
-      <div class="flex-[3_0_0] relative flex w-[28.75rem]">
-        <div class="swiper-pagination bg-black h-[0.25rem]"></div>
+      <div
+        class="flex w-full justify-center tablet:gap-[2.5rem] items-center px-[0.875rem] tablet:px-[4.375rem] big-tablet:px-[10rem] laptop:px-[20rem] desktop:px-[34rem]">
+        <div class="flex-[3_0_0] relative flex w-[28.75rem]">
+          <div class="swiper-pagination bg-black h-[0.25rem]"></div>
+        </div>
+        <div class="hidden tablet:flex gap-[1.25rem] items-center flex-[1_0_0] relative w-full">
+          <button id="prev-button" class="hidden tablet:block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="61" viewBox="0 0 60 61" fill="none">
+              <rect x="-0.5" y="-0.5" width="59" height="59" rx="29.5"
+                    transform="matrix(4.37114e-08 -1 -1 -4.37114e-08 59 59.6664)" stroke="white" stroke-opacity="0.16" />
+              <path
+                d="M37 30.1664L23 30.1664M23 30.1664C25.1667 30.833 29.5 33.0664 29.5 36.6664M23 30.1664C25.1667 29.4997 29.5 27.2664 29.5 23.6664"
+                stroke="white" />
+            </svg>
+          </button>
+          <button id="next-button" class="hidden tablet:block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="61" viewBox="0 0 60 61" fill="none">
+              <rect x="0.5" y="60.1664" width="59" height="59" rx="29.5" transform="rotate(-90 0.5 60.1664)"
+                    stroke="white" stroke-opacity="0.16" />
+              <path
+                d="M23 30.1664L37 30.1664M37 30.1664C34.8333 30.833 30.5 33.0664 30.5 36.6664M37 30.1664C34.8333 29.4997 30.5 27.2664 30.5 23.6664"
+                stroke="white" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="hidden tablet:flex gap-[1.25rem] items-center flex-[1_0_0] relative w-full">
-        <button id="prev-button" class="hidden tablet:block">
-          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="61" viewBox="0 0 60 61" fill="none">
-            <rect x="-0.5" y="-0.5" width="59" height="59" rx="29.5"
-                  transform="matrix(4.37114e-08 -1 -1 -4.37114e-08 59 59.6664)" stroke="white" stroke-opacity="0.16" />
-            <path
-              d="M37 30.1664L23 30.1664M23 30.1664C25.1667 30.833 29.5 33.0664 29.5 36.6664M23 30.1664C25.1667 29.4997 29.5 27.2664 29.5 23.6664"
-              stroke="white" />
-          </svg>
-        </button>
-        <button id="next-button" class="hidden tablet:block">
-          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="61" viewBox="0 0 60 61" fill="none">
-            <rect x="0.5" y="60.1664" width="59" height="59" rx="29.5" transform="rotate(-90 0.5 60.1664)"
-                  stroke="white" stroke-opacity="0.16" />
-            <path
-              d="M23 30.1664L37 30.1664M37 30.1664C34.8333 30.833 30.5 33.0664 30.5 36.6664M37 30.1664C34.8333 29.4997 30.5 27.2664 30.5 23.6664"
-              stroke="white" />
-          </svg>
-        </button>
-      </div>
-    </div>
+    @endif
   </div>
+@endif
+{{-- END: Gallery --}}
   <div id="contacts"
        class="relative flex p-[5rem_0.875rem] tablet:p-[5rem_2.5rem] big-tablet:p-[5rem_4.375rem] desktop:p-[5rem_7.5rem] flex-col items-center justify-center gap-[2.5rem] self-stretch">
     <img
