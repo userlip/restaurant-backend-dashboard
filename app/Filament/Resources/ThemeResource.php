@@ -153,6 +153,57 @@ class ThemeResource extends Resource
                                                     ]),
                                             ])
                                     ]),
+
+                                Forms\Components\Builder\Block::make('about_us_section')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('is_section_visible')
+                                            ->default(true),
+
+                                        Forms\Components\Section::make('Left Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_left_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\FileUpload::make('left_image')
+                                                    ->hint('9:16 images')
+                                                    ->image(),
+
+                                                Forms\Components\FileUpload::make('right_image')
+                                                    ->hint('9:16 images')
+                                                    ->image(),
+                                            ]),
+
+                                        Forms\Components\Section::make('Right Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_right_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\TextInput::make('section_title')
+                                                    ->default('About Us')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\TextInput::make('header')
+                                                    ->default('About Us')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\RichEditor::make('subtext')
+                                                    ->maxLength(1000),
+
+                                                Forms\Components\Section::make('Contact Us')
+                                                    ->schema([
+                                                        Forms\Components\Toggle::make('is_contact_us_visible'),
+                                                        Forms\Components\TextInput::make('contact_us_title'),
+                                                        Forms\Components\TextInput::make('contact_us_link'),
+                                                    ]),
+
+                                                Forms\Components\Section::make('Learn More')
+                                                    ->schema([
+                                                        Forms\Components\Toggle::make('is_learn_more_visible'),
+                                                        Forms\Components\TextInput::make('learn_more_title'),
+                                                        Forms\Components\TextInput::make('learn_more_link'),
+                                                    ])
+                                            ]),
+                                    ]),
                             ]),
 
                     ])

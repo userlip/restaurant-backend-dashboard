@@ -1,6 +1,7 @@
 @php
   $header = data_get($page_data, 'header');
   $hero = data_get($page_data, 'hero_section');
+  $about_us = data_get($page_data, 'about_us_section');
 //  dd(["header" => $header, "hero" => $hero]);
 @endphp
 <section id='template-1'>
@@ -458,83 +459,98 @@
       </div>
     </div>
   </div>
+{{-- START: About Us --}}
+  @if(data_get($about_us, 'is_section_visible'))
   <div id="about"
        class="relative flex flex-col tablet:flex-row gap-[3.75rem] items-center justify-center tablet:justify-end laptop:justify-center laptop:gap-[5rem] desktop:gap-[7.5rem] self-stretch p-[3.75rem_0.875rem_2.5rem_0.875rem] tablet:p-[6.25rem_2.5rem_3.75rem_2.5rem] big-tablet:p-[6.25rem_4.375rem] desktop:p-[6.25rem_23.125rem_6.25rem_7.5rem]">
-    <img
-      class="absolute top-0 right-0 w-[24.5625rem] h-[16.375rem] tablet:w-[25.9375rem] tablet:h-[17.25rem] big-tablet:w-[29.1875rem] big-tablet:h-[19.4375rem] laptop:w-[36.6875rem] laptop:h-[24.4375rem] desktop:w-[45.25rem] desktop:h-[30.125rem]"
-      src="{{ asset('/assets/templates/1/graphic.png') }}" alt="graphic" />
-    <div
-      class="justify-center items-center hidden tablet:flex self-stretch w-[14.3125rem] big-tablet:w-[39.6875rem] big-tablet:h-[42.875rem] big-tablet:-translate-x-[6rem] laptop:translate-x-0 desktop:w-[53.125rem] desktop:h-[42.875rem] big-tablet:justify-start big-tablet:items-start">
+    @if(data_get($about_us, 'is_left_section_visible'))
+      <img
+        class="absolute top-0 right-0 w-[24.5625rem] h-[16.375rem] tablet:w-[25.9375rem] tablet:h-[17.25rem] big-tablet:w-[29.1875rem] big-tablet:h-[19.4375rem] laptop:w-[36.6875rem] laptop:h-[24.4375rem] desktop:w-[45.25rem] desktop:h-[30.125rem]"
+        src="{{ asset('/assets/templates/1/graphic.png') }}" alt="graphic" />
       <div
-        class="relative border-2 border-[#E1BC84] border-opacity-[0.12] shrink-0 w-[12.75rem] big-tablet:w-[17.625rem] big-tablet:h-[29.75rem] h-[21.5rem]">
+        class="justify-center items-center hidden tablet:flex self-stretch w-[14.3125rem] big-tablet:w-[39.6875rem] big-tablet:h-[42.875rem] big-tablet:-translate-x-[6rem] laptop:translate-x-0 desktop:w-[53.125rem] desktop:h-[42.875rem] big-tablet:justify-start big-tablet:items-start">
         <div
-          class="absolute top-5 left-5 inset-0 flex w-[13.0625rem] big-tablet:w-[18.1875rem] big-tablet:h-[29.75rem] h-[21.375rem] max-w-[38.125rem] items-center justify-center shrink-0">
+          class="relative border-2 border-[#E1BC84] border-opacity-[0.12] shrink-0 w-[12.75rem] big-tablet:w-[17.625rem] big-tablet:h-[29.75rem] h-[21.5rem]">
           <div
-            class="asset-1 w-[13.0625rem] h-[21.375rem] big-tablet:w-[18.1875rem] big-tablet:h-[29.75rem] shrink-0"></div>
-        </div>
-      </div>
-      <div
-        class="relative hidden big-tablet:flex translate-x-20 translate-y-48 border-2 border-[#E1BC84] border-opacity-[0.12] shrink-0 w-[12.75rem] big-tablet:w-[16.8125rem] big-tablet:h-[29.75rem] desktop:w-[30.25rem] h-[21.5rem]">
-        <div
-          class="absolute -top-5 -left-8 inset-0 flex w-[13.0625rem] big-tablet:w-[17.75rem] big-tablet:h-[29.75rem] desktop:w-[31.125rem] h-[21.375rem] max-w-[38.125rem] items-center justify-center shrink-0">
-          <div
-            class="asset-2 w-[13.0625rem] h-[21.375rem] shrink-0 big-tablet:w-[17.75rem] big-tablet:h-[29.75rem] desktop:w-[31.125rem]"></div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="flex max-w-[43.75rem] flex-col justify-center items-center tablet:items-start tablet:flex-[1_0_0] gap-[2.5rem] self-stretch">
-      <div class="flex flex-col gap-[1.875rem] self-stretch items-start">
-        <div class="flex flex-col self-stretch items-center tablet:items-start">
-          <h1 class="font-mea text-[1.875rem] desktop:text-[2.5rem] text-[#E1BC84]">About Us</h1>
-          <h2 class="font-antic text-[2.5rem] desktop:text-[2.875rem] tracking-[0.03125rem]">Our Story</h2>
-        </div>
-      </div>
-      <div class="flex flex-col items-start justify-center gap-[1.25rem] self-stretch">
-        <p class="text-[#AAA] text-[0.875rem] font-light leading-[170%] tracking-[0.0625rem]">Lorem ipsum dolor sit amet
-          consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate.
-          Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.</p>
-        <div class="relative tablet:hidden self-stretch h-[22.625rem]">
-          <div class="border-2 -z-10 border-[#E1BC84] opacity-[0.12] shrink-0 w-[21.5625rem] h-[21.375rem]"></div>
-          <div
-            class="absolute top-5 left-5 inset-0 flex w-[21.5625rem] h-[21.375rem] max-w-[38.125rem] items-center justify-center shrink-0">
-            <div class="asset-1 w-[21.5625rem] h-[21.375rem] shrink-0"></div>
+            class="absolute top-5 left-5 inset-0 flex w-[13.0625rem] big-tablet:w-[18.1875rem] big-tablet:h-[29.75rem] h-[21.375rem] max-w-[38.125rem] items-center justify-center shrink-0">
+            <div
+              class="asset-1 w-[13.0625rem] h-[21.375rem] big-tablet:w-[18.1875rem] big-tablet:h-[29.75rem] shrink-0"></div>
           </div>
         </div>
-        <p class="text-[#AAA] text-[0.875rem] font-light leading-[170%] tracking-[0.0625rem]">Lorem ipsum dolor sit amet
-          consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate.
-          Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.</p>
+        <div
+          class="relative hidden big-tablet:flex translate-x-20 translate-y-48 border-2 border-[#E1BC84] border-opacity-[0.12] shrink-0 w-[12.75rem] big-tablet:w-[16.8125rem] big-tablet:h-[29.75rem] desktop:w-[30.25rem] h-[21.5rem]">
+          <div
+            class="absolute -top-5 -left-8 inset-0 flex w-[13.0625rem] big-tablet:w-[17.75rem] big-tablet:h-[29.75rem] desktop:w-[31.125rem] h-[21.375rem] max-w-[38.125rem] items-center justify-center shrink-0">
+            <div
+              class="asset-2 w-[13.0625rem] h-[21.375rem] shrink-0 big-tablet:w-[17.75rem] big-tablet:h-[29.75rem] desktop:w-[31.125rem]"></div>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col tablet:flex-row gap-[1.25rem] items-center justify-center">
-        <a href="#contact"
-           class="group relative text-[1rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[10.66488rem] h-[5.08131rem]">
-          Contact Us
-          <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
-               xmlns="http://www.w3.org/2000/svg" width="165" height="61" viewBox="0 0 165 61" fill="none">
-            <path
-              d="M163.8 24.5135C164.07 28.3656 162.159 32.2543 158.323 36.0027C154.489 39.7493 148.78 43.3042 141.596 46.4671C127.231 52.7912 107.071 57.5033 84.5252 59.0849C61.9789 60.6666 41.3586 58.8154 26.2517 54.5588C18.6961 52.4299 12.547 49.7069 8.22719 46.5324C3.9052 43.3562 1.47003 39.7724 1.1998 35.9204C0.929572 32.0684 2.84052 28.1797 6.67673 24.4312C10.511 20.6846 16.2197 17.1298 23.4041 13.9668C37.7687 7.64277 57.9286 2.93066 80.4748 1.34898C103.021 -0.232704 123.641 1.61857 138.748 5.87511C146.304 8.004 152.453 10.727 156.773 13.9015C161.095 17.0777 163.53 20.6615 163.8 24.5135Z"
-              stroke="white" />
-          </svg>
-          <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
-               xmlns="http://www.w3.org/2000/svg" width="165" height="60" viewBox="0 0 165 60" fill="none">
-            <path opacity="0.4"
-                  d="M163.967 32.5299C163.858 36.3899 161.574 40.0719 157.388 43.4253C153.204 46.777 147.174 49.7537 139.713 52.1953C124.797 57.0772 104.271 59.7855 81.6787 59.1441C59.0862 58.5026 38.7476 54.634 24.1321 48.9136C16.8223 46.0526 10.9704 42.7385 6.98351 39.1549C2.99454 35.5694 0.923322 31.7636 1.03292 27.9037C1.14252 24.0437 3.42634 20.3616 7.61233 17.0082C11.7962 13.6566 17.8266 10.6799 25.287 8.23824C40.2035 3.35634 60.7289 0.648038 83.3214 1.28952C105.914 1.93099 126.253 5.79955 140.868 11.52C148.178 14.381 154.03 17.6951 158.017 21.2787C162.006 24.8642 164.077 28.67 163.967 32.5299Z"
+    @endif
+    @if(data_get($about_us, 'is_right_section_visible'))
+      <div
+        class="flex max-w-[43.75rem] flex-col justify-center items-center tablet:items-start tablet:flex-[1_0_0] gap-[2.5rem] self-stretch">
+        <div class="flex flex-col gap-[1.875rem] self-stretch items-start">
+          <div class="flex flex-col self-stretch items-center tablet:items-start">
+            <h1 class="font-mea text-[1.875rem] desktop:text-[2.5rem] text-[#E1BC84]">
+              {{ data_get($about_us, 'section_title') }}
+            </h1>
+            <h2 class="font-antic text-[2.5rem] desktop:text-[2.875rem] tracking-[0.03125rem]">
+              {{ data_get($about_us, 'header') }}
+            </h2>
+          </div>
+        </div>
+        <div class="flex flex-col items-start justify-center gap-[1.25rem] self-stretch">
+          <div class="text-[#AAA] text-[0.875rem] font-light leading-[170%] tracking-[0.0625rem]">
+            {!! data_get($about_us, 'subtext') !!}
+          </div>
+          <div class="relative tablet:hidden self-stretch h-[22.625rem]">
+            <div class="border-2 -z-10 border-[#E1BC84] opacity-[0.12] shrink-0 w-[21.5625rem] h-[21.375rem]"></div>
+            <div
+              class="absolute top-5 left-5 inset-0 flex w-[21.5625rem] h-[21.375rem] max-w-[38.125rem] items-center justify-center shrink-0">
+              <div class="asset-1 w-[21.5625rem] h-[21.375rem] shrink-0"></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col tablet:flex-row gap-[1.25rem] items-center justify-center">
+          @if(data_get($about_us, 'is_contact_us_visible'))
+            <a href="{{ data_get($about_us, 'contact_us_link') }}"
+               class="group relative text-[1rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[10.66488rem] h-[5.08131rem]">
+              {{ data_get($about_us, 'contact_us_title') }}
+              <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
+                   xmlns="http://www.w3.org/2000/svg" width="165" height="61" viewBox="0 0 165 61" fill="none">
+                <path
+                  d="M163.8 24.5135C164.07 28.3656 162.159 32.2543 158.323 36.0027C154.489 39.7493 148.78 43.3042 141.596 46.4671C127.231 52.7912 107.071 57.5033 84.5252 59.0849C61.9789 60.6666 41.3586 58.8154 26.2517 54.5588C18.6961 52.4299 12.547 49.7069 8.22719 46.5324C3.9052 43.3562 1.47003 39.7724 1.1998 35.9204C0.929572 32.0684 2.84052 28.1797 6.67673 24.4312C10.511 20.6846 16.2197 17.1298 23.4041 13.9668C37.7687 7.64277 57.9286 2.93066 80.4748 1.34898C103.021 -0.232704 123.641 1.61857 138.748 5.87511C146.304 8.004 152.453 10.727 156.773 13.9015C161.095 17.0777 163.53 20.6615 163.8 24.5135Z"
                   stroke="white" />
-          </svg>
-        </a>
-        <a href="#"
-           class="group flex p-[1rem_2.5rem] hover:text-white/80 transition-colors justify-center items-center gap-[0.875rem]">
-          <span class="text-[1rem] font-semibold min-w-[96px]">Learn More</span>
-          <svg class="transition-transform group-hover:translate-x-[2px] group-hover:-translate-y-[2px]"
-               xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path
-              d="M0.55029 11.251L10.4498 1.35148M10.4498 1.35148C9.38912 3.35495 7.9042 7.99828 10.4498 10.5439M10.4498 1.35148C8.44632 2.41214 3.80298 3.89706 1.2574 1.35148"
-              stroke="white" />
-          </svg>
-        </a>
+              </svg>
+              <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
+                   xmlns="http://www.w3.org/2000/svg" width="165" height="60" viewBox="0 0 165 60" fill="none">
+                <path opacity="0.4"
+                      d="M163.967 32.5299C163.858 36.3899 161.574 40.0719 157.388 43.4253C153.204 46.777 147.174 49.7537 139.713 52.1953C124.797 57.0772 104.271 59.7855 81.6787 59.1441C59.0862 58.5026 38.7476 54.634 24.1321 48.9136C16.8223 46.0526 10.9704 42.7385 6.98351 39.1549C2.99454 35.5694 0.923322 31.7636 1.03292 27.9037C1.14252 24.0437 3.42634 20.3616 7.61233 17.0082C11.7962 13.6566 17.8266 10.6799 25.287 8.23824C40.2035 3.35634 60.7289 0.648038 83.3214 1.28952C105.914 1.93099 126.253 5.79955 140.868 11.52C148.178 14.381 154.03 17.6951 158.017 21.2787C162.006 24.8642 164.077 28.67 163.967 32.5299Z"
+                      stroke="white" />
+              </svg>
+            </a>
+          @endif
+          @if(data_get($about_us, 'is_learn_more_visible'))
+            <a href="{{ data_get($about_us, 'learn_more_link') }}"
+               class="group flex p-[1rem_2.5rem] hover:text-white/80 transition-colors justify-center items-center gap-[0.875rem]">
+              <span class="text-[1rem] font-semibold min-w-[96px]">
+                {{ data_get($about_us, 'learn_more_title') }}
+              </span>
+              <svg class="transition-transform group-hover:translate-x-[2px] group-hover:-translate-y-[2px]"
+                   xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path
+                  d="M0.55029 11.251L10.4498 1.35148M10.4498 1.35148C9.38912 3.35495 7.9042 7.99828 10.4498 10.5439M10.4498 1.35148C8.44632 2.41214 3.80298 3.89706 1.2574 1.35148"
+                  stroke="white" />
+              </svg>
+            </a>
+          @endif
+        </div>
       </div>
-    </div>
+    @endif
   </div>
+  @endif
+{{-- END: About Us --}}
   <div id="menu"
        class="relative flex flex-col big-tablet:flex-row big-tablet:justify-normal gap-[3.75rem] laptop:gap-[5rem] desktop:gap-[7.5rem] self-stretch p-[3.75rem_0.875rem] tablet:p-[6.25rem_2.5rem] big-tablet:p-[6.25rem_4.375rem] laptop:p-[6.25rem_4.375rem_12.5rem_4.375rem] desktop:p-[6.25rem_23.125rem_12.5rem_23.125rem] items-center justify-center">
     <div class="absolute inset-0 h-full w-full -z-10">
