@@ -2,6 +2,7 @@
   $header = data_get($page_data, 'header');
   $hero = data_get($page_data, 'hero_section');
   $about_us = data_get($page_data, 'about_us_section');
+  $menu = data_get($page_data, 'menu_section');
 //  dd(["header" => $header, "hero" => $hero]);
 @endphp
 <section id='template-1'>
@@ -551,44 +552,74 @@
   </div>
   @endif
 {{-- END: About Us --}}
-  <div id="menu"
-       class="relative flex flex-col big-tablet:flex-row big-tablet:justify-normal gap-[3.75rem] laptop:gap-[5rem] desktop:gap-[7.5rem] self-stretch p-[3.75rem_0.875rem] tablet:p-[6.25rem_2.5rem] big-tablet:p-[6.25rem_4.375rem] laptop:p-[6.25rem_4.375rem_12.5rem_4.375rem] desktop:p-[6.25rem_23.125rem_12.5rem_23.125rem] items-center justify-center">
-    <div class="absolute inset-0 h-full w-full -z-10">
-      <img class="object-cover h-full w-full" src="{{ asset('assets/templates/1/backdrop.png') }}"
-           alt="backdrop image" />
-    </div>
-    <div class="flex flex-col justify-center items-center big-tablet:items-start gap-[3.75rem] self-stretch">
-      <div
-        class="flex flex-col gap-[1rem] self-stretch items-center text-center big-tablet:items-start big-tablet:text-left">
-        <h1 class="font-mea text-[#E1BC84] text-[1.875rem] tablet:text-[2.5rem]">Menu</h1>
-        <h2 class="font-antic text-[2.5rem] tablet:text-[2.875rem] tracking-[0.03125rem]">Lorem ipsum dolor.</h2>
-        <p
-          class="text-[#AAA] text-[0.875rem] font-thin tracking-[0.0625rem] leading-[170%] tablet:flex tablet:flex-col">
-          Lorem ipsum dolor sit amet consectetur. Gravida accumsan <span>accumsan et lectus ipsum nulla erat.</span></p>
+{{-- START: Menu Section --}}
+  @if(data_get($menu, 'is_section_visible'))
+    <div id="menu"
+         class="relative flex flex-col big-tablet:flex-row big-tablet:justify-normal gap-[3.75rem] laptop:gap-[5rem] desktop:gap-[7.5rem] self-stretch p-[3.75rem_0.875rem] tablet:p-[6.25rem_2.5rem] big-tablet:p-[6.25rem_4.375rem] laptop:p-[6.25rem_4.375rem_12.5rem_4.375rem] desktop:p-[6.25rem_23.125rem_12.5rem_23.125rem] items-center justify-center">
+      <div class="absolute inset-0 h-full w-full -z-10">
+        <img class="object-cover h-full w-full" src="{{ asset('assets/templates/1/backdrop.png') }}"
+             alt="backdrop image" />
       </div>
-      <button
-        class="group relative text-[1rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[10.66488rem] h-[5.08131rem]">
-        Menu .PDF
-        <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
-             xmlns="http://www.w3.org/2000/svg" width="165" height="61" viewBox="0 0 165 61" fill="none">
-          <path
-            d="M163.8 24.5135C164.07 28.3656 162.159 32.2543 158.323 36.0027C154.489 39.7493 148.78 43.3042 141.596 46.4671C127.231 52.7912 107.071 57.5033 84.5252 59.0849C61.9789 60.6666 41.3586 58.8154 26.2517 54.5588C18.6961 52.4299 12.547 49.7069 8.22719 46.5324C3.9052 43.3562 1.47003 39.7724 1.1998 35.9204C0.929572 32.0684 2.84052 28.1797 6.67673 24.4312C10.511 20.6846 16.2197 17.1298 23.4041 13.9668C37.7687 7.64277 57.9286 2.93066 80.4748 1.34898C103.021 -0.232704 123.641 1.61857 138.748 5.87511C146.304 8.004 152.453 10.727 156.773 13.9015C161.095 17.0777 163.53 20.6615 163.8 24.5135Z"
-            stroke="white" />
-        </svg>
-        <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
-             xmlns="http://www.w3.org/2000/svg" width="165" height="60" viewBox="0 0 165 60" fill="none">
-          <path opacity="0.4"
-                d="M163.967 32.5299C163.858 36.3899 161.574 40.0719 157.388 43.4253C153.204 46.777 147.174 49.7537 139.713 52.1953C124.797 57.0772 104.271 59.7855 81.6787 59.1441C59.0862 58.5026 38.7476 54.634 24.1321 48.9136C16.8223 46.0526 10.9704 42.7385 6.98351 39.1549C2.99454 35.5694 0.923322 31.7636 1.03292 27.9037C1.14252 24.0437 3.42634 20.3616 7.61233 17.0082C11.7962 13.6566 17.8266 10.6799 25.287 8.23824C40.2035 3.35634 60.7289 0.648038 83.3214 1.28952C105.914 1.93099 126.253 5.79955 140.868 11.52C148.178 14.381 154.03 17.6951 158.017 21.2787C162.006 24.8642 164.077 28.67 163.967 32.5299Z"
-                stroke="white" />
-        </svg>
-      </button>
+      @if(data_get($menu, 'is_left_section_visible'))
+        <div class="flex flex-col justify-center items-center big-tablet:items-start gap-[3.75rem] self-stretch">
+          <div
+            class="flex flex-col gap-[1rem] self-stretch items-center text-center big-tablet:items-start big-tablet:text-left">
+            <h1 class="font-mea text-[#E1BC84] text-[1.875rem] tablet:text-[2.5rem]">
+              {{ data_get($menu, 'section_title') }}
+            </h1>
+            <h2 class="font-antic text-[2.5rem] tablet:text-[2.875rem] tracking-[0.03125rem]">
+              {{ data_get($menu, 'header') }}
+            </h2>
+            <div
+              style='width: 430px'
+              class="text-[#AAA] text-[0.875rem] font-thin tracking-[0.0625rem] leading-[170%] tablet:flex tablet:flex-col">
+              {!! data_get($menu, 'subtext') !!}
+            </div>
+          </div>
+          @if(data_get($menu, 'is_menu_pdf_visible'))
+            <a
+              href="{{ data_get($menu, 'menu_pdf') }}"
+              target='_blank'
+              class="group relative text-[1rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[10.66488rem] h-[5.08131rem]">
+              {{ data_get($menu, 'menu_pdf_title') }}
+              <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
+                   xmlns="http://www.w3.org/2000/svg" width="165" height="61" viewBox="0 0 165 61" fill="none">
+                <path
+                  d="M163.8 24.5135C164.07 28.3656 162.159 32.2543 158.323 36.0027C154.489 39.7493 148.78 43.3042 141.596 46.4671C127.231 52.7912 107.071 57.5033 84.5252 59.0849C61.9789 60.6666 41.3586 58.8154 26.2517 54.5588C18.6961 52.4299 12.547 49.7069 8.22719 46.5324C3.9052 43.3562 1.47003 39.7724 1.1998 35.9204C0.929572 32.0684 2.84052 28.1797 6.67673 24.4312C10.511 20.6846 16.2197 17.1298 23.4041 13.9668C37.7687 7.64277 57.9286 2.93066 80.4748 1.34898C103.021 -0.232704 123.641 1.61857 138.748 5.87511C146.304 8.004 152.453 10.727 156.773 13.9015C161.095 17.0777 163.53 20.6615 163.8 24.5135Z"
+                  stroke="white" />
+              </svg>
+              <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
+                   xmlns="http://www.w3.org/2000/svg" width="165" height="60" viewBox="0 0 165 60" fill="none">
+                <path opacity="0.4"
+                      d="M163.967 32.5299C163.858 36.3899 161.574 40.0719 157.388 43.4253C153.204 46.777 147.174 49.7537 139.713 52.1953C124.797 57.0772 104.271 59.7855 81.6787 59.1441C59.0862 58.5026 38.7476 54.634 24.1321 48.9136C16.8223 46.0526 10.9704 42.7385 6.98351 39.1549C2.99454 35.5694 0.923322 31.7636 1.03292 27.9037C1.14252 24.0437 3.42634 20.3616 7.61233 17.0082C11.7962 13.6566 17.8266 10.6799 25.287 8.23824C40.2035 3.35634 60.7289 0.648038 83.3214 1.28952C105.914 1.93099 126.253 5.79955 140.868 11.52C148.178 14.381 154.03 17.6951 158.017 21.2787C162.006 24.8642 164.077 28.67 163.967 32.5299Z"
+                      stroke="white" />
+              </svg>
+            </a>
+          @endif
+        </div>
+      @endif
+      @if(data_get($menu, 'is_right_section_visible'))
+        @if($menu_picture = data_get($menu, 'menu_picture'))
+          <div
+            class="relative h-[49rem] big-tablet:flex-[1_0_0] self-stretch"
+            style='
+              background-image: url("{{ asset('/storage/' . $menu_picture) }}");
+              background-color: lightgray;
+              background-size: cover;
+              background-position: 50%;
+              background-repeat: no-repeat;
+            '>
+        @else
+          <div class="relative h-[49rem] big-tablet:flex-[1_0_0] self-stretch">
+        @endif
+          <div class="absolute inset-0 w-full h-full flex items-center justify-center">
+            <span class="font-mea text-[7.5rem]">Menu</span>
+          </div>
+        </div>
+      @endif
     </div>
-    <div class="relative asset-3 h-[49rem] big-tablet:flex-[1_0_0] self-stretch">
-      <div class="absolute inset-0 w-full h-full flex items-center justify-center">
-        <span class="font-mea text-[7.5rem]">Menu</span>
-      </div>
-    </div>
-  </div>
+  @endif
+{{-- END: Menu Section --}}
   <div
     class="flex flex-col bg-[#161616] gap-[2.5rem] p-[6.25rem_0.875rem] tablet:p-[6.25rem_0rem] tablet:gap-[5rem] justify-center items-center self-stretch">
     <div class="flex flex-col items-center justify-center gap-[1rem] self-stretch text-center">

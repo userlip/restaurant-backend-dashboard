@@ -5,15 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ThemeResource\Pages;
 use App\Filament\Resources\ThemeResource\RelationManagers;
 use App\Models\Theme;
-use Faker\Provider\Text;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth;
 
 class ThemeResource extends Resource
 {
@@ -204,8 +200,58 @@ class ThemeResource extends Resource
                                                     ])
                                             ]),
                                     ]),
-                            ]),
 
+                                Forms\Components\Builder\Block::make('menu_section')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('is_section_visible')
+                                            ->default(true),
+
+                                        Forms\Components\Section::make('Left Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_left_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\TextInput::make('section_title')
+                                                    ->default('Menu')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\TextInput::make('header')
+                                                    ->default('Lorem ipsum dolor')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\RichEditor::make('subtext')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat.')
+                                                    ->maxLength(1000),
+
+                                                Forms\Components\Section::make('Menu PDF')
+                                                    ->schema([
+                                                        Forms\Components\Toggle::make('is_menu_pdf_visible')
+                                                            ->default(true),
+
+                                                        Forms\Components\TextInput::make('menu_pdf_title')
+                                                            ->default("Menu .PDF"),
+
+                                                        Forms\Components\FileUpload::make('menu_pdf')
+                                                            ->hint("File must be a PDF file")
+                                                            ->acceptedFileTypes([
+                                                                'application/pdf'
+                                                            ]),
+                                                    ]),
+                                            ]),
+
+                                        Forms\Components\Section::make('Right Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_right_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\TextInput::make('menu_text')
+                                                    ->default("Menu"),
+
+                                                Forms\Components\FileUpload::make('menu_picture')
+                                                    ->image()
+                                            ])
+                                    ])
+                            ]),
                     ])
             ]);
     }
