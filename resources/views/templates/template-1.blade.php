@@ -5,10 +5,12 @@
   $menu = data_get($page_data, 'menu_section');
   $gallery = data_get($page_data, 'gallery_section');
   $contact_us = data_get($page_data, 'contact_us_section');
+  $google_maps = data_get($page_data, 'google_maps_section');
 //  dd([
 //	  "header" => $header,
 //	  "hero" => $hero,
-//	  "gallery" => $gallery
+//	  "gallery" => $gallery,
+//	  "google_maps" => $google_maps,
 //  ]);
 @endphp
 <section id='template-1'>
@@ -787,7 +789,7 @@
             <div class="h-0.5 w-full bg-[#414141]"></div>
 
             @error('message')
-            <span class='text-red-500 mt-2'>{{ $message }}</span>
+              <span class='text-red-500 mt-2'>{{ $message }}</span>
             @enderror
 
             <div class='hidden'>
@@ -820,26 +822,46 @@
     </div>
   @endif
   <footer class="flex flex-col items-center self-stretch justify-center">
-    <div
-      class="relative flex w-full min-h-[31.25rem] flex-[1_0_0] flex-col items-center justify-center gap-[0.625rem] self-stretch">
-      <div class="absolute inset-0 w-full h-full">
-        <img class="w-full h-full object-cover" src="{{ asset('/assets/templates/1/map.png') }}" alt="map" />
-      </div>
+{{--    @if(data_get($google_maps, 'is_section_visible'))--}}
       <div
-        class="relative flex flex-col items-start p-[1.25rem] w-[20.1875rem] gap-[0.625rem] bg-[rgba(255,255,255,0.08)]">
-        <svg class="absolute left-[145px] tablet:-left-12 -top-12" xmlns="http://www.w3.org/2000/svg" width="32"
-             height="33" viewBox="0 0 32 33" fill="none">
-          <circle opacity="0.5" cx="16" cy="16.9546" r="15.5" stroke="#E1BC84" />
-          <circle cx="16" cy="16.9546" r="8" fill="#E1BC84" />
-        </svg>
-        <span class="text-[1.25rem] font-semibold">10408 Madison Street, Fort Lilly 19797-5951</span>
-        <div class="flex flex-col items-start gap-[0.25rem]">
-          <span class="text-[0.875rem] font-thin tracking-[0.0625rem]">Mon. - Fri. : <span class="font-bold">09:00 - 23:00</span></span>
-          <span class="text-[0.875rem] font-thin tracking-[0.0625rem]">Weekend : <span
-              class="font-bold">09:00 - 23:00</span></span>
+        class="relative flex w-full min-h-[31.25rem] flex-[1_0_0] flex-col items-center justify-center gap-[0.625rem] self-stretch">
+        <div class="absolute inset-0 w-full h-full">
+{{--          <img class="w-full h-full object-cover" src="{{ asset('/storage/' . data_get($google_maps, 'map_image', '/assets/templates/1/map.png')) }}" alt="map" />--}}
+          <img class="w-full h-full object-cover" src="{{ asset('/assets/templates/1/map.png') }}" alt="map" />
+        </div>
+        <div class="relative flex flex-col items-start p-[1.25rem] w-[20.1875rem] gap-[0.625rem] bg-[rgba(255,255,255,0.08)]">
+          <svg class="absolute left-[145px] tablet:-left-12 -top-12" xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+            <circle opacity="0.5" cx="16" cy="16.9546" r="15.5" stroke="#E1BC84"/>
+            <circle cx="16" cy="16.9546" r="8" fill="#E1BC84"/>
+          </svg>
+          <span class="text-[1.25rem] font-semibold">10408 Madison Street, Fort Lilly 19797-5951</span>
+          <div class="flex flex-col items-start gap-[0.25rem]">
+            <span class="text-[0.875rem] font-thin tracking-[0.0625rem]">Mon. - Fri. : <span class="font-bold">09:00 - 23:00</span></span>
+            <span class="text-[0.875rem] font-thin tracking-[0.0625rem]">Weekend : <span class="font-bold">09:00 - 23:00</span></span>
+          </div>
         </div>
       </div>
-    </div>
+{{--        <div--}}
+{{--          class="relative flex flex-col items-start p-[1.25rem] w-[20.1875rem] gap-[0.625rem] bg-[rgba(255,255,255,0.08)]">--}}
+{{--          <svg class="absolute left-[145px] tablet:-left-12 -top-12" xmlns="http://www.w3.org/2000/svg" width="32"--}}
+{{--               height="33" viewBox="0 0 32 33" fill="none">--}}
+{{--            <circle opacity="0.5" cx="16" cy="16.9546" r="15.5" stroke="#E1BC84" />--}}
+{{--            <circle cx="16" cy="16.9546" r="8" fill="#E1BC84" />--}}
+{{--          </svg>--}}
+{{--          <span class="text-[1.25rem] font-semibold">--}}
+{{--            {{ data_get($google_maps, 'address') }}--}}
+{{--          </span>--}}
+{{--          <div class="flex flex-col items-start gap-[0.25rem]">--}}
+{{--            <span class="text-[0.875rem] font-thin tracking-[0.0625rem]">--}}
+{{--              {!! data_get($google_maps, 'weekday_operating_hours') !!}--}}
+{{--            </span>--}}
+{{--            <span class="text-[0.875rem] font-thin tracking-[0.0625rem]">--}}
+{{--              {!! data_get($google_maps, 'weekend_operating_hours') !!}--}}
+{{--            </span>--}}
+{{--          </div>--}}
+{{--        </div>--}}
+      </div>
+{{--    @endif--}}
     <div class="flex flex-col tablet:flex-row items-start self-stretch">
       <div
         class="flex tablet:w-[23.25rem] big-tablet:w-[31.25rem] laptop:w-[42.6875rem] desktop:max-w-[59.96875rem] p-[2.5rem_0.875rem] tablet:p-[2.5rem] big-tablet:p-[4.375rem_2.5rem] desktop:p-[4.375rem_7.5rem] tablet:flex-[1_0_0] bg-[#161616] flex-col justify-center items-center gap-[2.5rem] self-stretch">

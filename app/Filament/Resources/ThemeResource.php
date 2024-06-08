@@ -7,6 +7,7 @@ use App\Filament\Resources\ThemeResource\RelationManagers;
 use App\Models\Theme;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -317,6 +318,31 @@ class ThemeResource extends Resource
                                                     ->maxLength(255),
                                             ]),
                                     ]),
+
+//                                Forms\Components\Builder\Block::make('google_maps_section')
+//                                    ->schema([
+//                                        Forms\Components\Toggle::make('is_section_visible')
+//                                            ->default(true),
+//
+//                                        Forms\Components\Section::make()
+//                                            ->schema([
+//                                                Forms\Components\FileUpload::make('map_image')
+//                                                    ->live()
+//                                                    ->image(),
+//
+//                                                Forms\Components\TextInput::make('address')
+//                                                    ->default('10408 Madison Street, Fort Lilly 19797-5951')
+//                                                    ->maxLength(255),
+//
+//                                                Forms\Components\RichEditor::make('weekday_operating_hours')
+//                                                    ->default('Mon. - Fri. : 09:00 - 23:00')
+//                                                    ->maxLength(255),
+//
+//                                                Forms\Components\RichEditor::make('weekend_operating_hours')
+//                                                    ->default('Weekend : 09:00 - 23:00')
+//                                                    ->maxLength(255),
+//                                            ])
+//                                    ]),
                             ]),
                     ])
             ]);
