@@ -184,10 +184,12 @@ class ThemeResource extends Resource
                                                     ->default(true),
 
                                                 Forms\Components\FileUpload::make('left_image')
+                                                    ->directory('template-1')
                                                     ->hint('9:16 images')
                                                     ->image(),
 
                                                 Forms\Components\FileUpload::make('right_image')
+                                                    ->directory('template-1')
                                                     ->hint('9:16 images')
                                                     ->image(),
                                             ]),
@@ -255,6 +257,7 @@ class ThemeResource extends Resource
                                                             ->default("Menu .PDF"),
 
                                                         Forms\Components\FileUpload::make('menu_pdf')
+                                                            ->directory('template-1')
                                                             ->hint("File must be a PDF file")
                                                             ->acceptedFileTypes([
                                                                 'application/pdf'
@@ -271,6 +274,7 @@ class ThemeResource extends Resource
                                                     ->default("Menu"),
 
                                                 Forms\Components\FileUpload::make('menu_picture')
+                                                    ->directory('template-1')
                                                     ->image()
                                             ])
                                     ]),
@@ -316,6 +320,7 @@ class ThemeResource extends Resource
                                                     ->maxLength(1000),
 
                                                 Forms\Components\FileUpload::make('gallery')
+                                                    ->directory('template-1')
                                                     ->multiple()
                                                     ->image(),
                                             ]),
@@ -349,6 +354,7 @@ class ThemeResource extends Resource
 //                                        Forms\Components\Section::make()
 //                                            ->schema([
 //                                                Forms\Components\FileUpload::make('map_image')
+//                                                    ->directory('template-1')
 //                                                    ->live()
 //                                                    ->image(),
 //
@@ -376,7 +382,9 @@ class ThemeResource extends Resource
                                                 Forms\Components\Toggle::make('is_left_section_visible')
                                                     ->default(true),
 
-                                                Forms\Components\FileUpload::make('logo'),
+                                                Forms\Components\FileUpload::make('logo')
+                                                    ->directory('template-1')
+                                                    ->image(),
 
                                                 Forms\Components\RichEditor::make('subtext')
                                                     ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate.')

@@ -481,7 +481,7 @@
             @php
               $left_image = data_get($about_us, 'left_image');
               if($left_image) {
-                $left_image = "/storage/" . $right_image;
+                $left_image = "/storage/" . $left_image;
               }
             @endphp
             <div
