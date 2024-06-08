@@ -51,13 +51,15 @@
               stroke="white" stroke-width="1.5" stroke-linecap="round" />
           </svg>
           <div class="flex w-full flex-col items-start justify-center gap-[0.25rem]">
-            <span class="uppercase text-[0.5rem] font-light tracking-[0.0625rem]">CALL US</span>
+            <span class="uppercase text-[0.5rem] font-light tracking-[0.0625rem]">
+              {{ data_get($header, 'call_us_label') }}
+            </span>
             {{-- Contact Number --}}
             <span class="text-[1] font-semibold">
-              {{ data_get($header, 'contact_number') }}
+              {{ data_get($header, 'call_us_contact_number') }}
             </span>
             <span class="text-[0.625rem] tracking-[0.0625rem] font-thin">
-              {{ data_get($header, 'operating_hours') }}
+              {{ data_get($header, 'call_us_operating_hours') }}
             </span>
           </div>
         </div>
@@ -71,12 +73,14 @@
               stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <div class="flex w-full flex-col items-start justify-center gap-[0.25rem]">
-            <span class="uppercase text-[0.5rem] font-light tracking-[0.0625rem]">VISIT US</span>
+            <span class="uppercase text-[0.5rem] font-light tracking-[0.0625rem]">
+              {{ data_get($header, 'visit_us_label') }}
+            </span>
             <span class="text-[1] font-semibold">
-              {{ data_get($header, 'contact_number') }}
+              {{ data_get($header, 'visit_us_contact_number') }}
             </span>
             <span class="text-[0.625rem] tracking-[0.0625rem] font-thin">
-              {{ data_get($header, 'operating_hours') }}
+              {{ data_get($header, 'visit_us_operating_hours') }}
             </span>
           </div>
         </div>
@@ -137,11 +141,11 @@
           @endif
         </span>
           <h1 class="font-antic text-[3.75rem] tablet:text-[5rem] desktop:text-[6.25rem] self-stretch text-center">
-            @if($header = data_get($hero, 'header', '&nbsp;'))
-              @if($header !== '&nbsp;')
-                {{ $header }}
+            @if($textHeader = data_get($hero, 'header', '&nbsp;'))
+              @if($textHeader !== '&nbsp;')
+                {{ $textHeader }}
               @else
-                {!! $header !!}
+                {!! $textHeader !!}
               @endif
             @endif
           </h1>
@@ -350,39 +354,20 @@
       </button>
     </div>
     <div class="flex w-full flex-col items-center justify-center gap-[1.25rem]">
-      <button id="button-about"
-              class="group w-[7.1875rem] h-[3.6875rem] relative flex items-center justify-center text-center hover:text-white/80 transition-colors text-[1rem] font-semibold tracking-[0.03125rem]">
-        About Us
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="group-hover:rotate-[5deg] transition-transform absolute inset-0 top-4 left-2" width="105"
-             height="41" viewBox="0 0 105 41" fill="none">
-          <path opacity="0.4"
-                d="M104.022 13.5773C104.341 15.851 103.378 18.2964 101.141 20.8089C98.9074 23.3184 95.4703 25.8129 91.0505 28.1381C82.217 32.7854 69.6085 36.6785 55.3231 38.6862C41.0376 40.6939 27.8445 40.427 18.0722 38.3945C13.1827 37.3776 9.19118 35.9272 6.35206 34.1307C3.50944 32.332 1.90968 30.2468 1.59013 27.9731C1.27058 25.6994 2.23362 23.2541 4.47033 20.7415C6.70427 18.232 10.1414 15.7376 14.5611 13.4123C23.3947 8.76503 36.0031 4.87194 50.2886 2.86425C64.5741 0.856558 77.7672 1.12347 87.5395 3.15588C92.429 4.17278 96.4205 5.62319 99.2596 7.41971C102.102 9.21845 103.702 11.3036 104.022 13.5773Z"
-                stroke="white" stroke-width="1.5" />
-        </svg>
-      </button>
-      <button id="button-menu"
-              class="group w-[7.1875rem] h-[3.6875rem] relative flex items-center justify-center text-center hover:text-white/80 transition-colors text-[1rem] font-semibold tracking-[0.03125rem]">
-        Our Menu
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="group-hover:rotate-[5deg] transition-transform absolute inset-0 top-4 left-2" width="105"
-             height="41" viewBox="0 0 105 41" fill="none">
-          <path opacity="0.4"
-                d="M104.022 13.5773C104.341 15.851 103.378 18.2964 101.141 20.8089C98.9074 23.3184 95.4703 25.8129 91.0505 28.1381C82.217 32.7854 69.6085 36.6785 55.3231 38.6862C41.0376 40.6939 27.8445 40.427 18.0722 38.3945C13.1827 37.3776 9.19118 35.9272 6.35206 34.1307C3.50944 32.332 1.90968 30.2468 1.59013 27.9731C1.27058 25.6994 2.23362 23.2541 4.47033 20.7415C6.70427 18.232 10.1414 15.7376 14.5611 13.4123C23.3947 8.76503 36.0031 4.87194 50.2886 2.86425C64.5741 0.856558 77.7672 1.12347 87.5395 3.15588C92.429 4.17278 96.4205 5.62319 99.2596 7.41971C102.102 9.21845 103.702 11.3036 104.022 13.5773Z"
-                stroke="white" stroke-width="1.5" />
-        </svg>
-      </button>
-      <button id="button-contacts"
-              class="group w-[7.1875rem] h-[3.6875rem] relative flex items-center justify-center text-center hover:text-white/80 transition-colors text-[1rem] font-semibold tracking-[0.03125rem]">
-        Contacts
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="group-hover:rotate-[5deg] transition-transform absolute inset-0 top-4 left-2" width="105"
-             height="41" viewBox="0 0 105 41" fill="none">
-          <path opacity="0.4"
-                d="M104.022 13.5773C104.341 15.851 103.378 18.2964 101.141 20.8089C98.9074 23.3184 95.4703 25.8129 91.0505 28.1381C82.217 32.7854 69.6085 36.6785 55.3231 38.6862C41.0376 40.6939 27.8445 40.427 18.0722 38.3945C13.1827 37.3776 9.19118 35.9272 6.35206 34.1307C3.50944 32.332 1.90968 30.2468 1.59013 27.9731C1.27058 25.6994 2.23362 23.2541 4.47033 20.7415C6.70427 18.232 10.1414 15.7376 14.5611 13.4123C23.3947 8.76503 36.0031 4.87194 50.2886 2.86425C64.5741 0.856558 77.7672 1.12347 87.5395 3.15588C92.429 4.17278 96.4205 5.62319 99.2596 7.41971C102.102 9.21845 103.702 11.3036 104.022 13.5773Z"
-                stroke="white" stroke-width="1.5" />
-        </svg>
-      </button>
+      @foreach(data_get($header, 'nav_links') as $link)
+        <a id="button-{!! Str::slug(strtolower(data_get($link, 'label'))) !!}"
+           href='{{ data_get($link, 'url') }}'
+           class="group w-[7.1875rem] h-[3.6875rem] relative flex items-center justify-center text-center hover:text-white/80 transition-colors text-[1rem] font-semibold tracking-[0.03125rem]">
+          {{ data_get($link, 'label') }}
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="group-hover:rotate-[5deg] transition-transform absolute inset-0 top-4 left-2" width="105"
+               height="41" viewBox="0 0 105 41" fill="none">
+            <path opacity="0.4"
+                  d="M104.022 13.5773C104.341 15.851 103.378 18.2964 101.141 20.8089C98.9074 23.3184 95.4703 25.8129 91.0505 28.1381C82.217 32.7854 69.6085 36.6785 55.3231 38.6862C41.0376 40.6939 27.8445 40.427 18.0722 38.3945C13.1827 37.3776 9.19118 35.9272 6.35206 34.1307C3.50944 32.332 1.90968 30.2468 1.59013 27.9731C1.27058 25.6994 2.23362 23.2541 4.47033 20.7415C6.70427 18.232 10.1414 15.7376 14.5611 13.4123C23.3947 8.76503 36.0031 4.87194 50.2886 2.86425C64.5741 0.856558 77.7672 1.12347 87.5395 3.15588C92.429 4.17278 96.4205 5.62319 99.2596 7.41971C102.102 9.21845 103.702 11.3036 104.022 13.5773Z"
+                  stroke="white" stroke-width="1.5" />
+          </svg>
+        </a>
+      @endforeach
     </div>
     <div class="flex flex-col justify-center items-center gap-[1.25rem] p-[0rem_0.875rem] tablet:p-[0rem_2.5rem]">
       <div class="flex flex-col justify-center items-center gap-[0.875rem]">
@@ -395,10 +380,15 @@
             stroke="#E1BC84" stroke-width="1.5" stroke-linecap="round" />
         </svg>
         <div class="flex flex-col justify-center items-center gap-[0.25rem]">
-          <span class="text-[0.5rem] font-light uppercase tracking-[0.0625rem] text-[#AAA]">CALL US</span>
-          <span class="text-[1rem] font-semibold">+1 232 222 4445 777</span>
-          <span class="font-light text-[#AAA] text-[0.625rem] tracking-[0.0625rem]">Mon. - Fri. : <span
-              class="font-bold">09:00 - 23:00</span></span>
+          <span class="text-[0.5rem] font-light uppercase tracking-[0.0625rem] text-[#AAA]">
+            {{ data_get($header, 'call_us_label') }}
+          </span>
+          <span class="text-[1rem] font-semibold">
+            {{ data_get($header, 'call_us_contact_number') }}
+          </span>
+          <span class="font-light text-[#AAA] text-[0.625rem] tracking-[0.0625rem]">
+            {{ data_get($header, 'call_us_operating_hours') }}
+          </span>
         </div>
       </div>
       <svg class="tablet:hidden" xmlns="http://www.w3.org/2000/svg" width="365" height="2" viewBox="0 0 365 2"
@@ -419,10 +409,15 @@
             stroke="#E1BC84" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         <div class="flex flex-col justify-center items-center gap-[0.25rem]">
-          <span class="text-[0.5rem] font-light uppercase tracking-[0.0625rem] text-[#AAA]">VISIT US</span>
-          <span class="text-[1rem] font-semibold">10408 Madison Street, Fort Lilly 19797-5951</span>
-          <span class="font-light text-[#AAA] text-[0.625rem] tracking-[0.0625rem]">Mon. - Fri. : <span
-              class="font-bold">09:00 - 23:00</span> Weekend : <span class="font-bold">11:00 - 23:30</span></span>
+          <span class="text-[0.5rem] font-light uppercase tracking-[0.0625rem] text-[#AAA]">
+            {{ data_get($header, 'visit_us_label') }}
+          </span>
+          <span class="text-[1rem] font-semibold">
+            {{ data_get($header, 'visit_us_contact_number') }}
+          </span>
+          <span class="font-light text-[#AAA] text-[0.625rem] tracking-[0.0625rem]">
+            {{ data_get($header, 'visit_us_operating_hours') }}
+          </span>
         </div>
       </div>
       <svg class="tablet:hidden" xmlns="http://www.w3.org/2000/svg" width="365" height="2" viewBox="0 0 365 2"

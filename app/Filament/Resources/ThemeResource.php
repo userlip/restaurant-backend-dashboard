@@ -47,13 +47,35 @@ class ThemeResource extends Resource
                                                     ->directory('template-1')
                                                     ->image(),
 
-                                                Forms\Components\TextInput::make('contact_number')
-                                                    ->default('+1 232 222 4445 777')
-                                                    ->maxLength(255),
+                                                Forms\Components\Section::make('Call Us')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('call_us_label')
+                                                            ->default('Call Us')
+                                                            ->maxLength(255),
 
-                                                Forms\Components\RichEditor::make('operating_hours')
-                                                    ->default('Mon - Fri, 09:00 - 18:00')
-                                                    ->maxLength(255),
+                                                        Forms\Components\TextInput::make('call_us_contact_number')
+                                                            ->default('+1 232 222 4445 777')
+                                                            ->maxLength(255),
+
+                                                        Forms\Components\RichEditor::make('call_us_operating_hours')
+                                                            ->default('Mon - Fri, 09:00 - 18:00')
+                                                            ->maxLength(255),
+                                                    ]),
+
+                                                Forms\Components\Section::make('Visit Us')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('visit_us_label')
+                                                            ->default('Call Us')
+                                                            ->maxLength(255),
+
+                                                        Forms\Components\TextInput::make('visit_us_contact_number')
+                                                            ->default('+1 232 222 4445 777')
+                                                            ->maxLength(255),
+
+                                                        Forms\Components\RichEditor::make('visit_us_operating_hours')
+                                                            ->default('Mon - Fri, 09:00 - 18:00')
+                                                            ->maxLength(255),
+                                                    ]),
 
                                                 Forms\Components\Repeater::make('nav_links')
                                                     ->schema([
