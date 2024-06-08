@@ -478,16 +478,34 @@
           class="relative border-2 border-[#E1BC84] border-opacity-[0.12] shrink-0 w-[12.75rem] big-tablet:w-[17.625rem] big-tablet:h-[29.75rem] h-[21.5rem]">
           <div
             class="absolute top-5 left-5 inset-0 flex w-[13.0625rem] big-tablet:w-[18.1875rem] big-tablet:h-[29.75rem] h-[21.375rem] max-w-[38.125rem] items-center justify-center shrink-0">
+            @php
+              $left_image = data_get($about_us, 'left_image');
+              if($left_image) {
+                $left_image = "/storage/" . $right_image;
+              }
+            @endphp
             <div
-              class="asset-1 w-[13.0625rem] h-[21.375rem] big-tablet:w-[18.1875rem] big-tablet:h-[29.75rem] shrink-0"></div>
+              style="
+                background: url({{ asset($left_image ?? '/assets/templates/1/asset-1.jpg') }}) lightgray 50% / cover no-repeat;
+              "
+              class="w-[13.0625rem] h-[21.375rem] big-tablet:w-[18.1875rem] big-tablet:h-[29.75rem] shrink-0"></div>
           </div>
         </div>
         <div
           class="relative hidden big-tablet:flex translate-x-20 translate-y-48 border-2 border-[#E1BC84] border-opacity-[0.12] shrink-0 w-[12.75rem] big-tablet:w-[16.8125rem] big-tablet:h-[29.75rem] desktop:w-[30.25rem] h-[21.5rem]">
           <div
             class="absolute -top-5 -left-8 inset-0 flex w-[13.0625rem] big-tablet:w-[17.75rem] big-tablet:h-[29.75rem] desktop:w-[31.125rem] h-[21.375rem] max-w-[38.125rem] items-center justify-center shrink-0">
+            @php
+            $right_image = data_get($about_us, 'right_image');
+            if($right_image) {
+              $right_image = "/storage/" . $right_image;
+            }
+            @endphp
             <div
-              class="asset-2 w-[13.0625rem] h-[21.375rem] shrink-0 big-tablet:w-[17.75rem] big-tablet:h-[29.75rem] desktop:w-[31.125rem]"></div>
+              style="
+                background: url('{{ asset($right_image ?? 'assets/templates/1/asset-2.jpg') }}') lightgray 50% / cover no-repeat;
+              "
+              class="w-[13.0625rem] h-[21.375rem] shrink-0 big-tablet:w-[17.75rem] big-tablet:h-[29.75rem] desktop:w-[31.125rem]"></div>
           </div>
         </div>
       </div>
