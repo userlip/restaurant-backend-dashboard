@@ -343,6 +343,73 @@ class ThemeResource extends Resource
 //                                                    ->maxLength(255),
 //                                            ])
 //                                    ]),
+
+                                Forms\Components\Builder\Block::make('footer_section')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('is_section_visible')
+                                            ->default(true),
+
+                                        Forms\Components\Section::make('Left Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_left_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\FileUpload::make('logo'),
+
+                                                Forms\Components\RichEditor::make('subtext')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate.')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\Repeater::make('links')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('label')
+                                                            ->maxLength(255)
+                                                            ->required(),
+
+                                                        Forms\Components\TextInput::make('link')
+                                                            ->maxLength(255)
+                                                            ->required(),
+                                                    ])
+                                            ]),
+
+                                        Forms\Components\Section::make('Right Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_right_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\TextInput::make('call_us')
+                                                    ->default('Call us'),
+
+                                                Forms\Components\TextInput::make('phone_number')
+                                                    ->default('+1 232 222 4445 777'),
+
+                                                Forms\Components\RichEditor::make('operation_hours')
+                                                    ->default('Mon. - Fri. : 09:00 - 23:00'),
+
+                                                Forms\Components\Section::make('Socials')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('facebook')
+                                                            ->hint('Make this empty to make this social icon invisible')
+                                                            ->url()
+                                                            ->default('www.facebook.com'),
+
+                                                        Forms\Components\TextInput::make('twitter')
+                                                            ->hint('Make this empty to make this social icon invisible')
+                                                            ->url()
+                                                            ->default('www.x.com'),
+
+                                                        Forms\Components\TextInput::make('instagram')
+                                                            ->hint('Make this empty to make this social icon invisible')
+                                                            ->url()
+                                                            ->default('www.instagram.com'),
+
+                                                        Forms\Components\TextInput::make('linkedin')
+                                                            ->hint('Make this empty to make this social icon invisible')
+                                                            ->url()
+                                                            ->default('www.instagram.com'),
+                                                    ])
+                                            ]),
+                                    ]),
                             ]),
                     ])
             ]);
