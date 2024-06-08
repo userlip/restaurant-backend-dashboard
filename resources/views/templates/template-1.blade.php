@@ -4,6 +4,7 @@
   $about_us = data_get($page_data, 'about_us_section');
   $menu = data_get($page_data, 'menu_section');
   $gallery = data_get($page_data, 'gallery_section');
+  $contact_us = data_get($page_data, 'contact_us_section');
 //  dd([
 //	  "header" => $header,
 //	  "hero" => $hero,
@@ -686,46 +687,76 @@
   </div>
 @endif
 {{-- END: Gallery --}}
-  <div id="contacts"
+  @if(data_get($contact_us, 'is_section_visible'))
+    <div id="contacts"
        class="relative flex p-[5rem_0.875rem] tablet:p-[5rem_2.5rem] big-tablet:p-[5rem_4.375rem] desktop:p-[5rem_7.5rem] flex-col items-center justify-center gap-[2.5rem] self-stretch">
-    <img
-      class="absolute bottom-0 left-0 rotate-180 w-[24.5625rem] h-[16.375rem] tablet:w-[25.9375rem] tablet:h-[17.25rem] big-tablet:w-[29.1875rem] big-tablet:h-[19.4375rem] laptop:w-[36.6875rem] laptop:h-[24.4375rem] desktop:w-[45.25rem] desktop:h-[30.125rem]"
-      src="{{ asset('/assets/templates/1/graphic.png') }}" alt="graphic" />
-    <div class="flex flex-col items-center justify-center gap-[0.375rem] self-stretch text-center">
-      <h1 class="font-mea text-[1.875rem] desktop:text-[2.5rem] text-[#E1BC84]">Contacts</h1>
-      <h2 class="font-antic text-[2.5rem] desktop:text-[2.875rem] tracking-[0.03125rem]">Contact Us</h2>
-    </div>
-    <div class="flex flex-col self-stretch gap-[1.25rem] z-10">
-      <div class="flex flex-col tablet:flex-row gap-[1.25rem] self-stretch items-start">
-        <div class="flex flex-[1_0_0] flex-col gap-2 self-stretch border-b border-black/20">
-          <label for="name" class="text-[#AAA] font-thin leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Enter Your
-            Full Name</label>
-          <div
-            class="flex self-stretch flex-[1_0_0] w-full justify-between items-center p-[0.625rem_0.875rem] bg-[#161616] ">
-            <input type="text" id="name"
-                   class="w-full text-[1.25rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
-                   placeholder="John Jackson" />
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
-              <g opacity="0.2">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M9.12856 3.96343L4.28906 8.80293C4.22056 8.87193 4.17306 8.95893 4.15356 9.05393L3.41006 12.5964C3.37556 12.7609 3.42606 12.9319 3.54456 13.0509C3.66256 13.1704 3.83306 13.2224 3.99756 13.1894L7.56906 12.4754C7.66606 12.4559 7.75506 12.4084 7.82456 12.3384L12.6641 7.49893L9.12856 3.96343ZM9.83556 3.25643L13.3711 6.79193L14.2676 5.89593C15.2441 4.91943 15.2441 3.33643 14.2676 2.35993C13.7986 1.89143 13.1631 1.62793 12.5001 1.62793C11.8366 1.62793 11.2011 1.89143 10.7321 2.35993L9.83556 3.25643Z"
-                      fill="#E1BC84" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M1.75 15.6279H13.75C14.164 15.6279 14.5 15.2919 14.5 14.8779C14.5 14.4639 14.164 14.1279 13.75 14.1279H1.75C1.336 14.1279 1 14.4639 1 14.8779C1 15.2919 1.336 15.6279 1.75 15.6279Z"
-                      fill="#E1BC84" />
-              </g>
-            </svg>
-          </div>
-          <div class="h-0.5 w-full bg-[#414141]"></div>
+      <img
+        class="absolute bottom-0 left-0 rotate-180 w-[24.5625rem] h-[16.375rem] tablet:w-[25.9375rem] tablet:h-[17.25rem] big-tablet:w-[29.1875rem] big-tablet:h-[19.4375rem] laptop:w-[36.6875rem] laptop:h-[24.4375rem] desktop:w-[45.25rem] desktop:h-[30.125rem]"
+        src="{{ asset('/assets/templates/1/graphic.png') }}" alt="graphic" />
+      @if(data_get($contact_us, 'is_top_section_visible'))
+        <div class="flex flex-col items-center justify-center gap-[0.375rem] self-stretch text-center">
+          <h1 class="font-mea text-[1.875rem] desktop:text-[2.5rem] text-[#E1BC84]">
+            {{ data_get($contact_us, 'section_title') }}
+          </h1>
+          <h2 class="font-antic text-[2.5rem] desktop:text-[2.875rem] tracking-[0.03125rem]">
+            {{ data_get($contact_us, 'header') }}
+          </h2>
         </div>
-        <div class="flex flex-[1_0_0] flex-col gap-2 self-stretch">
+      @endif
+      <div class="flex flex-col self-stretch gap-[1.25rem] z-10">
+        <div class="flex flex-col tablet:flex-row gap-[1.25rem] self-stretch items-start">
+          <div class="flex flex-[1_0_0] flex-col gap-2 self-stretch border-b border-black/20">
+            <label for="name" class="text-[#AAA] font-thin leading-[120%] tracking-[0.0625rem] text-[0.75rem]">
+              Enter Your Full Name
+            </label>
+            <div
+              class="flex self-stretch flex-[1_0_0] w-full justify-between items-center p-[0.625rem_0.875rem] bg-[#161616] ">
+              <input type="text" id="name"
+                     class="w-full text-[1.25rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
+                     placeholder="John Jackson" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                <g opacity="0.2">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M9.12856 3.96343L4.28906 8.80293C4.22056 8.87193 4.17306 8.95893 4.15356 9.05393L3.41006 12.5964C3.37556 12.7609 3.42606 12.9319 3.54456 13.0509C3.66256 13.1704 3.83306 13.2224 3.99756 13.1894L7.56906 12.4754C7.66606 12.4559 7.75506 12.4084 7.82456 12.3384L12.6641 7.49893L9.12856 3.96343ZM9.83556 3.25643L13.3711 6.79193L14.2676 5.89593C15.2441 4.91943 15.2441 3.33643 14.2676 2.35993C13.7986 1.89143 13.1631 1.62793 12.5001 1.62793C11.8366 1.62793 11.2011 1.89143 10.7321 2.35993L9.83556 3.25643Z"
+                        fill="#E1BC84" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M1.75 15.6279H13.75C14.164 15.6279 14.5 15.2919 14.5 14.8779C14.5 14.4639 14.164 14.1279 13.75 14.1279H1.75C1.336 14.1279 1 14.4639 1 14.8779C1 15.2919 1.336 15.6279 1.75 15.6279Z"
+                        fill="#E1BC84" />
+                </g>
+              </svg>
+            </div>
+            <div class="h-0.5 w-full bg-[#414141]"></div>
+          </div>
+          <div class="flex flex-[1_0_0] flex-col gap-2 self-stretch">
+            <label for="mail" class="text-[#AAA] font-thin leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Enter Your
+              Mail</label>
+            <div
+              class="flex self-stretch flex-[1_0_0] w-full justify-between items-center p-[0.625rem_0.875rem] bg-[#161616] ">
+              <input type="text" id="mail"
+                     class="w-full text-[1.25rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
+                     placeholder="(___) ___ __ __ __" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                <g opacity="0.2">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M9.12856 3.96343L4.28906 8.80293C4.22056 8.87193 4.17306 8.95893 4.15356 9.05393L3.41006 12.5964C3.37556 12.7609 3.42606 12.9319 3.54456 13.0509C3.66256 13.1704 3.83306 13.2224 3.99756 13.1894L7.56906 12.4754C7.66606 12.4559 7.75506 12.4084 7.82456 12.3384L12.6641 7.49893L9.12856 3.96343ZM9.83556 3.25643L13.3711 6.79193L14.2676 5.89593C15.2441 4.91943 15.2441 3.33643 14.2676 2.35993C13.7986 1.89143 13.1631 1.62793 12.5001 1.62793C11.8366 1.62793 11.2011 1.89143 10.7321 2.35993L9.83556 3.25643Z"
+                        fill="#E1BC84" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M1.75 15.6279H13.75C14.164 15.6279 14.5 15.2919 14.5 14.8779C14.5 14.4639 14.164 14.1279 13.75 14.1279H1.75C1.336 14.1279 1 14.4639 1 14.8779C1 15.2919 1.336 15.6279 1.75 15.6279Z"
+                        fill="#E1BC84" />
+                </g>
+              </svg>
+            </div>
+            <div class="h-0.5 w-full bg-[#414141]"></div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2 self-stretch">
           <label for="mail" class="text-[#AAA] font-thin leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Enter Your
             Mail</label>
           <div
-            class="flex self-stretch flex-[1_0_0] w-full justify-between items-center p-[0.625rem_0.875rem] bg-[#161616] ">
-            <input type="text" id="mail"
-                   class="w-full text-[1.25rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
-                   placeholder="(___) ___ __ __ __" />
+            class="flex self-stretch flex-[1_0_0] w-full justify-between items-end p-[0.625rem_0.875rem] bg-[#161616] ">
+            <textarea type="text" id="mail"
+                      class="w-full h-[10.25rem] text-[1.25rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
+                      placeholder="Message"></textarea>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
               <g opacity="0.2">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -740,45 +771,24 @@
           <div class="h-0.5 w-full bg-[#414141]"></div>
         </div>
       </div>
-      <div class="flex flex-col gap-2 self-stretch">
-        <label for="mail" class="text-[#AAA] font-thin leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Enter Your
-          Mail</label>
-        <div
-          class="flex self-stretch flex-[1_0_0] w-full justify-between items-end p-[0.625rem_0.875rem] bg-[#161616] ">
-          <textarea type="text" id="mail"
-                    class="w-full h-[10.25rem] text-[1.25rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
-                    placeholder="Message"></textarea>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
-            <g opacity="0.2">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M9.12856 3.96343L4.28906 8.80293C4.22056 8.87193 4.17306 8.95893 4.15356 9.05393L3.41006 12.5964C3.37556 12.7609 3.42606 12.9319 3.54456 13.0509C3.66256 13.1704 3.83306 13.2224 3.99756 13.1894L7.56906 12.4754C7.66606 12.4559 7.75506 12.4084 7.82456 12.3384L12.6641 7.49893L9.12856 3.96343ZM9.83556 3.25643L13.3711 6.79193L14.2676 5.89593C15.2441 4.91943 15.2441 3.33643 14.2676 2.35993C13.7986 1.89143 13.1631 1.62793 12.5001 1.62793C11.8366 1.62793 11.2011 1.89143 10.7321 2.35993L9.83556 3.25643Z"
-                    fill="#E1BC84" />
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M1.75 15.6279H13.75C14.164 15.6279 14.5 15.2919 14.5 14.8779C14.5 14.4639 14.164 14.1279 13.75 14.1279H1.75C1.336 14.1279 1 14.4639 1 14.8779C1 15.2919 1.336 15.6279 1.75 15.6279Z"
-                    fill="#E1BC84" />
-            </g>
-          </svg>
-        </div>
-        <div class="h-0.5 w-full bg-[#414141]"></div>
-      </div>
+      <button
+        class="group relative text-[1.4145rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[15.08513rem] h-[7.18738rem]">
+        Sent
+        <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
+             xmlns="http://www.w3.org/2000/svg" width="233" height="86" viewBox="0 0 233 86" fill="none">
+          <path
+            d="M231.497 35.0599C231.879 40.5084 229.176 46.0089 223.75 51.311C218.327 56.6104 210.252 61.6387 200.09 66.1126C179.771 75.0578 151.256 81.723 119.365 83.9602C87.4735 86.1974 58.3066 83.5789 36.9384 77.5581C26.2512 74.5468 17.5533 70.6952 11.4431 66.2049C5.3298 61.7123 1.88532 56.6431 1.50309 51.1946C1.12085 45.746 3.82384 40.2455 9.25005 34.9434C14.6735 29.644 22.7483 24.6157 32.9105 20.1418C53.2288 11.1966 81.7444 4.53147 113.635 2.29423C145.526 0.056984 174.693 2.67556 196.062 8.69632C206.749 11.7076 215.447 15.5592 221.557 20.0495C227.67 24.5421 231.115 29.6113 231.497 35.0599Z"
+            stroke="white" stroke-width="1.41447" />
+        </svg>
+        <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
+             xmlns="http://www.w3.org/2000/svg" width="233" height="84" viewBox="0 0 233 84" fill="none">
+          <path opacity="0.4"
+                d="M231.733 45.3991C231.578 50.8589 228.348 56.0671 222.427 60.8104C216.509 65.5512 207.979 69.7617 197.426 73.2153C176.327 80.1207 147.295 83.9515 115.338 83.0441C83.3819 82.1368 54.6134 76.6648 33.9402 68.5734C23.6006 64.5266 15.3234 59.8389 9.68401 54.7699C4.04172 49.6983 1.11204 44.3152 1.26706 38.8554C1.42208 33.3956 4.65249 28.1874 10.5735 23.4441C16.4914 18.7033 25.0213 14.4929 35.5738 11.0392C56.6728 4.13389 85.7054 0.30307 117.662 1.21042C149.618 2.11777 178.387 7.58975 199.06 15.6811C209.4 19.728 217.677 24.4156 223.316 29.4846C228.959 34.5562 231.888 39.9393 231.733 45.3991Z"
+                stroke="white" stroke-width="1.41447" />
+        </svg>
+      </button>
     </div>
-    <button
-      class="group relative text-[1.4145rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[15.08513rem] h-[7.18738rem]">
-      Sent
-      <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
-           xmlns="http://www.w3.org/2000/svg" width="233" height="86" viewBox="0 0 233 86" fill="none">
-        <path
-          d="M231.497 35.0599C231.879 40.5084 229.176 46.0089 223.75 51.311C218.327 56.6104 210.252 61.6387 200.09 66.1126C179.771 75.0578 151.256 81.723 119.365 83.9602C87.4735 86.1974 58.3066 83.5789 36.9384 77.5581C26.2512 74.5468 17.5533 70.6952 11.4431 66.2049C5.3298 61.7123 1.88532 56.6431 1.50309 51.1946C1.12085 45.746 3.82384 40.2455 9.25005 34.9434C14.6735 29.644 22.7483 24.6157 32.9105 20.1418C53.2288 11.1966 81.7444 4.53147 113.635 2.29423C145.526 0.056984 174.693 2.67556 196.062 8.69632C206.749 11.7076 215.447 15.5592 221.557 20.0495C227.67 24.5421 231.115 29.6113 231.497 35.0599Z"
-          stroke="white" stroke-width="1.41447" />
-      </svg>
-      <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
-           xmlns="http://www.w3.org/2000/svg" width="233" height="84" viewBox="0 0 233 84" fill="none">
-        <path opacity="0.4"
-              d="M231.733 45.3991C231.578 50.8589 228.348 56.0671 222.427 60.8104C216.509 65.5512 207.979 69.7617 197.426 73.2153C176.327 80.1207 147.295 83.9515 115.338 83.0441C83.3819 82.1368 54.6134 76.6648 33.9402 68.5734C23.6006 64.5266 15.3234 59.8389 9.68401 54.7699C4.04172 49.6983 1.11204 44.3152 1.26706 38.8554C1.42208 33.3956 4.65249 28.1874 10.5735 23.4441C16.4914 18.7033 25.0213 14.4929 35.5738 11.0392C56.6728 4.13389 85.7054 0.30307 117.662 1.21042C149.618 2.11777 178.387 7.58975 199.06 15.6811C209.4 19.728 217.677 24.4156 223.316 29.4846C228.959 34.5562 231.888 39.9393 231.733 45.3991Z"
-              stroke="white" stroke-width="1.41447" />
-      </svg>
-    </button>
-  </div>
+  @endif
   <footer class="flex flex-col items-center self-stretch justify-center">
     <div
       class="relative flex w-full min-h-[31.25rem] flex-[1_0_0] flex-col items-center justify-center gap-[0.625rem] self-stretch">

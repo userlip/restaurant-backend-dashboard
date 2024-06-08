@@ -296,7 +296,27 @@ class ThemeResource extends Resource
                                                     ->multiple()
                                                     ->image(),
                                             ]),
-                                    ])
+                                    ]),
+
+                                Forms\Components\Builder\Block::make('contact_us_section')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('is_section_visible')
+                                            ->default(true),
+
+                                        Forms\Components\Section::make('Top Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_top_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\TextInput::make('section_title')
+                                                    ->default('Menu')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\TextInput::make('header')
+                                                    ->default('Lorem ipsum dolor')
+                                                    ->maxLength(255),
+                                            ]),
+                                    ]),
                             ]),
                     ])
             ]);
