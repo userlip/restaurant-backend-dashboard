@@ -13,6 +13,7 @@
 
   @stack('head')
 
+  @livewireScripts
   @livewireStyles
 
   @vite(['resources/css/templates/1/app.css', 'resources/js/templates/1/app.js'])
