@@ -3,7 +3,12 @@
   $hero = data_get($page_data, 'hero_section');
   $about_us = data_get($page_data, 'about_us_section');
   $menu = data_get($page_data, 'menu_section');
-//  dd(["header" => $header, "hero" => $hero]);
+  $gallery = data_get($page_data, 'gallery_section');
+//  dd([
+//	  "header" => $header,
+//	  "hero" => $hero,
+//	  "gallery" => $gallery
+//  ]);
 @endphp
 <section id='template-1'>
   @if(data_get($hero, 'is_bg_image_visible'))
@@ -105,7 +110,7 @@
             </button>
             <button id="drawer-button"
                     class="flex -mb-3 tablet:mb-0 big-tablet:hidden z-10 items-center justify-center tablet:gap-[1.5rem]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15" fill="none">
+              <svg xmlns="http://www.w3.org/2000/svg" widsth="18" height="15" viewBox="0 0 18 15" fill="none">
                 <path d="M17 1.5H1M17 7.5H7M17 13.5H12" stroke="white" stroke-width="2" stroke-linecap="round"
                       stroke-linejoin="round" />
               </svg>
@@ -622,29 +627,30 @@
 {{-- END: Menu Section --}}
 
 {{-- START: Gallery --}}
-@if(data_get($menu, 'is_section_visible'))
+@if(data_get($gallery, 'is_section_visible'))
   <div
     class="flex flex-col bg-[#161616] gap-[2.5rem] p-[6.25rem_0.875rem] tablet:p-[6.25rem_0rem] tablet:gap-[5rem] justify-center items-center self-stretch">
-    @if(data_get($menu, 'is_top_section_visible'))
+    @if(data_get($gallery, 'is_top_section_visible'))
       <div class="flex flex-col items-center justify-center gap-[1rem] self-stretch text-center">
         <h1 class="font-mea text-[1.875rem] desktop:text-[2.5rem] text-[#E1BC84]">
-          {{ data_get($menu, 'section_title') }}
+          {{ data_get($gallery, 'section_title') }}
         </h1>
         <h2 class="font-antic text-[2.5rem] desktop:text-[2.875rem]">
-          {{ data_get($menu, 'header') }}
+          {{ data_get($gallery, 'header') }}
         </h2>
-        <p class="text-[#AAA] text-[0.875rem] font-thin tracking-[0.0625rem] leading-[170%] tablet:flex tablet:flex-col">
-          {!! data_get($menu, 'subtext') !!}
+        <p class="text-[#AAA] w-[460px] text-[0.875rem] font-thin tracking-[0.0625rem] leading-[170%] tablet:flex tablet:flex-col">
+          {!! data_get($gallery, 'subtext') !!}
         </p>
       </div>
     @endif
-    @if(data_get($menu, 'is_top_section_visible'))
+    @if(data_get($gallery, 'is_top_section_visible'))
       <div
         class="relative w-full h-[11.00156rem] tablet:h-[21.88525rem] big-tablet:h-[34.375rem] swiper-container overflow-hidden">
         <div class="swiper-wrapper">
-          @foreach(data_get($menu, 'gallery') as $image)
+          @foreach(data_get($gallery, 'gallery') as $image)
             <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
-              <img class="object-cover w-full h-full" src="{{ asset('/storage/' . $image) }}"
+              <img class="object-cover w-full h-full"
+                   src="{{ asset('/storage/' . $image) }}"
                    alt="gallery image" />
             </div>
           @endforeach

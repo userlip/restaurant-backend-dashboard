@@ -280,6 +280,18 @@ class ThemeResource extends Resource
                                                 Forms\Components\Toggle::make('is_top_section_visible')
                                                     ->default(true),
 
+                                                Forms\Components\TextInput::make('section_title')
+                                                    ->default('Gallery')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\TextInput::make('header')
+                                                    ->default('Lorem ipsum dolor.')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\RichEditor::make('subtext')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat.')
+                                                    ->maxLength(1000),
+
                                                 Forms\Components\FileUpload::make('gallery')
                                                     ->multiple()
                                                     ->image(),

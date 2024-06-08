@@ -44,12 +44,16 @@ function closeDrawer() {
 
 function initializeDrawerButton() {
   const drawerButton = document.getElementById("drawer-button")
-  drawerButton.addEventListener("click", openDrawer)
+  if (drawerButton) {
+    drawerButton.addEventListener("click", openDrawer)
+  }
 }
 
 function initializeCloseButton() {
   const closeButton = document.getElementById("close-drawer")
-  closeButton.addEventListener("click", closeDrawer)
+  if(closeButton) {
+    closeButton.addEventListener("click", closeDrawer)
+  }
 }
 
 function initialize() {
