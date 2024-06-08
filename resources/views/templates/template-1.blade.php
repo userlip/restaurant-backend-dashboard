@@ -59,7 +59,7 @@
               {{ data_get($header, 'call_us_contact_number') }}
             </span>
             <span class="text-[0.625rem] tracking-[0.0625rem] font-thin">
-              {{ data_get($header, 'call_us_operating_hours') }}
+              {!! data_get($header, 'call_us_operating_hours') !!}
             </span>
           </div>
         </div>
@@ -80,7 +80,7 @@
               {{ data_get($header, 'visit_us_contact_number') }}
             </span>
             <span class="text-[0.625rem] tracking-[0.0625rem] font-thin">
-              {{ data_get($header, 'visit_us_operating_hours') }}
+              {!! data_get($header, 'visit_us_operating_hours') !!}
             </span>
           </div>
         </div>
