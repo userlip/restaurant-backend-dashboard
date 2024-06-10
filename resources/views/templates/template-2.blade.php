@@ -1,6 +1,7 @@
 @php
 $header = data_get($page_data, 'header');
 $hero = data_get($page_data, 'hero_section');
+$about = data_get($page_data, 'about_us_section');
 
 //dd($header, $hero);
 @endphp
@@ -189,7 +190,7 @@ $hero = data_get($page_data, 'hero_section');
             {{ data_get($header, 'weekday_operating_days') }}
           </span>
           <span class="text-template_2_primary font-bold text-[1.25rem] tracking-[0.03125rem]">
-            {{ data_get($header, 'weekday_operating_hours') }}
+            {!! data_get($header, 'weekday_operating_hours') !!}
           </span>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" width="1" height="49" viewBox="0 0 1 49" fill="none">
@@ -200,7 +201,7 @@ $hero = data_get($page_data, 'hero_section');
             {{ data_get($header, 'weekend_operating_days') }}
           </span>
           <span class="text-template_2_primary font-bold text-[1.25rem] tracking-[0.03125rem]">
-            {{ data_get($header, 'weekend_operating_hours') }}
+            {!! data_get($header, 'weekend_operating_hours') !!}
           </span>
         </div>
       </div>
@@ -242,27 +243,46 @@ $hero = data_get($page_data, 'hero_section');
       </div>
     </div>
   </div>
-  <div id="about" class="flex tablet:justify-between self-stretch items-center tablet:pl-[2.5rem] big-tablet:pl-[3.75rem] laptop:pl-[9.375rem] desktop:pl-[23.125rem]">
-    <div class="flex flex-col overflow-hidden items-center justify-center gap-[1.875rem] self-stretch p-[0rem_0.875rem_3.75rem_0.875rem]">
-      <div class="flex flex-col items-center justify-center tablet:justify-normal tablet:items-start text-center tablet:text-left gap-[1.875rem] self-stretch">
-        <h1 class="font-inter text-template_2_body uppercase tracking-[0.125rem] text-[0.875rem]">About Us</h1>
-        <h2 class="self-stretch text-template_2_secondary mx-auto tablet:mx-0 text-[2.5rem] desktop:text-[3.75rem] tracking-[0.03125rem] leading-tight w-[360px] desktop:w-[500px] uppercase">Welcome to <span class="text-template_2_primary">Restaurant Name</span></h2>
+  @if(data_get($about, 'is_section_visible'))
+    <div id="about" class="flex tablet:justify-between self-stretch items-center tablet:pl-[2.5rem] big-tablet:pl-[3.75rem] laptop:pl-[9.375rem] desktop:pl-[23.125rem]">
+      @if(data_get($about, 'is_left_section_visible'))
+        <div class="flex flex-col overflow-hidden items-center justify-center gap-[1.875rem] self-stretch p-[0rem_0.875rem_3.75rem_0.875rem]">
+          <div class="flex flex-col items-center justify-center tablet:justify-normal tablet:items-start text-center tablet:text-left gap-[1.875rem] self-stretch">
+            <h1 class="font-inter text-template_2_body uppercase tracking-[0.125rem] text-[0.875rem]">
+              {{ data_get($about, 'section_title') }}
+            </h1>
+            <h2 class="self-stretch text-template_2_secondary mx-auto tablet:mx-0 text-[2.5rem] desktop:text-[3.75rem] tracking-[0.03125rem] leading-tight w-[360px] desktop:w-[500px] uppercase">
+              {{ data_get($about, 'header') }}
+              <span class="text-template_2_primary">
+                {{ data_get($about, 'header_red_text') }}
+              </span>
+            </h2>
+          </div>
+          <div class="tablet:hidden relative w-[27.8125rem] h-[22.625rem]">
+            <img src="{{ asset('/storage/' . data_get($about, 'background_image')) }}" alt="dish" class="object-cover w-full h-full"/>
+          </div>
+          <div class="flex flex-col big-tablet:flex-row pb-[1.25rem] gap-[1.25rem] self-stretch">
+            <span class="font-open text-template_2_body text-[0.875rem] tracking-[0.0625rem] leading-[170%]">
+              {{ data_get($about, 'subtext_left') }}
+            </span>
+            <span class="font-open text-template_2_body text-[0.875rem] tracking-[0.0625rem] leading-[170%]">
+              {{ data_get($about, 'subtext_right') }}
+            </span>
+          </div>
+          @if(data_get($about, 'is_our_menu_visible'))
+            <a href="{{ data_get($about, 'our_menu_link') }}" class="tablet:w-fit flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
+              {{ data_get($about, 'our_menu_title') }}
+            </a>
+          @endif
+        </div>
+      @endif
+      @if(data_get($about, 'is_right_section_visible'))
+      <div class="relative hidden tablet:block min-w-[20.875rem] big-tablet:min-w-[24.375rem] laptop:min-w-[38.375rem] desktop:min-w-[63.1875rem] h-[35.5625rem] big-tablet:h-[40.625rem] laptop:h-[51.75rem]">
+        <img src="{{ asset('/storage/' . data_get($about, 'background_image')) }}" alt="dish" class="absolute -z-10 scale-[2] big-tablet:scale-[2.2] laptop:scale-[1.5] desktop:scale-100 object-contain left-12 desktop:left-0 -top-8 h-[35.5625rem] big-tablet:h-[40.625rem] w-[43rem] big-tablet:w-[50rem] laptop:h-[51.75rem] laptop:w-[63rem] desktop:w-[63.1875rem]"/>
       </div>
-      <div class="tablet:hidden relative w-[27.8125rem] h-[22.625rem]">
-        <img src="/assets/templates/2/asset-03.jpg" alt="dish" class="object-cover w-full h-full"/>
-      </div>
-      <div class="flex flex-col big-tablet:flex-row pb-[1.25rem] gap-[1.25rem] self-stretch">
-        <span class="font-open text-template_2_body text-[0.875rem] tracking-[0.0625rem] leading-[170%]">Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate. Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.</span>
-        <span class="font-open text-template_2_body text-[0.875rem] tracking-[0.0625rem] leading-[170%]">Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate. Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.</span>
-      </div>
-      <a href="#menu" class="tablet:w-fit flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
-        OUR MENU
-      </a>
+      @endif
     </div>
-    <div class="relative hidden tablet:block min-w-[20.875rem] big-tablet:min-w-[24.375rem] laptop:min-w-[38.375rem] desktop:min-w-[63.1875rem] h-[35.5625rem] big-tablet:h-[40.625rem] laptop:h-[51.75rem]">
-      <img src="/assets/templates/2/asset-03.jpg" alt="dish" class="absolute -z-10 scale-[2] big-tablet:scale-[2.2] laptop:scale-[1.5] desktop:scale-100 object-contain left-12 desktop:left-0 -top-8 h-[35.5625rem] big-tablet:h-[40.625rem] w-[43rem] big-tablet:w-[50rem] laptop:h-[51.75rem] laptop:w-[63rem] desktop:w-[63.1875rem]"/>
-    </div>
-  </div>
+  @endif
   <div class="about text-white flex min-h-[56.375rem] tablet:min-h-[50rem] flex-col p-[16rem_0.875rem] tablet:p-[16rem_3.75rem] laptop:p-[16rem_9.375rem] desktop:p-[16rem_23.125rem] justify-center tablet:justify-end tablet:items-end items-center gap-[0.625rem] self-stretch">
     <div class="flex gap-[3.75rem] tablet:flex-initial flex-[1_0_0] max-w-[43.75rem] tablet:w-[30.75rem] flex-col items-start">
       <div class="flex flex-col items-start gap-[1.875rem] self-stretch">

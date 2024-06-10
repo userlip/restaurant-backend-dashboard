@@ -191,9 +191,11 @@ class ThemeResource extends Resource
                                                     ->maxLength(255),
 
                                                 Forms\Components\Textarea::make('subtext_left')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate. Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.')
                                                     ->maxLength(1000),
 
                                                 Forms\Components\Textarea::make('subtext_right')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate. Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.')
                                                     ->maxLength(1000),
 
                                                 Forms\Components\Section::make('Our Menu')
