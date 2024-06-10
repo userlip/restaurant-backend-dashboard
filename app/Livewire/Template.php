@@ -19,9 +19,14 @@ class Template extends Component
     public function render()
     {
         $template = match ($this->template) {
+            "template-2" => [
+                "view" => "templates.template-2",
+                "layout" => 'components.template-layouts.template-2',
+            ],
+
             default => [
-                "view" => "templates.template-1",
-                "layout" => 'components.template-layouts.template-1',
+                "view" => "templates.template-2",
+                "layout" => 'components.template-layouts.template-2',
             ]
         };
 

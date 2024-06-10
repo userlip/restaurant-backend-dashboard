@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Rakesly";
+    src: url("/public/assets/templates/2/fonts/Rakesly-Light.otf");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Rakesly";
+    src: url("/public/assets/templates/2/fonts/Rakesly-Regular.otf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Rakesly";
+    src: url("/public/assets/templates/2/fonts/Rakesly-Bold.otf");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+html {
+  font-family: "Rakesly", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #F2F3F7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.hero {
+  background: url('/public/assets/templates/2/hero-image.png') 50% / cover no-repeat;
+}
+
+.about {
+  background: url('/public/assets/templates/2/about-image.jpg') 50% / cover no-repeat;
+}
+
+.contact {
+  background: url('/public/assets/templates/2/contact-image.jpg') 50% / cover no-repeat;
+  width: 120rem;
+  height: 39.5rem;
+}
