@@ -30,7 +30,7 @@ class Template extends Component
             ]
         };
 
-        $data = collect(Theme::first()->data)
+        $data = collect(Theme::where('template', 'template_2')->first()->data)
             ->mapWithKeys(function (array $item) {
                 return [
                     $item['type'] => $item['data'],
