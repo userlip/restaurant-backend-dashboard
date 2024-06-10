@@ -220,6 +220,65 @@ class ThemeResource extends Resource
                                             ]),
                                     ]),
 
+                                Forms\Components\Builder\Block::make('our_story_section')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('is_section_visible')
+                                            ->default(true),
+
+                                        Forms\Components\Section::make('Left Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_left_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\FileUpload::make('background_image')
+                                                    ->directory('template-2')
+                                                    ->image(),
+                                            ]),
+
+                                        Forms\Components\Section::make('Right Section')
+                                            ->schema([
+                                                Forms\Components\Toggle::make('is_right_section_visible')
+                                                    ->default(true),
+
+                                                Forms\Components\TextInput::make('section_title')
+                                                    ->default('About Us')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\TextInput::make('header')
+                                                    ->default('OUR STORY')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\Textarea::make('subtext_left')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate. Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.')
+                                                    ->maxLength(1000),
+
+                                                Forms\Components\Textarea::make('subtext_right')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate. Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.')
+                                                    ->maxLength(1000),
+
+                                                Forms\Components\Section::make('Book a Table')
+                                                    ->schema([
+                                                        Forms\Components\Toggle::make('is_book_a_table_visible')
+                                                            ->default(true),
+                                                        Forms\Components\TextInput::make('book_a_table_title')
+                                                            ->default("Book a Table"),
+                                                        Forms\Components\TextInput::make('book_a_table_link')
+                                                            ->default("#"),
+                                                    ]),
+
+                                                Forms\Components\Section::make('Learn More')
+                                                    ->schema([
+                                                        Forms\Components\Toggle::make('is_learn_more_visible')
+                                                            ->default(true),
+                                                        Forms\Components\TextInput::make('learn_more_title')
+                                                            ->default("Learn More"),
+                                                        Forms\Components\TextInput::make('learn_more_link')
+                                                            ->default("#"),
+                                                    ]),
+                                            ]),
+                                    ]),
+
+
 //                                Forms\Components\Builder\Block::make('menu_section')
 //                                    ->schema([
 //                                        Forms\Components\Toggle::make('is_section_visible')

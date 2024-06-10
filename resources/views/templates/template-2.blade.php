@@ -2,6 +2,7 @@
 $header = data_get($page_data, 'header');
 $hero = data_get($page_data, 'hero_section');
 $about = data_get($page_data, 'about_us_section');
+$our_story = data_get($page_data, 'our_story_section');
 
 //dd($header, $hero);
 @endphp
@@ -283,28 +284,50 @@ $about = data_get($page_data, 'about_us_section');
       @endif
     </div>
   @endif
-  <div class="about text-white flex min-h-[56.375rem] tablet:min-h-[50rem] flex-col p-[16rem_0.875rem] tablet:p-[16rem_3.75rem] laptop:p-[16rem_9.375rem] desktop:p-[16rem_23.125rem] justify-center tablet:justify-end tablet:items-end items-center gap-[0.625rem] self-stretch">
-    <div class="flex gap-[3.75rem] tablet:flex-initial flex-[1_0_0] max-w-[43.75rem] tablet:w-[30.75rem] flex-col items-start">
-      <div class="flex flex-col items-start gap-[1.875rem] self-stretch">
-        <div class="flex flex-col text-center tablet:text-left items-center tablet:items-start justify-center gap-[1.875rem] self-stretch">
-          <span class="font-inter uppercase tracking-[0.3125rem] text-[0.875rem]">About Us</span>
-          <span class="text-[2.5rem] desktop:text-[3.75rem] tracking-[0.03125rem] uppercase">Our Story</span>
+  @if(data_get($our_story, 'is_section_visible'))
+    @if($our_story_bg = data_get($our_story, 'background_image'))
+      <div
+        style="background: url('{{ asset('/storage/' . $our_story_bg) }}') 50% / cover no-repeat;"
+    @else
+      <div
+    @endif
+       class="text-white flex min-h-[56.375rem] tablet:min-h-[50rem] flex-col p-[16rem_0.875rem] tablet:p-[16rem_3.75rem] laptop:p-[16rem_9.375rem] desktop:p-[16rem_23.125rem] justify-center tablet:justify-end tablet:items-end items-center gap-[0.625rem] self-stretch">
+      @if(data_get($our_story, 'is_right_section_visible'))
+        <div class="flex gap-[3.75rem] tablet:flex-initial flex-[1_0_0] max-w-[43.75rem] tablet:w-[30.75rem] flex-col items-start">
+          <div class="flex flex-col items-start gap-[1.875rem] self-stretch">
+            <div class="flex flex-col text-center tablet:text-left items-center tablet:items-start justify-center gap-[1.875rem] self-stretch">
+              <span class="font-inter uppercase tracking-[0.3125rem] text-[0.875rem]">
+                {{ data_get($our_story, 'section_title') }}
+              </span>
+              <span class="text-[2.5rem] desktop:text-[3.75rem] tracking-[0.03125rem] uppercase">
+                {{ data_get($our_story, 'header') }}
+              </span>
+            </div>
+            <div class="flex flex-col tablet:flex-row gap-[1.25rem] self-stretch">
+              <span class="font-open text-[0.875rem] leading-[170%] tracking-[0.0625rem]">
+                {{ data_get($our_story, 'subtext_left') }}
+              </span>
+              <span class="font-open text-[0.875rem] leading-[170%] tracking-[0.0625rem]">
+                {{ data_get($our_story, 'subtext_right') }}
+              </span>
+            </div>
+          </div>
+          <div class="flex flex-col tablet:flex-row gap-[1.25rem] items-center tablet:justify-start justify-center self-stretch">
+            @if(data_get($our_story, 'is_book_a_table_visible'))
+              <a href='{{ data_get($our_story, 'book_a_table_link') ?? '#' }}' class="tablet:w-fit flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
+                {{ data_get($our_story, 'book_a_table_title') }}
+              </a>
+            @endif
+            @if(data_get($our_story, 'is_learn_more_visible'))
+              <a href='{{ data_get($our_story, 'learn_more_link') ?? '#' }}' class="font-inter flex text-[1.25rem] font-bold tracking-[0.03125rem] p-[1rem_1.25rem] justify-center items-center gap-[0.875rem] self-stretch rounded-[19.6875rem] text-white hover:text-white/80 transition-colors">
+                {{ data_get($our_story, 'learn_more_title') }}
+              </a>
+            @endif
+          </div>
         </div>
-        <div class="flex flex-col tablet:flex-row gap-[1.25rem] self-stretch">
-          <span class="font-open text-[0.875rem] leading-[170%] tracking-[0.0625rem]">Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate. Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.</span>
-          <span class="font-open text-[0.875rem] leading-[170%] tracking-[0.0625rem]">Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate. Enim volutpat amet enim venenatis pharetra. Eget accumsan massa amet faucibus.</span>
-        </div>
-      </div>
-      <div class="flex flex-col tablet:flex-row gap-[1.25rem] items-center tablet:justify-start justify-center self-stretch">
-        <button class="tablet:w-fit flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
-          BOOK A TABLE
-        </button>
-        <button class="font-inter flex text-[1.25rem] font-bold tracking-[0.03125rem] p-[1rem_1.25rem] justify-center items-center gap-[0.875rem] self-stretch rounded-[19.6875rem] text-white hover:text-white/80 transition-colors">
-          Learn More
-        </button>
-      </div>
+      @endif
     </div>
-  </div>
+  @endif
   <div id="menu" class="relative flex items-center justify-center p-[3.75rem_0.875rem] tablet:p-[3.75rem_2.5rem] laptop:p-[6.25rem_9.375rem] desktop:p-[6.25rem_23.125rem] self-stretch">
     <div class="absolute w-[25.9375rem] tablet:w-[47.6875rem] h-[17.25rem] tablet:h-[31.75rem] right-0 bottom-0">
       <img src="/assets/templates/2/graphic.png" alt="graphic" class="object-cover w-full h-full"/>
