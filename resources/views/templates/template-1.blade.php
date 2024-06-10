@@ -26,8 +26,8 @@
   @else
     <div
   @endif
-    class="hero flex flex-col justify-between items-center self-stretch p-[2.5rem_0.875rem_1.25rem_0.875rem] tablet:p-[2.5rem_2.5rem_1.25rem_2.5rem] big-tablet:p-[2.5rem_4.375rem_1.25rem_4.375rem] min-h-screen max-w-[100vw]">
-    <header class="flex w-full justify-between items-center pb-[2.5rem] self-stretch">
+    class="hero flex flex-col justify-between items-center self-stretch p-[2.5rem_0.875rem_1.25rem_0.875rem] tablet:p-[2.5rem_2.5rem_1.25rem_2.5rem] big-tablet:p-[2.5rem_4.375rem_1.25rem_4.375rem] desktop:py-8 max-w-[100vw]">
+    <header class="flex w-full container justify-between items-center pb-[2.5rem] self-stretch">
       <div class="tablet:flex items-center justify-start laptop:gap-[5rem]">
         <div class="hidden tablet:flex flex-col justify-center items-start">
           @if($image = data_get($header, 'header_logo'))
@@ -129,7 +129,7 @@
     </header>
     {{-- START Hero Section --}}
     @if(data_get($hero, 'is_visible'))
-      <div class="flex flex-col items-center self-stretch gap-[1.875rem]">
+      <div class="flex flex-col container items-center self-stretch gap-[1.875rem]">
         <div class="flex flex-col self-stretch items-center gap-[0.625rem]">
         <span class="font-mea text-[#E1BC84] text-[1.25rem] tablet:text-[2.5rem] desktop:text-[3.5rem] text-center">
           @if($greeting = data_get($hero, 'greeting', '&nbsp;'))
@@ -172,13 +172,13 @@
           </a>
         @endif
       </div>
-      <svg class="flex" xmlns="http://www.w3.org/2000/svg" width="61" height="61" viewBox="0 0 61 61" fill="none">
+      <svg class="flex container" xmlns="http://www.w3.org/2000/svg" width="61" height="61" viewBox="0 0 61 61" fill="none">
         <rect x="1" y="0.933838" width="59" height="59" rx="29.5" stroke="white" stroke-opacity="0.16" />
         <path
           d="M31 23.4338V37.4338M31 37.4338C30.3333 35.2672 28.1 30.9338 24.5 30.9338M31 37.4338C31.6667 35.2672 33.9 30.9338 37.5 30.9338"
           stroke="white" />
       </svg>
-      <div class="flex flex-col pt-[0.625rem] items-center gap-[1.875rem] self-stretch">
+      <div class="flex container flex-col pt-[0.625rem] items-center gap-[1.875rem] self-stretch">
         <div class="flex justify-center items-center gap-[1.25rem] self-stretch">
           <svg class="tablet:hidden" xmlns="http://www.w3.org/2000/svg" width="104" height="2" viewBox="0 0 104 2"
                fill="none">
@@ -235,7 +235,7 @@
             </defs>
           </svg>
           <span class="font-mea text-[1.875rem] text-[#E1BC84] min-w-32">
-            We Opened
+            {{ data_get($hero, 'we_opened_text') }}
           </span>
           <svg class="tablet:hidden" xmlns="http://www.w3.org/2000/svg" width="104" height="2" viewBox="0 0 104 2"
                fill="none">
@@ -299,7 +299,7 @@
               {{ data_get($hero, 'weekdays_mobile_day') }}
             </span>
               <span class="text-[1rem] font-semibold tracking-[0.03125rem]">
-              {{ data_get($hero, 'weekdays_mobile_operating_hours') }}
+              {!! data_get($hero, 'weekdays_mobile_operating_hours') !!}
             </span>
               <svg xmlns="http://www.w3.org/2000/svg" width="46" height="7" viewBox="0 0 46 7" fill="none">
                 <path
@@ -314,7 +314,7 @@
                 {{ data_get($schedule, 'day') }}
               </span>
               <span class="text-[1rem] font-semibold tracking-[0.03125rem]">
-                {{ data_get($schedule, 'operating_hours') }}
+                {!! data_get($schedule, 'operating_hours') !!}
               </span>
               <svg xmlns="http://www.w3.org/2000/svg" width="46" height="7" viewBox="0 0 46 7" fill="none">
                 <path
@@ -329,7 +329,7 @@
                 {{ data_get($hero, 'weekends_mobile_day') }}
               </span>
                   <span class="text-[1rem] font-semibold tracking-[0.03125rem]">
-                {{ data_get($hero, 'weekends_mobile_operating_hours') }}
+                {!! data_get($hero, 'weekends_mobile_operating_hours') !!}
               </span>
               <svg xmlns="http://www.w3.org/2000/svg" width="46" height="7" viewBox="0 0 46 7" fill="none">
                 <path
@@ -387,7 +387,7 @@
             {{ data_get($header, 'call_us_contact_number') }}
           </span>
           <span class="font-light text-[#AAA] text-[0.625rem] tracking-[0.0625rem]">
-            {{ data_get($header, 'call_us_operating_hours') }}
+            {!! data_get($header, 'call_us_operating_hours') !!}
           </span>
         </div>
       </div>
@@ -416,7 +416,7 @@
             {{ data_get($header, 'visit_us_contact_number') }}
           </span>
           <span class="font-light text-[#AAA] text-[0.625rem] tracking-[0.0625rem]">
-            {{ data_get($header, 'visit_us_operating_hours') }}
+            {!! data_get($header, 'visit_us_operating_hours') !!}
           </span>
         </div>
       </div>
@@ -467,7 +467,7 @@
 {{-- START: About Us --}}
   @if(data_get($about_us, 'is_section_visible'))
   <div id="about"
-       class="relative flex flex-col tablet:flex-row gap-[3.75rem] items-center justify-center tablet:justify-end laptop:justify-center laptop:gap-[5rem] desktop:gap-[7.5rem] self-stretch p-[3.75rem_0.875rem_2.5rem_0.875rem] tablet:p-[6.25rem_2.5rem_3.75rem_2.5rem] big-tablet:p-[6.25rem_4.375rem] desktop:p-[6.25rem_23.125rem_6.25rem_7.5rem]">
+       class="relative flex flex-col container tablet:flex-row gap-[3.75rem] items-center justify-center tablet:justify-end laptop:justify-center laptop:gap-[5rem] desktop:gap-[7.5rem] self-stretch p-[3.75rem_0.875rem_2.5rem_0.875rem] tablet:p-[6.25rem_2.5rem_3.75rem_2.5rem] big-tablet:p-[6.25rem_4.375rem] desktop:p-[6.25rem_23.125rem_6.25rem_7.5rem]">
     @if(data_get($about_us, 'is_left_section_visible'))
       <img
         class="absolute top-0 right-0 w-[24.5625rem] h-[16.375rem] tablet:w-[25.9375rem] tablet:h-[17.25rem] big-tablet:w-[29.1875rem] big-tablet:h-[19.4375rem] laptop:w-[36.6875rem] laptop:h-[24.4375rem] desktop:w-[45.25rem] desktop:h-[30.125rem]"
@@ -577,7 +577,7 @@
 {{-- START: Menu Section --}}
   @if(data_get($menu, 'is_section_visible'))
     <div id="menu"
-         class="relative flex flex-col big-tablet:flex-row big-tablet:justify-normal gap-[3.75rem] laptop:gap-[5rem] desktop:gap-[7.5rem] self-stretch p-[3.75rem_0.875rem] tablet:p-[6.25rem_2.5rem] big-tablet:p-[6.25rem_4.375rem] laptop:p-[6.25rem_4.375rem_12.5rem_4.375rem] desktop:p-[6.25rem_23.125rem_12.5rem_23.125rem] items-center justify-center">
+         class="relative flex flex-col container big-tablet:flex-row big-tablet:justify-normal gap-[3.75rem] laptop:gap-[5rem] desktop:gap-[7.5rem] self-stretch p-[3.75rem_0.875rem] tablet:p-[6.25rem_2.5rem] big-tablet:p-[6.25rem_4.375rem] laptop:p-[6.25rem_4.375rem_12.5rem_4.375rem] desktop:p-[6.25rem_23.125rem_12.5rem_23.125rem] items-center justify-center">
       <div class="absolute inset-0 h-full w-full -z-10">
         <img class="object-cover h-full w-full" src="{{ asset('assets/templates/1/backdrop.png') }}"
              alt="backdrop image" />
@@ -646,7 +646,7 @@
 {{-- START: Gallery --}}
 @if(data_get($gallery, 'is_section_visible'))
   <div
-    class="flex flex-col bg-[#161616] gap-[2.5rem] p-[6.25rem_0.875rem] tablet:p-[6.25rem_0rem] tablet:gap-[5rem] justify-center items-center self-stretch">
+    class="flex flex-col bg-[#161616] container gap-[2.5rem] p-[6.25rem_0.875rem] tablet:p-[6.25rem_0rem] tablet:gap-[5rem] justify-center items-center self-stretch">
     @if(data_get($gallery, 'is_top_section_visible'))
       <div class="flex flex-col items-center justify-center gap-[1rem] self-stretch text-center">
         <h1 class="font-mea text-[1.875rem] desktop:text-[2.5rem] text-[#E1BC84]">
@@ -705,7 +705,7 @@
 {{-- END: Gallery --}}
   @if(data_get($contact_us, 'is_section_visible'))
     <div id="contacts"
-       class="relative flex p-[5rem_0.875rem] tablet:p-[5rem_2.5rem] big-tablet:p-[5rem_4.375rem] desktop:p-[5rem_7.5rem] flex-col items-center justify-center gap-[2.5rem] self-stretch">
+       class="relative flex p-[5rem_0.875rem] container tablet:p-[5rem_2.5rem] big-tablet:p-[5rem_4.375rem] desktop:p-[5rem_7.5rem] flex-col items-center justify-center gap-[2.5rem] self-stretch">
       <img
         class="absolute bottom-0 left-0 rotate-180 w-[24.5625rem] h-[16.375rem] tablet:w-[25.9375rem] tablet:h-[17.25rem] big-tablet:w-[29.1875rem] big-tablet:h-[19.4375rem] laptop:w-[36.6875rem] laptop:h-[24.4375rem] desktop:w-[45.25rem] desktop:h-[30.125rem]"
         src="{{ asset('/assets/templates/1/graphic.png') }}" alt="graphic" />
@@ -835,7 +835,7 @@
       </form>
     </div>
   @endif
-  <footer class="flex flex-col items-center self-stretch justify-center">
+  <footer class="flex flex-col container items-center self-stretch justify-center">
 {{--    @if(data_get($google_maps, 'is_section_visible'))--}}
       <div
         class="relative flex w-full min-h-[31.25rem] flex-[1_0_0] flex-col items-center justify-center gap-[0.625rem] self-stretch">

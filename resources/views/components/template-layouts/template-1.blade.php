@@ -18,8 +18,8 @@
 
   @vite(['resources/css/templates/1/app.css', 'resources/js/templates/1/app.js'])
 </head>
-<body>
-    <main>
+<body class='w-full'>
+    <main class='mx-auto w-full'>
       {{ $slot }}
     </main>
 </body>

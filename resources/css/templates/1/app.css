@@ -11,12 +11,14 @@ body {
   background: #121212;
   color: #fff;
   min-height: 100vh;
-  max-width: 120rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+}
+.container {
+  @apply max-w-[1900px] mx-auto;
 }
 
 .hero {
