@@ -555,7 +555,7 @@ $footer = data_get($page_data, 'footer_section');
           </a>
         @endforeach
       </div>
-      <p class="text-template_2_body font-open text-center font-[0.875rem] leading-[170%] tracking-[0.0625rem] tablet:flex tablet:flex-col">
+      <p class="text-template_2_body font-open text-center w-[35%] font-[0.875rem] leading-[170%] tracking-[0.0625rem] tablet:flex tablet:flex-col">
         {{ data_get($footer, 'bottom_text') }}
       </p>
     </footer>
