@@ -3,6 +3,7 @@ $header = data_get($page_data, 'header');
 $hero = data_get($page_data, 'hero_section');
 $about = data_get($page_data, 'about_us_section');
 $our_story = data_get($page_data, 'our_story_section');
+$menu = data_get($page_data, 'our_menu_section');
 
 //dd($header, $hero);
 @endphp
@@ -328,23 +329,31 @@ $our_story = data_get($page_data, 'our_story_section');
       @endif
     </div>
   @endif
-  <div id="menu" class="relative flex items-center justify-center p-[3.75rem_0.875rem] tablet:p-[3.75rem_2.5rem] laptop:p-[6.25rem_9.375rem] desktop:p-[6.25rem_23.125rem] self-stretch">
-    <div class="absolute w-[25.9375rem] tablet:w-[47.6875rem] h-[17.25rem] tablet:h-[31.75rem] right-0 bottom-0">
-      <img src="/assets/templates/2/graphic.png" alt="graphic" class="object-cover w-full h-full"/>
-    </div>
-    <div class="flex flex-col justify-center items-center flex-[1_0_0] gap-[5rem]">
-      <div class="flex flex-col items-center self-stretch text-center gap-[1.875rem]">
-        <h1 class="font-inter text-template_2_body tracking-[0.3125rem] uppercase">Explore</h1>
-        <h2 class="text-template_2_secondary text-[2.5rem] desktop:text-[3.75rem] tracking-[0.03125rem]">Our Menu</h2>
+  @if(data_get($menu, 'is_section_visible'))
+    <div id="menu" class="relative flex items-center justify-center p-[3.75rem_0.875rem] tablet:p-[3.75rem_2.5rem] laptop:p-[6.25rem_9.375rem] desktop:p-[6.25rem_23.125rem] self-stretch">
+      <div class="absolute w-[25.9375rem] tablet:w-[47.6875rem] h-[17.25rem] tablet:h-[31.75rem] right-0 bottom-0">
+        <img src="/assets/templates/2/graphic.png" alt="graphic" class="object-cover w-full h-full"/>
       </div>
-      <div class="relative h-[31.25rem] self-stretch">
-        <img src="/assets/templates/2/asset-04.jpg" alt="dish" class="object-cover w-full h-full"/>
+      <div class="flex flex-col justify-center items-center flex-[1_0_0] gap-[5rem]">
+        <div class="flex flex-col items-center self-stretch text-center gap-[1.875rem]">
+          <h1 class="font-inter text-template_2_body tracking-[0.3125rem] uppercase">
+            {{ data_get($menu, 'section_title') }}
+          </h1>
+          <h2 class="text-template_2_secondary text-[2.5rem] desktop:text-[3.75rem] tracking-[0.03125rem]">
+            {{ data_get($menu, 'header') }}
+          </h2>
+        </div>
+        <div class="relative self-stretch">
+          <img src="{{ asset('/storage/' . data_get($menu, 'menu_picture')) }}" alt="dish" class="object-cover w-full h-full"/>
+        </div>
+        <a href="{{ asset('/storage/' . data_get($menu, 'menu_file')) }}"
+           download
+           class="z-10 w-fit mx-auto flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
+          {{ data_get($menu, 'download_menu_label') }}
+        </a>
       </div>
-      <button href="#menu" class="z-10 w-fit mx-auto flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
-        Download Menu (PDF)
-      </button>
     </div>
-  </div>
+  @endif
   <div class="flex flex-col items-center self-stretch pb-[3.75rem] overflow-hidden">
     <div class="contact"></div>
     <div class="flex mt-[-39.5rem] z-10 flex-col justify-center items-center self-stretch gap-[4.25rem] p-[6.25rem_0.875rem_0rem_0.875rem] tablet:p-[6.25rem_2.5rem_0rem_2.5rem] big-tablet:p-[6.25rem_3.75rem_0rem_3.75rem] laptop:p-[6.25rem_9.375rem_0rem_9.375rem] desktop:p-[6.25rem_23.125rem_0rem_23.125rem]">

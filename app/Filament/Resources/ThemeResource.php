@@ -278,6 +278,36 @@ class ThemeResource extends Resource
                                             ]),
                                     ]),
 
+                                Forms\Components\Builder\Block::make('our_menu_section')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('is_section_visible')
+                                            ->default(true),
+
+                                        Forms\Components\Section::make('Content')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('section_title')
+                                                    ->default('Explore')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\TextInput::make('header')
+                                                    ->default('OUR STORY')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\FileUpload::make('menu_picture')
+                                                    ->image()
+                                                    ->imageEditor()
+                                                    ->directory('template-2'),
+
+                                                Forms\Components\Section::make('Download Menu')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('download_menu_label')
+                                                            ->default("Download Menu (PDF)"),
+
+                                                        Forms\Components\FileUpload::make('menu_file'),
+                                                    ])
+                                            ]),
+                                    ]),
+
 
 //                                Forms\Components\Builder\Block::make('menu_section')
 //                                    ->schema([
