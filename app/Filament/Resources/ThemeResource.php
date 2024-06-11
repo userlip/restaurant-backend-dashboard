@@ -50,6 +50,7 @@ class ThemeResource extends Resource
                             ->default(true),
 
                         Forms\Components\TextInput::make('template')
+                            ->disabled()
                             ->default('template_1')
                             ->required(),
 
@@ -89,9 +90,14 @@ class ThemeResource extends Resource
                     }, true),
 
                 Tables\Actions\Action::make('set_active')
-                    ->color(Color::Orange)
+                    ->color(function (Theme $record) {
+                        return $record->is_active
+                            ? Color::Green
+                            : Color::Orange;
+                    })
                     ->icon('heroicon-o-check-circle')
                     ->disabled(fn (Theme $record) => $record->is_active)
+                    ->requiresConfirmation()
                     ->action(function (Theme $record) {
                         Theme::whereNot('id', $record->id)->get()->each(function (Theme $theme) {
                             $theme->update([
@@ -108,6 +114,17 @@ class ThemeResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('use_default_theme')
+                    ->requiresConfirmation()
+                    ->action(function () {
+                        Theme::all()->each(function (Theme $theme) {
+                            $theme->update([
+                                "is_active" => false
+                            ]);
+                        });
+                    })
             ]);
     }
 
