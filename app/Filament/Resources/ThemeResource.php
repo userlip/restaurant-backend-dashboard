@@ -19,9 +19,11 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Spatie\SchemaOrg\SocialEvent;
+use function Symfony\Component\Translation\t;
 
 class ThemeResource extends Resource
 {
@@ -85,6 +87,22 @@ class ThemeResource extends Resource
                             ['record' => $record->id]
                         );
                     }, true),
+
+                Tables\Actions\Action::make('set_active')
+                    ->color(Color::Orange)
+                    ->icon('heroicon-o-check-circle')
+                    ->disabled(fn (Theme $record) => $record->is_active)
+                    ->action(function (Theme $record) {
+                        Theme::whereNot('id', $record->id)->get()->each(function (Theme $theme) {
+                            $theme->update([
+                                "is_active" => false
+                            ]);
+                        });
+
+                        $record->update([
+                            'is_active' => true
+                        ]);
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
