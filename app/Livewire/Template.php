@@ -11,7 +11,8 @@ class Template extends Component
     public string $template;
 
     public string $full_name;
-    public string $phone_number;
+    public ?string $email = null;
+    public ?string $phone_number = null;
     public string $message;
     public $honeypot;
     public bool $is_submitted = false;
@@ -54,22 +55,29 @@ class Template extends Component
 
         $this->validate([
             'full_name' => 'required|string',
-            'phone_number' => 'required',
+            'email' => 'required_without:phone_number|email',
+            'phone_number' => 'required_without:email',
             'message' => 'required|string',
+        ], [
+            'phone_number.required_without' => __('validation.required', ['attribute' => "phone number"]),
+            'email.required_without' => __('validation.required', ['attribute' => "email"]),
         ]);
 
         $fullName = $this->full_name;
-        $phone_number = $this->phone_number;
+        $email = $this->email;
+        $phone_number = $this->phone_number ?? null;
         $message = $this->message;
 
         $contact = ContactUsMessage::create([
             'full_name' => $fullName,
+            'email' => $email,
             'phone_number' => $phone_number,
             'message' => $message,
         ]);
 
         if ($contact) {
             $this->full_name = "";
+            $this->email = "";
             $this->phone_number = "";
             $this->message = "";
 

@@ -4,6 +4,7 @@ $hero = data_get($page_data, 'hero_section');
 $about = data_get($page_data, 'about_us_section');
 $our_story = data_get($page_data, 'our_story_section');
 $menu = data_get($page_data, 'our_menu_section');
+$contact_us = data_get($page_data, 'contact_us_section');
 
 //dd($header, $hero);
 @endphp
@@ -354,25 +355,86 @@ $menu = data_get($page_data, 'our_menu_section');
       </div>
     </div>
   @endif
-  <div class="flex flex-col items-center self-stretch pb-[3.75rem] overflow-hidden">
-    <div class="contact"></div>
-    <div class="flex mt-[-39.5rem] z-10 flex-col justify-center items-center self-stretch gap-[4.25rem] p-[6.25rem_0.875rem_0rem_0.875rem] tablet:p-[6.25rem_2.5rem_0rem_2.5rem] big-tablet:p-[6.25rem_3.75rem_0rem_3.75rem] laptop:p-[6.25rem_9.375rem_0rem_9.375rem] desktop:p-[6.25rem_23.125rem_0rem_23.125rem]">
-      <div class="flex flex-col justify-center items-center gap-[0.625rem] self-stretch">
-        <div class="text-white text-center flex flex-col items-center self-stretch gap-[1.0625rem]">
-          <div class="flex flex-col items-center gap-[1.875rem]">
-            <h1 class="font-inter text-[0.875rem] tracking-[0.3125rem] uppercase">Contacts</h1>
-            <h2 class="text-[2.5rem] desktop:text-[3.75rem] tracking-[0.03125rem] uppercase">Contact Us</h2>
+  @if(data_get($contact_us, 'is_section_visible'))
+    <div class="flex flex-col items-center self-stretch pb-[3.75rem] overflow-hidden">
+      <div class="contact"></div>
+      <div class="flex mt-[-39.5rem] z-10 flex-col justify-center items-center self-stretch gap-[4.25rem] p-[6.25rem_0.875rem_0rem_0.875rem] tablet:p-[6.25rem_2.5rem_0rem_2.5rem] big-tablet:p-[6.25rem_3.75rem_0rem_3.75rem] laptop:p-[6.25rem_9.375rem_0rem_9.375rem] desktop:p-[6.25rem_23.125rem_0rem_23.125rem]">
+        @if(data_get($contact_us, 'is_top_section_visible'))
+          <div class="flex flex-col justify-center items-center gap-[0.625rem] self-stretch">
+            <div class="text-white text-center flex flex-col items-center self-stretch gap-[1.0625rem]">
+              <div class="flex flex-col items-center gap-[1.875rem]">
+                <h1 class="font-inter text-[0.875rem] tracking-[0.3125rem] uppercase">
+                  {{ data_get($contact_us, 'section_title') }}
+                </h1>
+                <h2 class="text-[2.5rem] desktop:text-[3.75rem] tracking-[0.03125rem] uppercase">
+                  {{ data_get($contact_us, 'contact_us') }}
+                </h2>
+              </div>
+              <p class="font-open font-medium w-[46 text-[1rem] leading-[170%] tracking-[0.0625rem] tablet:flex tablet:flex-col">
+                {{ data_get($contact_us, 'subtext') }}
+              </p>
+            </div>
           </div>
-          <p class="font-open font-medium text-[1rem] leading-[170%] tracking-[0.0625rem] tablet:flex tablet:flex-col">Lorem ipsum dolor sit amet consectetur. Gravida <span>accumsan accumsan et lectus ipsum nulla erat.</span></p>
-        </div>
-      </div>
-      <div class="flex flex-col bg-white p-[1.25rem] tablet:p-[3.75rem] gap-[2.5rem] tablet:gap-[3.75rem] self-stretch">
-        <div class="flex flex-col items-start gap-[1.25rem] self-stretch">
-          <div class="flex tablet:flex-row flex-col items-start gap-[0.625rem] self-stretch">
-            <div class="flex flex-1 flex-col gap-[0.625rem] self-stretch">
-              <label for="name" class="text-template_2_alt font-inter leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Full Name</label>
-              <div class="flex self-stretch flex-[1_0_0] w-full justify-between items-center p-[0.625rem_0.875rem] bg-[#F2F3F7] ">
-                <input type="text" id="name" class="w-full font-inter text-[1.125rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none" placeholder="John Jackson" />
+        @endif
+        <form
+          wire:submit.prevent="contactUs"
+          class="flex flex-col bg-white p-[1.25rem] tablet:p-[3.75rem] gap-[2.5rem] tablet:gap-[3.75rem] self-stretch">
+
+          @session('contact_us_message')
+          <div class='px-4 py-6 bg-template_2_primary text-white mb-4'>
+            {{ session()->get('contact_us_message') }}
+          </div>
+          @endsession
+
+          <div class="flex flex-col items-start gap-[1.25rem] self-stretch">
+            <div class="flex tablet:flex-row flex-col items-start gap-[0.625rem] self-stretch">
+              <div class="flex flex-1 flex-col gap-[0.625rem] self-stretch">
+                <label for="name" class="text-template_2_alt font-inter leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Full Name</label>
+                <div class="flex self-stretch flex-[1_0_0] w-full justify-between items-center p-[0.625rem_0.875rem] bg-[#F2F3F7] ">
+                  <input type="text"
+                         id="name"
+                         wire:model.debounce.750ms="full_name"
+                         class="w-full font-inter text-[1.125rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
+                         placeholder="John Jackson" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <g opacity="0.2">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.12856 3.3355L4.28906 8.175C4.22056 8.244 4.17306 8.331 4.15356 8.426L3.41006 11.9685C3.37556 12.133 3.42606 12.304 3.54456 12.423C3.66256 12.5425 3.83306 12.5945 3.99756 12.5615L7.56906 11.8475C7.66606 11.828 7.75506 11.7805 7.82456 11.7105L12.6641 6.871L9.12856 3.3355ZM9.83556 2.6285L13.3711 6.164L14.2676 5.268C15.2441 4.2915 15.2441 2.7085 14.2676 1.732C13.7986 1.2635 13.1631 1 12.5001 1C11.8366 1 11.2011 1.2635 10.7321 1.732L9.83556 2.6285Z" fill="black"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M1.75 15H13.75C14.164 15 14.5 14.664 14.5 14.25C14.5 13.836 14.164 13.5 13.75 13.5H1.75C1.336 13.5 1 13.836 1 14.25C1 14.664 1.336 15 1.75 15Z" fill="black"/>
+                    </g>
+                  </svg>
+                </div>
+                @error('full_name')
+                <span class='text-red-500 mt-2'>{{ $message }}</span>
+                @enderror
+              </div>
+              <div class="flex flex-1 flex-col gap-[0.625rem] self-stretch">
+                <label for="email" class="text-template_2_alt font-inter leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Enter Your Email</label>
+                <div class="flex self-stretch flex-[1_0_0] w-full justify-between items-center p-[0.625rem_0.875rem] bg-[#F2F3F7] ">
+                  <input type="text"
+                         wire:model.debounce.750ms="email"
+                         id="email"
+                         class="w-full font-inter text-[1.125rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
+                         placeholder="your@mail.com" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <g opacity="0.2">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.12856 3.3355L4.28906 8.175C4.22056 8.244 4.17306 8.331 4.15356 8.426L3.41006 11.9685C3.37556 12.133 3.42606 12.304 3.54456 12.423C3.66256 12.5425 3.83306 12.5945 3.99756 12.5615L7.56906 11.8475C7.66606 11.828 7.75506 11.7805 7.82456 11.7105L12.6641 6.871L9.12856 3.3355ZM9.83556 2.6285L13.3711 6.164L14.2676 5.268C15.2441 4.2915 15.2441 2.7085 14.2676 1.732C13.7986 1.2635 13.1631 1 12.5001 1C11.8366 1 11.2011 1.2635 10.7321 1.732L9.83556 2.6285Z" fill="black"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M1.75 15H13.75C14.164 15 14.5 14.664 14.5 14.25C14.5 13.836 14.164 13.5 13.75 13.5H1.75C1.336 13.5 1 13.836 1 14.25C1 14.664 1.336 15 1.75 15Z" fill="black"/>
+                    </g>
+                  </svg>
+                </div>
+                @error('email')
+                <span class='text-red-500 mt-2'>{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <div class="flex flex-col gap-[0.625rem] items-start self-stretch">
+              <label for="message" class="text-template_2_alt font-inter leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Message</label>
+              <div class="flex self-stretch flex-[1_0_0] w-full justify-between items-end p-[0.625rem_0.875rem] bg-[#F2F3F7] ">
+                <textarea type="text"
+                          wire:model.debounce.750ms="message"
+                          id="message"
+                          class="w-full h-[11.25rem] text-[1.125rem] font-inter font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none"
+                          placeholder="Your Message"></textarea>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <g opacity="0.2">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M9.12856 3.3355L4.28906 8.175C4.22056 8.244 4.17306 8.331 4.15356 8.426L3.41006 11.9685C3.37556 12.133 3.42606 12.304 3.54456 12.423C3.66256 12.5425 3.83306 12.5945 3.99756 12.5615L7.56906 11.8475C7.66606 11.828 7.75506 11.7805 7.82456 11.7105L12.6641 6.871L9.12856 3.3355ZM9.83556 2.6285L13.3711 6.164L14.2676 5.268C15.2441 4.2915 15.2441 2.7085 14.2676 1.732C13.7986 1.2635 13.1631 1 12.5001 1C11.8366 1 11.2011 1.2635 10.7321 1.732L9.83556 2.6285Z" fill="black"/>
@@ -380,40 +442,31 @@ $menu = data_get($page_data, 'our_menu_section');
                   </g>
                 </svg>
               </div>
-            </div>
-            <div class="flex flex-1 flex-col gap-[0.625rem] self-stretch">
-              <label for="email" class="text-template_2_alt font-inter leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Enter Your Email</label>
-              <div class="flex self-stretch flex-[1_0_0] w-full justify-between items-center p-[0.625rem_0.875rem] bg-[#F2F3F7] ">
-                <input type="text" id="email" class="w-full font-inter text-[1.125rem] font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none" placeholder="your@mail.com" />
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <g opacity="0.2">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.12856 3.3355L4.28906 8.175C4.22056 8.244 4.17306 8.331 4.15356 8.426L3.41006 11.9685C3.37556 12.133 3.42606 12.304 3.54456 12.423C3.66256 12.5425 3.83306 12.5945 3.99756 12.5615L7.56906 11.8475C7.66606 11.828 7.75506 11.7805 7.82456 11.7105L12.6641 6.871L9.12856 3.3355ZM9.83556 2.6285L13.3711 6.164L14.2676 5.268C15.2441 4.2915 15.2441 2.7085 14.2676 1.732C13.7986 1.2635 13.1631 1 12.5001 1C11.8366 1 11.2011 1.2635 10.7321 1.732L9.83556 2.6285Z" fill="black"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.75 15H13.75C14.164 15 14.5 14.664 14.5 14.25C14.5 13.836 14.164 13.5 13.75 13.5H1.75C1.336 13.5 1 13.836 1 14.25C1 14.664 1.336 15 1.75 15Z" fill="black"/>
-                  </g>
-                </svg>
+              @error('message')
+              <span class='text-red-500 mt-2'>{{ $message }}</span>
+              @enderror
+
+              <div class='hidden'>
+                <input type='text'
+                       wire:model="honeypot">
               </div>
             </div>
           </div>
-          <div class="flex flex-col gap-[0.625rem] items-start self-stretch">
-            <label for="message" class="text-template_2_alt font-inter leading-[120%] tracking-[0.0625rem] text-[0.75rem]">Message</label>
-            <div class="flex self-stretch flex-[1_0_0] w-full justify-between items-end p-[0.625rem_0.875rem] bg-[#F2F3F7] ">
-              <textarea type="text" id="message" class="w-full h-[11.25rem] text-[1.125rem] font-inter font-thin italic leading-[150%] tracking-[0.0625rem] bg-transparent border-none outline-none" placeholder="Your Message"></textarea>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <g opacity="0.2">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.12856 3.3355L4.28906 8.175C4.22056 8.244 4.17306 8.331 4.15356 8.426L3.41006 11.9685C3.37556 12.133 3.42606 12.304 3.54456 12.423C3.66256 12.5425 3.83306 12.5945 3.99756 12.5615L7.56906 11.8475C7.66606 11.828 7.75506 11.7805 7.82456 11.7105L12.6641 6.871L9.12856 3.3355ZM9.83556 2.6285L13.3711 6.164L14.2676 5.268C15.2441 4.2915 15.2441 2.7085 14.2676 1.732C13.7986 1.2635 13.1631 1 12.5001 1C11.8366 1 11.2011 1.2635 10.7321 1.732L9.83556 2.6285Z" fill="black"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.75 15H13.75C14.164 15 14.5 14.664 14.5 14.25C14.5 13.836 14.164 13.5 13.75 13.5H1.75C1.336 13.5 1 13.836 1 14.25C1 14.664 1.336 15 1.75 15Z" fill="black"/>
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <button class="tablet:w-fit tablet:mx-auto flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
-          SENT
-        </button>
-        <p class="text-template_2_body text-center mx-auto font-open text-[0.875rem] tracking-[0.0625rem] leading-[170%] tablet:flex tablet:flex-col">Lorem ipsum dolor sit amet consectetur. Gravida accumsan <span>accumsan et lectus ipsum nulla erat.</span></p>
+          <button
+            type='submit'
+            @session('contact_us_message')
+            disabled
+            @endif
+            class="tablet:w-fit tablet:mx-auto flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
+            {{ data_get($contact_us, 'sent_button_label') }}
+          </button>
+          <p class="text-template_2_body w-[46%] text-center mx-auto font-open text-[0.875rem] tracking-[0.0625rem] leading-[170%] tablet:flex tablet:flex-col">
+            {{ data_get($contact_us, 'bottom_text') }}
+          </p>
+        </form>
       </div>
     </div>
-  </div>
+  @endif
   <div id="location" class="relative min-h-[31.25rem] flex flex-col items-start gap-[0.625rem] self-stretch">
     <div class="absolute inset-0 w-full h-full">
       <img src="/assets/templates/2/location.png" alt="location" class="object-cover w-full h-full"/>

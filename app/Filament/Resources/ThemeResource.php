@@ -7,6 +7,10 @@ use App\Filament\Resources\ThemeResource\RelationManagers;
 use App\Models\Theme;
 use Faker\Provider\Text;
 use Filament\Forms;
+use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
@@ -305,6 +309,36 @@ class ThemeResource extends Resource
 
                                                         Forms\Components\FileUpload::make('menu_file'),
                                                     ])
+                                            ]),
+                                    ]),
+
+                                Block::make('contact_us_section')
+                                    ->schema([
+                                        Toggle::make('is_section_visible')
+                                            ->default(true),
+
+                                        Section::make('Top Section')
+                                            ->schema([
+                                                Toggle::make('is_top_section_visible')
+                                                    ->default(true),
+
+                                                TextInput::make('section_title')
+                                                    ->default('Contacts')
+                                                    ->maxLength(255),
+
+                                                TextInput::make('contact_us')
+                                                    ->default('Lorem ipsum dolor')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\Textarea::make('subtext')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat.'),
+
+                                                TextInput::make('sent_button_label')
+                                                    ->default('Sent')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\Textarea::make('bottom_text')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat.'),
                                             ]),
                                     ]),
 
