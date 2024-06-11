@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Enums\SupportedLocaleEnums;
 use App\Models\ContactUsMessage;
 use App\Models\Theme;
 use Livewire\Component;
+use Spatie\SchemaOrg\TheaterEvent;
 
 class Template extends Component
 {
@@ -17,21 +19,35 @@ class Template extends Component
     public $honeypot;
     public bool $is_submitted = false;
 
+    public $locale;
+
     public function render()
     {
-        $template = match ($this->template) {
-            "template-2" => [
+        $theme = Theme::where('is_active', true)->first();
+
+        $template = match ($theme?->template) {
+            "template_1" => [
+                "view" => "templates.template-1",
+                "layout" => 'components.template-layouts.template-1',
+            ],
+
+            "template_2" => [
                 "view" => "templates.template-2",
                 "layout" => 'components.template-layouts.template-2',
             ],
 
             default => [
-                "view" => "templates.template-2",
-                "layout" => 'components.template-layouts.template-2',
+                "view" => 'home',
+                "layout" => 'components.layouts.page-layout',
             ]
         };
 
-        $data = collect(Theme::where('template', 'template_2')->first()->data)
+        if (($theme === null) && $token = session()?->get('_token')) {
+            $this->locale = $locale = \Cache::get($token, SupportedLocaleEnums::de->name);
+            \App::setLocale($locale);
+        }
+
+        $data = collect($theme?->data)
             ->mapWithKeys(function (array $item) {
                 return [
                     $item['type'] => $item['data'],
@@ -40,11 +56,6 @@ class Template extends Component
 
         return view($template['view'], ['page_data' => $data])
             ->layout($template['layout']);
-    }
-
-    public function mount(string $template)
-    {
-        $this->template = $template;
     }
 
     public function contactUs()
@@ -82,6 +93,23 @@ class Template extends Component
             $this->message = "";
 
             session()->flash('contact_us_message', "Thank you for contacting us, we have received your message!");
+        }
+    }
+
+    public function changeLocale(string $locale = "en"): void
+    {
+        $supportedLocales = SupportedLocaleEnums::getOptions();
+        $token = session()->get('_token');
+
+        if (in_array($locale, $supportedLocales, true)) {
+            \App::setLocale($locale);
+
+            if ($token) {
+                \Cache::put($token, $locale, now()->addDays(2));
+            }
+
+            $this->reset();
+            $this->js('window.location.reload()');
         }
     }
 }
