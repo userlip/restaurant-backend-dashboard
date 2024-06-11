@@ -342,221 +342,68 @@ class ThemeResource extends Resource
                                             ]),
                                     ]),
 
+                                Block::make('footer_section')
+                                    ->schema([
+                                        Toggle::make('is_section_visible')
+                                            ->default(true),
 
-//                                Forms\Components\Builder\Block::make('menu_section')
-//                                    ->schema([
-//                                        Forms\Components\Toggle::make('is_section_visible')
-//                                            ->default(true),
-//
-//                                        Forms\Components\Section::make('Left Section')
-//                                            ->schema([
-//                                                Forms\Components\Toggle::make('is_left_section_visible')
-//                                                    ->default(true),
-//
-//                                                Forms\Components\TextInput::make('section_title')
-//                                                    ->default('Menu')
-//                                                    ->maxLength(255),
-//
-//                                                Forms\Components\TextInput::make('header')
-//                                                    ->default('Lorem ipsum dolor')
-//                                                    ->maxLength(255),
-//
-//                                                Forms\Components\RichEditor::make('subtext')
-//                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat.')
-//                                                    ->maxLength(1000),
-//
-//                                                Forms\Components\Section::make('Menu PDF')
-//                                                    ->schema([
-//                                                        Forms\Components\Toggle::make('is_menu_pdf_visible')
-//                                                            ->default(true),
-//
-//                                                        Forms\Components\TextInput::make('menu_pdf_title')
-//                                                            ->default("Menu .PDF"),
-//
-//                                                        Forms\Components\FileUpload::make('menu_pdf')
-//                                                            ->directory('template-1')
-//                                                            ->hint("File must be a PDF file")
-//                                                            ->acceptedFileTypes([
-//                                                                'application/pdf'
-//                                                            ]),
-//                                                    ]),
-//                                            ]),
-//
-//                                        Forms\Components\Section::make('Right Section')
-//                                            ->schema([
-//                                                Forms\Components\Toggle::make('is_right_section_visible')
-//                                                    ->default(true),
-//
-//                                                Forms\Components\TextInput::make('menu_text')
-//                                                    ->default("Menu"),
-//
-//                                                Forms\Components\FileUpload::make('menu_picture')
-//                                                    ->directory('template-1')
-//                                                    ->image()
-//                                            ])
-//                                    ]),
-//
-//                                Forms\Components\Builder\Block::make('gallery_section')
-//                                    ->schema([
-//                                        Forms\Components\Toggle::make('is_section_visible')
-//                                            ->default(true),
-//
-//                                        Forms\Components\Section::make('Top Section')
-//                                            ->schema([
-//                                                Forms\Components\Toggle::make('is_top_section_visible')
-//                                                    ->default(true),
-//
-//                                                Forms\Components\TextInput::make('section_title')
-//                                                    ->default('Menu')
-//                                                    ->maxLength(255),
-//
-//                                                Forms\Components\TextInput::make('header')
-//                                                    ->default('Lorem ipsum dolor')
-//                                                    ->maxLength(255),
-//
-//                                                Forms\Components\RichEditor::make('subtext')
-//                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat.')
-//                                                    ->maxLength(1000),
-//                                            ]),
-//
-//                                        Forms\Components\Section::make('Gallery/Bottom Section')
-//                                            ->schema([
-//                                                Forms\Components\Toggle::make('is_top_section_visible')
-//                                                    ->default(true),
-//
-//                                                Forms\Components\TextInput::make('section_title')
-//                                                    ->default('Gallery')
-//                                                    ->maxLength(255),
-//
-//                                                Forms\Components\TextInput::make('header')
-//                                                    ->default('Lorem ipsum dolor.')
-//                                                    ->maxLength(255),
-//
-//                                                Forms\Components\RichEditor::make('subtext')
-//                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat.')
-//                                                    ->maxLength(1000),
-//
-//                                                Forms\Components\FileUpload::make('gallery')
-//                                                    ->directory('template-1')
-//                                                    ->multiple()
-//                                                    ->image(),
-//                                            ]),
-//                                    ]),
-//
-//                                Forms\Components\Builder\Block::make('contact_us_section')
-//                                    ->schema([
-//                                        Forms\Components\Toggle::make('is_section_visible')
-//                                            ->default(true),
-//
-//                                        Forms\Components\Section::make('Top Section')
-//                                            ->schema([
-//                                                Forms\Components\Toggle::make('is_top_section_visible')
-//                                                    ->default(true),
-//
-//                                                Forms\Components\TextInput::make('section_title')
-//                                                    ->default('Menu')
-//                                                    ->maxLength(255),
-//
-//                                                Forms\Components\TextInput::make('header')
-//                                                    ->default('Lorem ipsum dolor')
-//                                                    ->maxLength(255),
-//                                            ]),
-//                                    ]),
-//
-////                                Forms\Components\Builder\Block::make('google_maps_section')
-////                                    ->schema([
-////                                        Forms\Components\Toggle::make('is_section_visible')
-////                                            ->default(true),
-////
-////                                        Forms\Components\Section::make()
-////                                            ->schema([
-////                                                Forms\Components\FileUpload::make('map_image')
-////                                                    ->directory('template-1')
-////                                                    ->live()
-////                                                    ->image(),
-////
-////                                                Forms\Components\TextInput::make('address')
-////                                                    ->default('10408 Madison Street, Fort Lilly 19797-5951')
-////                                                    ->maxLength(255),
-////
-////                                                Forms\Components\RichEditor::make('weekday_operating_hours')
-////                                                    ->default('Mon. - Fri. : 09:00 - 23:00')
-////                                                    ->maxLength(255),
-////
-////                                                Forms\Components\RichEditor::make('weekend_operating_hours')
-////                                                    ->default('Weekend : 09:00 - 23:00')
-////                                                    ->maxLength(255),
-////                                            ])
-////                                    ]),
-//
-//                                Forms\Components\Builder\Block::make('footer_section')
-//                                    ->schema([
-//                                        Forms\Components\Toggle::make('is_section_visible')
-//                                            ->default(true),
-//
-//                                        Forms\Components\Section::make('Left Section')
-//                                            ->schema([
-//                                                Forms\Components\Toggle::make('is_left_section_visible')
-//                                                    ->default(true),
-//
-//                                                Forms\Components\FileUpload::make('logo')
-//                                                    ->directory('template-1')
-//                                                    ->image(),
-//
-//                                                Forms\Components\RichEditor::make('subtext')
-//                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat. Sed dui vestibulum posuere massa vulputate.')
-//                                                    ->maxLength(255),
-//
-//                                                Forms\Components\Repeater::make('links')
-//                                                    ->schema([
-//                                                        Forms\Components\TextInput::make('label')
-//                                                            ->maxLength(255)
-//                                                            ->required(),
-//
-//                                                        Forms\Components\TextInput::make('link')
-//                                                            ->maxLength(255)
-//                                                            ->required(),
-//                                                    ])
-//                                            ]),
-//
-//                                        Forms\Components\Section::make('Right Section')
-//                                            ->schema([
-//                                                Forms\Components\Toggle::make('is_right_section_visible')
-//                                                    ->default(true),
-//
-//                                                Forms\Components\TextInput::make('call_us')
-//                                                    ->default('Call us'),
-//
-//                                                Forms\Components\TextInput::make('phone_number')
-//                                                    ->default('+1 232 222 4445 777'),
-//
-//                                                Forms\Components\RichEditor::make('operation_hours')
-//                                                    ->default('Mon. - Fri. : 09:00 - 23:00'),
-//
-//                                                Forms\Components\Section::make('Socials')
-//                                                    ->schema([
-//                                                        Forms\Components\TextInput::make('facebook')
-//                                                            ->hint('Make this empty to make this social icon invisible')
-//                                                            ->url()
-//                                                            ->default('www.facebook.com'),
-//
-//                                                        Forms\Components\TextInput::make('twitter')
-//                                                            ->hint('Make this empty to make this social icon invisible')
-//                                                            ->url()
-//                                                            ->default('www.x.com'),
-//
-//                                                        Forms\Components\TextInput::make('instagram')
-//                                                            ->hint('Make this empty to make this social icon invisible')
-//                                                            ->url()
-//                                                            ->default('www.instagram.com'),
-//
-//                                                        Forms\Components\TextInput::make('linkedin')
-//                                                            ->hint('Make this empty to make this social icon invisible')
-//                                                            ->url()
-//                                                            ->default('www.instagram.com'),
-//                                                    ])
-//                                            ]),
-//                                    ]),
+                                        Forms\Components\Section::make('Call Us')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('call_us_contact_number')
+                                                    ->default('+1 232 222 4445 777')
+                                                    ->maxLength(255),
+
+                                                Forms\Components\RichEditor::make('call_us_operating_hours')
+                                                    ->default('Mon - Fri, 09:00 - 18:00')
+                                                    ->maxLength(255),
+                                            ]),
+
+                                        Forms\Components\Section::make('Call Us')
+                                            ->schema([
+                                                Forms\Components\FileUpload::make('footer_logo')
+                                                    ->directory('template-2')
+                                                    ->image()
+                                                    ->imageEditor(),
+
+                                                Forms\Components\TextInput::make('restaurant_name')
+                                                    ->default(config('app.name'))
+                                                    ->maxLength(255),
+
+                                                Forms\Components\Repeater::make('nav_links')
+                                                    ->maxItems(5)
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('label'),
+                                                        Forms\Components\TextInput::make('url'),
+                                                    ]),
+
+                                                Forms\Components\Textarea::make('bottom_text')
+                                                    ->default('Lorem ipsum dolor sit amet consectetur. Gravida accumsan accumsan et lectus ipsum nulla erat.'),
+                                            ]),
+
+                                        Forms\Components\Section::make('Socials')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('facebook')
+                                                    ->hint("If you want it to be invisible, leave it as blank")
+                                                    ->url()
+                                                    ->default("https://www.facebook.com"),
+
+                                                Forms\Components\TextInput::make('x')
+                                                    ->hint("If you want it to be invisible, leave it as blank")
+                                                    ->label("X/Twitter")
+                                                    ->url()
+                                                    ->default("https://www.x.com"),
+
+                                                Forms\Components\TextInput::make('instagram')
+                                                    ->hint("If you want it to be invisible, leave it as blank")
+                                                    ->url()
+                                                    ->default("https://www.instagram.com"),
+
+                                                Forms\Components\TextInput::make('linkedin')
+                                                    ->hint("If you want it to be invisible, leave it as blank")
+                                                    ->url()
+                                                    ->default("https://www.linkedin.com"),
+                                            ])
+                                    ]),
                             ]),
                     ])
             ]);
