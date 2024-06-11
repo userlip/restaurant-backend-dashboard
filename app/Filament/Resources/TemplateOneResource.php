@@ -45,6 +45,7 @@ class TemplateOneResource extends Resource
 
                         Forms\Components\Toggle::make('is_active')
                             ->label('Active Theme')
+                            ->disabled()
                             ->default(true),
 
                         Forms\Components\TextInput::make('template')
