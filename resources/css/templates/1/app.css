@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: "Open Sans", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #121212;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+.container {
+  @apply max-w-[1900px] mx-auto;
+}
+
+.hero {
+  background: url('/public/assets/templates/1/hero-image.jpg') lightgray 50% / cover no-repeat;
+}
+
+.asset-1 {
+  background: url('/public/assets/templates/1/asset-1.jpg') lightgray 50% / cover no-repeat;
+}
+
+.asset-2 {
+  background: url('/public/assets/templates/1/asset-2.jpg') lightgray 50% / cover no-repeat;
+}
+
+.asset-3 {
+  background: url('/public/assets/templates/1/asset-3.jpg') lightgray 50% / cover no-repeat;
+}
+
+.swiper-pagination-progressbar-fill {
+  background: #E1BC84 !important;
+}

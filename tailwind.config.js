@@ -17,6 +17,8 @@ module.exports = {
       },
       fontFamily: {
         'alt': ['"Involve"', 'sans-serif'],
+        'antic': ['"Antic Didone"', 'serif'],
+        'mea': ['"Mea Culpa"', 'serif'],
       },
       textColor: {
         'body': '#5E5D5A'
