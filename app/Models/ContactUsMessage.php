@@ -11,6 +11,7 @@ class ContactUsMessage extends Model
 
     protected $fillable = [
         'full_name',
+        'email',
         'phone_number',
         'message',
     ];
