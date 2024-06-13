@@ -600,8 +600,9 @@
           </div>
           @if(data_get($menu, 'is_menu_pdf_visible'))
             <a
-              href="{{ data_get($menu, 'menu_pdf') }}"
+              href="{{ asset('/storage/' . data_get($menu, 'menu_pdf')) }}"
               target='_blank'
+              download
               class="group relative text-[1rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[10.66488rem] h-[5.08131rem]">
               {{ data_get($menu, 'menu_pdf_title') }}
               <svg class="group-hover:rotate-[5deg] top-3 transition-transform absolute inset-0"
