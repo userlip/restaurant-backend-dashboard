@@ -113,9 +113,10 @@ class WebsiteResource extends Resource
                             ]),
 
                         Forms\Components\Select::make('theme')
+                            ->relationship('theme', 'name')
                             ->required()
                             ->placeholder('Select a theme')
-                            ->options(WebsiteThemesEnums::getKeyValuePairs()),
+                            ->relationship('theme', 'name'),
 
                         Forms\Components\FileUpload::make('logo')
                             ->acceptedFileTypes(CuratorPicksImageTypes::getImageMimeTypes())

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Website extends Model
 {
@@ -15,7 +16,8 @@ class Website extends Model
     protected $fillable = [
         'uuid',
         'customer_id',
-        'theme',
+        'theme_id',
+        'theme_data',
         'domain',
         'seo_title',
         'seo_description',
@@ -31,5 +33,10 @@ class Website extends Model
     public function customer() : BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function theme() : BelongsTo
+    {
+        return $this->belongsTo(Theme::class);
     }
 }
