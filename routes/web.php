@@ -21,4 +21,4 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/article/{post:slug}', PostShow::class)->name('post.show');
 //Route::get('/', \App\Livewire\Template::class);
 Route::get('/', \App\Livewire\Pages\Home::class);
-Route::get('/preview/{website:uuid}', WebsiteThemePreview::class);
+Route::get('/preview/{website:uuid}', WebsiteThemePreview::class)->name('website-theme-preview');
