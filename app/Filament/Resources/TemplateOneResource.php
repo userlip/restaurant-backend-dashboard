@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TemplateOneResource\Pages;
 use App\Filament\Resources\TemplateOneResource\RelationManagers;
 use App\Models\TemplateOne;
-use App\Models\Theme;
+use App\Models\Website;
 use Filament\Forms;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\FileUpload;
@@ -18,12 +18,10 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TemplateOneResource extends Resource
 {
-    protected static ?string $model = Theme::class;
+    protected static ?string $model = Website::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -40,19 +38,7 @@ class TemplateOneResource extends Resource
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required(),
-
-                        Forms\Components\Toggle::make('is_active')
-                            ->label('Active Theme')
-                            ->disabled()
-                            ->default(true),
-
-                        Forms\Components\TextInput::make('template')
-                            ->default('template_1')
-                            ->required(),
-
-                        Forms\Components\Builder::make('data')
+                        Forms\Components\Builder::make('theme_data')
                             ->required()
                             ->reorderable(false)
                             ->deletable(false)

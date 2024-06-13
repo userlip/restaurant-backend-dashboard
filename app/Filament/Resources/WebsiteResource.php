@@ -7,6 +7,7 @@ use App\Enums\WebsiteThemesEnums;
 use App\Filament\Resources\WebsiteResource\Pages;
 use App\Filament\Resources\WebsiteResource\RelationManagers;
 use App\Forms\Components\FillWithGpt;
+use App\Models\Theme;
 use App\Models\Website;
 use App\Trait\ResourceModelCountNavigationBadge;
 use App\Utils\WhoIsJsonApiChecker;
@@ -15,6 +16,8 @@ use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -113,9 +116,10 @@ class WebsiteResource extends Resource
                             ]),
 
                         Forms\Components\Select::make('theme')
+                            ->relationship('theme', 'name')
                             ->required()
                             ->placeholder('Select a theme')
-                            ->options(WebsiteThemesEnums::getKeyValuePairs()),
+                            ->relationship('theme', 'name'),
 
                         Forms\Components\FileUpload::make('logo')
                             ->acceptedFileTypes(CuratorPicksImageTypes::getImageMimeTypes())
@@ -171,6 +175,28 @@ class WebsiteResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\EditAction::make('Edit Theme')
+                    ->label("Edit Theme")
+                    ->disabled(fn (Website $record) => $record->theme === null)
+                    ->color(Color::Orange)
+                    ->url(function (Website $record) {
+                        $theme = $record->theme;
+
+                        if (! $theme) {
+                            return null;
+                        }
+
+                        $route = match ($record?->theme->template) {
+                            "template_1" => "filament.admin.resources.template-ones.edit",
+                            "template_2" => "filament.admin.resources.template-twos.edit",
+                        };
+
+                        return route(
+                            $route,
+                            ['record' => $record->id]
+                        );
+                    }, true),
+
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

@@ -5,10 +5,12 @@ namespace App\Livewire;
 use App\Enums\SupportedLocaleEnums;
 use App\Models\ContactUsMessage;
 use App\Models\Theme;
+use App\Models\Website;
 use Livewire\Component;
 use Spatie\SchemaOrg\TheaterEvent;
+use Webmozart\Assert\InvalidArgumentException;
 
-class Template extends Component
+class WebsiteThemePreview extends Component
 {
     public string $template;
 
@@ -21,9 +23,17 @@ class Template extends Component
 
     public $locale;
 
+    private ?Website $website;
+
+    public function mount(Website $website)
+    {
+        $this->website = $website;
+    }
+
     public function render()
     {
-        $theme = Theme::where('is_active', true)->first();
+        $theme = $this->website->theme;
+        $themeData = $this->website->theme_data;
 
         $template = match ($theme?->template) {
             "template_1" => [
@@ -42,12 +52,7 @@ class Template extends Component
             ]
         };
 
-        if (($theme === null) && $token = session()?->get('_token')) {
-            $this->locale = $locale = \Cache::get($token, SupportedLocaleEnums::de->name);
-            \App::setLocale($locale);
-        }
-
-        $data = collect($theme?->data)
+        $data = collect($themeData)
             ->mapWithKeys(function (array $item) {
                 return [
                     $item['type'] => $item['data'],
