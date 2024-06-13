@@ -162,7 +162,7 @@ class WebsiteResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('theme')
+                Tables\Columns\TextColumn::make('theme.name')
                     ->badge()
                     ->limit(20)
                     ->sortable()
