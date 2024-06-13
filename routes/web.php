@@ -3,6 +3,7 @@
 use App\Filament\Auth\Login;
 use App\Livewire\Home;
 use App\Livewire\Post\Show as PostShow;
+use App\Livewire\WebsiteThemePreview;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', Home::class)->name('home');
 // Route::get('/article/{post:slug}', PostShow::class)->name('post.show');
-Route::get('/', \App\Livewire\Template::class);
-Route::get('/{template}/view', \App\Livewire\Template::class);
+//Route::get('/', \App\Livewire\Template::class);
+Route::get('/', \App\Livewire\Pages\Home::class);
+Route::get('/preview/{website:uuid}', WebsiteThemePreview::class);

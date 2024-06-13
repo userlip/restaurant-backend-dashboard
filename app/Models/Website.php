@@ -25,6 +25,10 @@ class Website extends Model
         'logo',
     ];
 
+    protected $casts = [
+        'theme_data' => 'array'
+    ];
+
     /**
      * The customer relationship of the website model
      *
