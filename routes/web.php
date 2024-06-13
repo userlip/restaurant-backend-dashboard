@@ -19,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', Home::class)->name('home');
 // Route::get('/article/{post:slug}', PostShow::class)->name('post.show');
-<<<<<<< feature/template-seeder-command
-Route::get('/', \App\Livewire\Template::class);
-=======
 //Route::get('/', \App\Livewire\Template::class);
 Route::get('/', \App\Livewire\Pages\Home::class);
 Route::get('/preview/{website:uuid}', WebsiteThemePreview::class)->name('website-theme-preview');
->>>>>>> master

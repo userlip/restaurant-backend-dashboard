@@ -76,39 +76,7 @@ class ThemeResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->url(function (Theme $record) {
-                        $route = match ($record->template) {
-                            "template_1" => "filament.admin.resources.template-ones.edit",
-                            "template_2" => "filament.admin.resources.template-twos.edit",
-                        };
 
-                        return route(
-                            $route,
-                            ['record' => $record->id]
-                        );
-                    }, true),
-
-                Tables\Actions\Action::make('set_active')
-                    ->color(function (Theme $record) {
-                        return $record->is_active
-                            ? Color::Green
-                            : Color::Orange;
-                    })
-                    ->icon('heroicon-o-check-circle')
-                    ->disabled(fn (Theme $record) => $record->is_active)
-                    ->requiresConfirmation()
-                    ->action(function (Theme $record) {
-                        Theme::whereNot('id', $record->id)->get()->each(function (Theme $theme) {
-                            $theme->update([
-                                "is_active" => false
-                            ]);
-                        });
-
-                        $record->update([
-                            'is_active' => true
-                        ]);
-                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
