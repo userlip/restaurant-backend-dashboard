@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             MediaSeeder::class,
             PostSeeder::class,
             CustomerSeeder::class,
+            ThemeTemplateOneSeeder::class,
+            ThemeTemplateTwoSeeder::class,
         ]);
     }
 }
