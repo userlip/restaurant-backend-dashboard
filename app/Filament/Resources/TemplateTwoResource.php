@@ -6,6 +6,7 @@ use App\Filament\Resources\TemplateTwoResource\Pages;
 use App\Filament\Resources\TemplateTwoResource\RelationManagers;
 use App\Models\TemplateTwo;
 use App\Models\Theme;
+use App\Models\Website;
 use Filament\Forms;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Section;
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TemplateTwoResource extends Resource
 {
-    protected static ?string $model = Theme::class;
+    protected static ?string $model = Website::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -37,19 +38,7 @@ class TemplateTwoResource extends Resource
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required(),
-
-                        Forms\Components\Toggle::make('is_active')
-                            ->label('Active Theme')
-                            ->disabled()
-                            ->default(true),
-
-                        Forms\Components\TextInput::make('template')
-                            ->default('template_1')
-                            ->required(),
-
-                        Forms\Components\Builder::make('data')
+                        Forms\Components\Builder::make('theme_data')
                             ->required()
                             ->reorderable(false)
                             ->deletable(false)
