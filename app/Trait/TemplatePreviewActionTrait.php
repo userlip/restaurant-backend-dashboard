@@ -11,7 +11,7 @@ trait TemplatePreviewActionTrait
     protected function getHeaderActions(): array
     {
         return [
-
+            $this->getPreviewActionButton()
         ];
     }
 
