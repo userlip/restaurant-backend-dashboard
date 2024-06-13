@@ -13,6 +13,7 @@ class Website extends Model
     public const PORKBUN_QUERY_WEBSITE = 'https://porkbun.com/checkout/search?q=';
 
     protected $fillable = [
+        'uuid',
         'customer_id',
         'theme',
         'domain',
