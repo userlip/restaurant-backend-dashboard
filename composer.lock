@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18894897a7fe399e5f31fd7957ec154d",
+    "content-hash": "ffbca2114a1184b1efae4ec8cce61280",
     "packages": [
         {
             "name": "awcodes/filament-curator",
@@ -4717,6 +4717,52 @@
                 }
             ],
             "time": "2024-04-12T21:02:21+00:00"
+        },
+        {
+            "name": "naturalbuild/namecheap-sdk",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NaturalBuild/namecheap-sdk.git",
+                "reference": "8d1c9f7dc4a1ed10c56a76db3388949d208d03d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NaturalBuild/namecheap-sdk/zipball/8d1c9f7dc4a1ed10c56a76db3388949d208d03d9",
+                "reference": "8d1c9f7dc4a1ed10c56a76db3388949d208d03d9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Namecheap\\": "src/Namecheap"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saddam Hossain",
+                    "email": "saddamrhossain@gmail.com"
+                }
+            ],
+            "description": "SDK library for Namecheap APIs",
+            "keywords": [
+                "api",
+                "namecheap",
+                "namecheap SDK",
+                "namecheap php"
+            ],
+            "support": {
+                "issues": "https://github.com/NaturalBuild/namecheap-sdk/issues",
+                "source": "https://github.com/NaturalBuild/namecheap-sdk/tree/v1.0.4"
+            },
+            "time": "2020-08-05T19:21:59+00:00"
         },
         {
             "name": "nesbot/carbon",
