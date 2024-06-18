@@ -21,6 +21,11 @@ class Customer extends Model
         'email',
         'phone',
         'address',
+        'area_code',
+        'city',
+        'state',
+        'postal_code',
+        'country',
         'contact_person',
         'next_payment_date',
         'is_invoice',
@@ -61,5 +66,27 @@ class Customer extends Model
     public function lead() : HasOne
     {
         return $this->hasOne(Lead::class);
+    }
+
+    public function getFirstNameAttribute() : string
+    {
+        $fullName = explode(" ", $this->name);
+
+        if (count($fullName) === 3) {
+            return $fullName[1];
+        }
+
+        return $fullName[0];
+    }
+
+    public function getLastNameAttribute() : string
+    {
+        $fullName = explode(" ", $this->name);
+
+        if (count($fullName) === 3) {
+            return $fullName[2];
+        }
+
+        return $fullName[1];
     }
 }
