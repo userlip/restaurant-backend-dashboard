@@ -31,6 +31,8 @@ class ContactUsMessageResource extends Resource
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
+                        Forms\Components\Select::make('website_id')
+                            ->relationship('website', 'seo_title'),
                         Forms\Components\TextInput::make('full_name'),
                         Forms\Components\TextInput::make('phone_number'),
                         Forms\Components\Textarea::make('message'),
@@ -42,6 +44,11 @@ class ContactUsMessageResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('website.seo_title')
+                    ->badge()
+                    ->sortable()
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('full_name')
                     ->sortable()
                     ->searchable(),

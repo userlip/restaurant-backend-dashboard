@@ -4,11 +4,8 @@ namespace App\Livewire;
 
 use App\Enums\SupportedLocaleEnums;
 use App\Models\ContactUsMessage;
-use App\Models\Theme;
 use App\Models\Website;
 use Livewire\Component;
-use Spatie\SchemaOrg\TheaterEvent;
-use Webmozart\Assert\InvalidArgumentException;
 
 class WebsiteThemePreview extends Component
 {
@@ -23,7 +20,7 @@ class WebsiteThemePreview extends Component
 
     public $locale;
 
-    private ?Website $website;
+    public ?Website $website;
 
     public function mount(Website $website)
     {
@@ -71,8 +68,8 @@ class WebsiteThemePreview extends Component
 
         $this->validate([
             'full_name' => 'required|string',
-            'email' => 'required_without:phone_number|email',
-            'phone_number' => 'required_without:email',
+            'email' => 'sometimes|required_without_all:phone_number|email|nullable',
+            'phone_number' => 'required_without_all:email|nullable',
             'message' => 'required|string',
         ], [
             'phone_number.required_without' => __('validation.required', ['attribute' => "phone number"]),
@@ -83,12 +80,14 @@ class WebsiteThemePreview extends Component
         $email = $this->email;
         $phone_number = $this->phone_number ?? null;
         $message = $this->message;
+        $website = $this->website;
 
         $contact = ContactUsMessage::create([
             'full_name' => $fullName,
             'email' => $email,
             'phone_number' => $phone_number,
             'message' => $message,
+            'website_id' => $website->id,
         ]);
 
         if ($contact) {
