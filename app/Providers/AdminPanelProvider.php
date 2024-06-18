@@ -50,7 +50,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentShieldPlugin::make()
             ])
             ->defaultAvatarProvider(GravatarProvider::class)
-            ->favicon(asset('/favicon-32x32.png'))
+            ->favicon(asset('/favicon.ico'))
             ->brandLogo(fn () => view('components.logo'))
             ->navigationGroups([
                 'Customers',
