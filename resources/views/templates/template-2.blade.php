@@ -1,4 +1,5 @@
 @php
+use App\Helper\Helper;
 $header = data_get($page_data, 'header');
 $hero = data_get($page_data, 'hero_section');
 $about = data_get($page_data, 'about_us_section');
@@ -12,7 +13,7 @@ $footer = data_get($page_data, 'footer_section');
 <section class='mx-auto w-full max-w-[120rem]'>
   @if(data_get($hero, 'is_bg_image_visible') && data_get($hero, 'background_image'))
     <div
-      style="background: url('{{ asset('/storage/' . data_get($hero, 'background_image')) }}') 50% / cover no-repeat;"
+      style="background: url('{{ Helper::getAssetPath(data_get($hero, 'background_image')) }}') 50% / cover no-repeat;"
   @else
     <div
   @endif
@@ -21,7 +22,7 @@ $footer = data_get($page_data, 'footer_section');
       <header class="flex w-full justify-between items-center self-stretch">
         <div class="flex flex-col items-center">
           @if($logo = data_get($header, 'header_logo'))
-            <img src='{{ asset('/storage/' . $logo) }}'
+            <img src='{{ Helper::getAssetPath($logo) }}'
                  class='w-[300px] h-auto'
                  alt='{{ data_get($header, 'restaurant_name') ?? config('app.name') }}'/>
           @else
@@ -263,7 +264,7 @@ $footer = data_get($page_data, 'footer_section');
             </h2>
           </div>
           <div class="tablet:hidden relative w-[27.8125rem] h-[22.625rem]">
-            <img src="{{ asset('/storage/' . data_get($about, 'background_image')) }}" alt="dish" class="object-cover w-full h-full"/>
+            <img src="{{ Helper::getAssetPath(data_get($about, 'background_image')) }}" alt="dish" class="object-cover w-full h-full"/>
           </div>
           <div class="flex flex-col big-tablet:flex-row pb-[1.25rem] gap-[1.25rem] self-stretch">
             <span class="font-open text-template_2_body text-[0.875rem] tracking-[0.0625rem] leading-[170%]">
@@ -282,7 +283,7 @@ $footer = data_get($page_data, 'footer_section');
       @endif
       @if(data_get($about, 'is_right_section_visible'))
       <div class="relative hidden tablet:block min-w-[20.875rem] big-tablet:min-w-[24.375rem] laptop:min-w-[38.375rem] desktop:min-w-[63.1875rem] h-[35.5625rem] big-tablet:h-[40.625rem] laptop:h-[51.75rem]">
-        <img src="{{ asset('/storage/' . data_get($about, 'background_image')) }}" alt="dish" class="absolute -z-10 scale-[2] big-tablet:scale-[2.2] laptop:scale-[1.5] desktop:scale-100 object-contain left-12 desktop:left-0 -top-8 h-[35.5625rem] big-tablet:h-[40.625rem] w-[43rem] big-tablet:w-[50rem] laptop:h-[51.75rem] laptop:w-[63rem] desktop:w-[63.1875rem]"/>
+        <img src="{{ Helper::getAssetPath(data_get($about, 'background_image')) }}" alt="dish" class="absolute -z-10 scale-[2] big-tablet:scale-[2.2] laptop:scale-[1.5] desktop:scale-100 object-contain left-12 desktop:left-0 -top-8 h-[35.5625rem] big-tablet:h-[40.625rem] w-[43rem] big-tablet:w-[50rem] laptop:h-[51.75rem] laptop:w-[63rem] desktop:w-[63.1875rem]"/>
       </div>
       @endif
     </div>
@@ -290,7 +291,7 @@ $footer = data_get($page_data, 'footer_section');
   @if(data_get($our_story, 'is_section_visible'))
     @if($our_story_bg = data_get($our_story, 'background_image'))
       <div
-        style="background: url('{{ asset('/storage/' . $our_story_bg) }}') 50% / cover no-repeat;"
+        style="background: url('{{ Helper::getAssetPath($our_story_bg) }}') 50% / cover no-repeat;"
     @else
       <div
     @endif
@@ -346,9 +347,9 @@ $footer = data_get($page_data, 'footer_section');
           </h2>
         </div>
         <div class="relative self-stretch">
-          <img src="{{ asset('/storage/' . data_get($menu, 'menu_picture')) }}" alt="dish" class="object-cover w-full h-full"/>
+          <img src="{{ Helper::getAssetPath(data_get($menu, 'menu_picture')) }}" alt="dish" class="object-cover w-full h-full"/>
         </div>
-        <a href="{{ asset('/storage/' . data_get($menu, 'menu_file')) }}"
+        <a href="{{ Helper::getAssetPath(data_get($menu, 'menu_file')) }}"
            download
            class="z-10 w-fit mx-auto flex text-[1.25rem] text-white font-bold tracking-[0.03125rem] uppercase p-[1.25rem_2.5rem] justify-center items-center gap-[0.625rem] self-stretch rounded-[19.6875rem] bg-template_2_primary hover:bg-template_2_primary/80 transition-colors">
           {{ data_get($menu, 'download_menu_label') }}
@@ -509,7 +510,7 @@ $footer = data_get($page_data, 'footer_section');
           </div>
         </div>
         @if($logo = data_get($footer, 'footer_logo'))
-          <img src='{{ asset('/storage/' . $logo) }}'
+          <img src='{{ Helper::getAssetPath($logo) }}'
                class='w-[300px] h-auto'
                alt='{{ data_get($footer, 'restaurant_name') ?? config('app.name') }}'/>
         @else

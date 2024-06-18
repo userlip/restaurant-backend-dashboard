@@ -44,6 +44,12 @@ class AdminPanelProvider extends PanelProvider
                         hasAvatars: true
                     )
                     ->enableTwoFactorAuthentication(),
+                CuratorPlugin::make()
+                    ->label('Media')
+                    ->pluralLabel('Media Library')
+                    ->navigationIcon('heroicon-o-photo')
+                    ->navigationGroup('Media')
+                    ->navigationCountBadge(),
                 FilamentPeekPlugin::make()
                     ->disablePluginStyles(),
                 GravatarPlugin::make(),

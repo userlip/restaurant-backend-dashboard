@@ -1,4 +1,6 @@
 @php
+  use App\Helper\Helper;
+
   $header = data_get($page_data, 'header');
   $hero = data_get($page_data, 'hero_section');
   $about_us = data_get($page_data, 'about_us_section');
@@ -18,7 +20,7 @@
   @if(data_get($hero, 'is_bg_image_visible'))
   <div
     style='
-      background-image: url("{{ asset('/storage/' . data_get($hero, 'background_image')) }}");
+      background-image: url("{{ Helper::getAssetPath(data_get($hero, 'background_image')) }}");
       background-size: cover;
       background-position: 50%;
       background-repeat: no-repeat;
@@ -33,7 +35,7 @@
           @if($image = data_get($header, 'header_logo'))
             <a href=''>
               <img
-                src='{{ asset('/storage/' . $image) }}'
+                src='{{ Helper::getAssetPath($image) }}'
                 style='width: 200px; height: auto'
                 alt='App Logo'>
             </a>
@@ -486,7 +488,7 @@
             @endphp
             <div
               style="
-                background: url({{ asset($left_image ?? '/assets/templates/1/asset-1.jpg') }}) lightgray 50% / cover no-repeat;
+                background: url({{ Helper::getAssetPath($left_image) ?? '/assets/templates/1/asset-1.jpg' }}) lightgray 50% / cover no-repeat;
               "
               class="w-[13.0625rem] h-[21.375rem] big-tablet:w-[18.1875rem] big-tablet:h-[29.75rem] shrink-0"></div>
           </div>
@@ -503,7 +505,7 @@
             @endphp
             <div
               style="
-                background: url('{{ asset($right_image ?? 'assets/templates/1/asset-2.jpg') }}') lightgray 50% / cover no-repeat;
+                background: url('{{ Helper::getAssetPath($right_image) ?? 'assets/templates/1/asset-2.jpg' }}') lightgray 50% / cover no-repeat;
               "
               class="w-[13.0625rem] h-[21.375rem] shrink-0 big-tablet:w-[17.75rem] big-tablet:h-[29.75rem] desktop:w-[31.125rem]"></div>
           </div>
@@ -600,7 +602,7 @@
           </div>
           @if(data_get($menu, 'is_menu_pdf_visible'))
             <a
-              href="{{ asset('/storage/' . data_get($menu, 'menu_pdf')) }}"
+              href="{{ Helper::getAssetPath(data_get($menu, 'menu_pdf')) }}"
               target='_blank'
               download
               class="group relative text-[1rem] hover:text-white/80 transition-colors font-semibold flex items-center justify-center text-center w-[10.66488rem] h-[5.08131rem]">
@@ -626,7 +628,7 @@
           <div
             class="relative h-[49rem] big-tablet:flex-[1_0_0] self-stretch"
             style='
-              background-image: url("{{ asset('/storage/' . $menu_picture) }}");
+              background-image: url("{{ Helper::getAssetPath($menu_picture) }}");
               background-color: lightgray;
               background-size: cover;
               background-position: 50%;
@@ -668,7 +670,7 @@
           @foreach(data_get($gallery, 'gallery') as $image)
             <div class="swiper-slide max-w-[18.75rem] tablet:max-w-[37.5rem] big-tablet:max-w-[58.75rem] h-full">
               <img class="object-cover w-full h-full"
-                   src="{{ asset('/storage/' . $image) }}"
+                   src="{{ Helper::getAssetPath($image) }}"
                    alt="gallery image" />
             </div>
           @endforeach
@@ -886,7 +888,7 @@
               @if(data_get($footer, 'logo'))
                 <img
                   class='w-[200px] tablet:w-[400px]'
-                  src='{{ asset('/storage/' . data_get($footer, 'logo')) }}'
+                  src='{{ Helper::getAssetPath(data_get($footer, 'logo')) }}'
                   alt='{{ config('app.name') . " Logo" }}'>
               @else
                 <span class="font-antic text-[2.875rem]">

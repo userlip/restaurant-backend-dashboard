@@ -39,5 +39,9 @@ class ThemeTemplateTwoSeeder extends Seeder
             'preview_data' => null,
             'is_active' => false,
         ]);
+
+        $this->call([
+            TemplateTwoMediaPickerAssetsSeeder::class
+        ]);
     }
 }
