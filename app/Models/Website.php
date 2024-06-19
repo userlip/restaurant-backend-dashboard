@@ -24,10 +24,12 @@ class Website extends Model
         'seo_description',
         'favicon',
         'logo',
+        'cloudflare_response',
     ];
 
     protected $casts = [
-        'theme_data' => 'array'
+        'theme_data' => 'array',
+        'cloudflare_response' => 'array',
     ];
 
     /**
