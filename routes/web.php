@@ -23,8 +23,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', \App\Livewire\Pages\Home::class);
 Route::get('/preview/{website:uuid}', WebsiteThemePreview::class)->name('website-theme-preview');
 
-Route::get('/testing', function () {
-    return \App\Utils\Namecheap::buyDomain();
 
-    return \App\Utils\DomainChecker::getDomainAvailability('google.com');
-});
