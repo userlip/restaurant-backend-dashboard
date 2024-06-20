@@ -19,6 +19,7 @@ class Namecheap
 {
     private const URL = 'https://api.sandbox.namecheap.com/xml.response';
 
+    private Domains $domains;
     private DomainsDns $domainsDns;
 
     public function __construct()
@@ -31,10 +32,14 @@ class Namecheap
         // Domain DNS
         $this->domainsDns = new DomainsDns($apiUser, $apiKey, $userName, $clientIp, 'json');
         $this->domainsDns->enableSandbox();
+
+        // Domains
+        $this->domains = new Domains($apiUser, $apiKey, $userName, $clientIp, 'json');
+        $this->domains->enableSandbox();
     }
 
-//    public static function buyDomain(string $domain, Customer $customer)
-    public static function buyDomain()
+//    public function buyDomain(string $domain, Customer $customer)
+    public function buyDomain()
     {
         // Dummy User
         $adminUser = [
@@ -67,13 +72,7 @@ class Namecheap
             'domain' => 'random-domain-free-testing-test'. Str::random(5) . '.com'
         ]);
 
-        $apiUser = config('namecheap.namecheap.api_user');
-        $apiKey = config('namecheap.namecheap.api_key');
-        $clientIp = config('namecheap.namecheap.client_id');
-        $userName = config('namecheap.namecheap.user_name');
-
-        $ncDomains = new Domains($apiUser, $apiKey, $userName, $clientIp, 'json');
-        $ncDomains->enableSandbox();
+        $ncDomains = $this->domains;
         $result = $ncDomains->create(self::buildDomain($website), self::buildContactInfo($customer, $adminUser));
 
         Log::info(__CLASS__, [
