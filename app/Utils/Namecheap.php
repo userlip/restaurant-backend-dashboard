@@ -110,7 +110,30 @@ class Namecheap
         ]);
 
         if ($status === "ERROR") {
-            throw new RuntimeException([$response]);
+            throw new RuntimeException($response);
+        }
+
+        return $response;
+    }
+
+    public function setHost(Website $website)
+    {
+        $domainDns = $this->domainsDns;
+        $domain = explode(".", $website->domain);
+        $sld = data_get($domain, 0);
+        $tld = data_get($domain, 1);
+        $address = config('ploi.api.host_url');
+
+        $response = $domainDns->setHosts($sld, $tld, ['www'], ['A'], [$address], []);
+
+        $status = data_get($response, 'ApiResponse._STATUS');
+
+        Log::info(__CLASS__ . "::" . __FUNCTION__ . " TIMESTAMP: " . now() , [
+            $response
+        ]);
+
+        if ($status === "ERROR") {
+            throw new RuntimeException($response);
         }
 
         return $response;
