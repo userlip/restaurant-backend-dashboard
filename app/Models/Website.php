@@ -25,11 +25,13 @@ class Website extends Model
         'favicon',
         'logo',
         'cloudflare_response',
+        'nameserver_transfer',
     ];
 
     protected $casts = [
         'theme_data' => 'array',
         'cloudflare_response' => 'array',
+        'nameserver_transfer' => 'array',
     ];
 
     /**
