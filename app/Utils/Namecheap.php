@@ -7,14 +7,31 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Models\Website;
 use Cassandra\Custom;
+use http\Exception\RuntimeException;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Namecheap\Domain\Domains;
+use Namecheap\Domain\DomainsDns;
 
 class Namecheap
 {
     private const URL = 'https://api.sandbox.namecheap.com/xml.response';
+
+    private DomainsDns $domainsDns;
+
+    public function __construct()
+    {
+        $apiUser = config('namecheap.namecheap.api_user');
+        $apiKey = config('namecheap.namecheap.api_key');
+        $clientIp = config('namecheap.namecheap.client_id');
+        $userName = config('namecheap.namecheap.user_name');
+
+        // Domain DNS
+        $this->domainsDns = new DomainsDns($apiUser, $apiKey, $userName, $clientIp, 'json');
+        $this->domainsDns->enableSandbox();
+    }
 
 //    public static function buyDomain(string $domain, Customer $customer)
     public static function buyDomain()
@@ -64,6 +81,40 @@ class Namecheap
         ]);
 
         return $result;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function changeNameserver(Website $website)
+    {
+        $namecheap = $this->domainsDns;
+        $domain = explode(".", $website->domain);
+        $sld = data_get($domain, 0);
+        $tld = data_get($domain, 1);
+        $nameServers = data_get($website, 'cloudflare_response.result.name_servers');
+        $nameServers = implode(",", $nameServers);
+
+        if ($sld === null || $tld === null || $nameServers === null) {
+            throw new \RuntimeException("Missing domain, or cloudflare response data");
+        }
+
+        $response = $namecheap->setCustom($sld, $tld, $nameServers);
+        $status = data_get($response, 'ApiResponse._STATUS');
+
+        $website->update([
+            'nameserver_transfer' => json_decode($response, true, 512, JSON_THROW_ON_ERROR),
+        ]);
+
+        Log::info(__CLASS__ . "::" . __FUNCTION__ . " TIMESTAMP: " . now() , [
+            $response
+        ]);
+
+        if ($status === "ERROR") {
+            throw new RuntimeException([$response]);
+        }
+
+        return $response;
     }
 
     public static function buildContactInfo(Customer $customer, array $user): array
