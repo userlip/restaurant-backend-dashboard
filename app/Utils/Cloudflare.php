@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use App\Models\Website;
+use Exception;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -45,12 +46,25 @@ class Cloudflare
         return $website;
     }
 
-    public static function createDnsRecords(Website $website): void
+    /**
+     * @throws Exception
+     */
+    public static function createDnsRecords(Website $website): bool
     {
         $zoneId = data_get($website->cloudflare_response, 'result.id');
+        $hostIpAddress = config('ploi.api.host_ip_address');
+        $hostUrl = config('ploi.api.host_url');
 
         if ($zoneId === null) {
             throw new \RuntimeException("Missing Zone ID data");
+        }
+
+        if ($hostIpAddress === null) {
+            throw new \RuntimeException("Missing Ploi Host IP Address");
+        }
+
+        if ($hostUrl === null) {
+            throw new \RuntimeException("Missing Ploi Host Url");
         }
 
         $url = self::ZONE_URL . "/{$zoneId}" . "/dns_records";
@@ -58,15 +72,9 @@ class Cloudflare
         // Creates the A record DNS
         $aRecordDns = self::buildADnsRecord(
             $zoneId,
-            config('ploi.api.host_ip_address'),
+            $hostIpAddress,
             "@",
             type: "A",
-        );
-
-        // Creates HTTPS record DNS
-        $httpsDnsRecord = self::buildHttpsDnsRecord(
-            config('ploi.api.host_url'),
-            $zoneId,
         );
 
         $aRecordDnsResponse = Http::acceptJson()
@@ -76,6 +84,12 @@ class Cloudflare
                 $aRecordDns
             );
 
+        // Creates HTTPS record DNS
+        $httpsDnsRecord = self::buildHttpsDnsRecord(
+            $hostUrl,
+            $zoneId,
+        );
+
         $httpsDnsRecordResponse = Http::acceptJson()
             ->withHeaders(self::getHeaders())
             ->post(
@@ -83,7 +97,7 @@ class Cloudflare
                 $httpsDnsRecord
             );
 
-        $website->update([
+        return $website->update([
             "type_a_dns_record" => $aRecordDnsResponse->json(),
             'type_https_dns_record' => $httpsDnsRecordResponse->json()
         ]);
