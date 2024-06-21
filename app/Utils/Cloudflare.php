@@ -12,6 +12,7 @@ class Cloudflare
     public const ZONE_URL = "https://api.cloudflare.com/client/v4/zones";
 
     /**
+     * This will add the domain as website in your cloudflare account
      * After adding the website into the cloudflare, proceed to change the dns servers
      *
      * @param Website $website
