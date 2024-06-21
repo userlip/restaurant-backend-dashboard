@@ -38,9 +38,13 @@ class Namecheap
         $this->domains->enableSandbox();
     }
 
-//    public function buyDomain(string $domain, Customer $customer)
-    public function buyDomain()
+    /**
+     * @throws \JsonException
+     */
+    public function buyDomain(Website $website)
     {
+        $ncDomains = $this->domains;
+
         // Dummy User
         $adminUser = [
             'first_name' => 'Alice TESTING',
@@ -55,27 +59,15 @@ class Namecheap
         ];
 
         // Dummy Data
-        $customer = Customer::make([
-            'name' => 'John Doe',
-            'address' => 'Oldesloer Strasse 78, Rohr, Freistaat Bayern',
-            'city' => 'Rohr',
-            'state' => 'Freistaat Bayern',
-            'postal_code' => '93352',
-            'country' => 'Germany',
-            'phone' => '+49.15510686794',
-            'email' => 'john_doe_testing@mailinator.com',
-        ]);
+        $customer = $website->customer;
 
-        // Dummy Data
-        $website = Website::make([
-            'uuid' => Str::uuid(),
-            'domain' => 'random-domain-free-testing-test'. Str::random(5) . '.com'
-        ]);
-
-        $ncDomains = $this->domains;
         $result = $ncDomains->create(self::buildDomain($website), self::buildContactInfo($customer, $adminUser));
 
-        Log::info(__CLASS__, [
+        $website->update([
+            'domain_purchase_response' => json_decode($result, true, 512, JSON_THROW_ON_ERROR),
+        ]);
+
+        Log::info(__CLASS__ . "::" . __FUNCTION__, [
             $result
         ]);
 
