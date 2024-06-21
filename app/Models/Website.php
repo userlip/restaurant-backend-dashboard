@@ -24,6 +24,7 @@ class Website extends Model
         'seo_description',
         'favicon',
         'logo',
+        'domain_purchase_response',
         'cloudflare_response',
         'nameserver_transfer',
         'type_a_dns_record',
@@ -32,6 +33,7 @@ class Website extends Model
 
     protected $casts = [
         'theme_data' => 'array',
+        'domain_purchase_response' => 'array',
         'cloudflare_response' => 'array',
         'nameserver_transfer' => 'array',
         'type_a_dns_record' => 'array',
