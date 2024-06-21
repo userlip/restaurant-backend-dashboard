@@ -2,16 +2,11 @@
 
 namespace App\Utils;
 
-use App\Filament\Auth\Login;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Website;
-use Cassandra\Custom;
 use http\Exception\RuntimeException;
-use Illuminate\Routing\Middleware\ThrottleRequests;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Namecheap\Domain\Domains;
 use Namecheap\Domain\DomainsDns;
 
@@ -158,7 +153,7 @@ class Namecheap
             "registrantStateProvince" => $customer->state,
             "registrantPostalCode" => $customer->postal_code,
             "registrantCountry" => $customer->country,
-            "registrantPhone" => $customer->phone,
+            "registrantPhone" => $customer->namecheap_friendly_phone_number,
             "registrantEmailAddress" => $customer->email,
         ];
     }

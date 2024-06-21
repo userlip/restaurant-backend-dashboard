@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Observers\CustomerObserver;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -88,5 +87,15 @@ class Customer extends Model
         }
 
         return $fullName[1];
+    }
+
+    /**
+     * Namecheap accepted phone number format
+     *
+     * @return string
+     */
+    public function getNamecheapFriendlyPhoneNumberAttribute(): string
+    {
+        return "{$this->area_code}.{$this->phone}";
     }
 }
