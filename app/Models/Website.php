@@ -26,12 +26,16 @@ class Website extends Model
         'logo',
         'cloudflare_response',
         'nameserver_transfer',
+        'type_a_dns_record',
+        'type_https_dns_record',
     ];
 
     protected $casts = [
         'theme_data' => 'array',
         'cloudflare_response' => 'array',
         'nameserver_transfer' => 'array',
+        'type_a_dns_record' => 'array',
+        'type_https_dns_record' => 'array',
     ];
 
     /**
