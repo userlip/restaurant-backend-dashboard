@@ -28,6 +28,10 @@ Route::get('/testing', function () {
 
     $namecheap = new \App\Utils\Namecheap();
 
+    return \App\Utils\Cloudflare::createDnsRecords($website);
+
+    return \App\Utils\Ploi::createTenant($website);
+
     return $namecheap->setHost($website);
 
     return \App\Utils\Ploi::createTenant($website);

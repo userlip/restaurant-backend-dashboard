@@ -3,8 +3,7 @@
 namespace App\Utils;
 
 use App\Models\Website;
-use GuzzleHttp\Promise\Promise;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
 class Cloudflare
@@ -46,6 +45,50 @@ class Cloudflare
         return $website;
     }
 
+    public static function createDnsRecords(Website $website): void
+    {
+        $zoneId = data_get($website->cloudflare_response, 'result.id');
+
+        if ($zoneId === null) {
+            throw new \RuntimeException("Missing Zone ID data");
+        }
+
+        $url = self::ZONE_URL . "/{$zoneId}" . "/dns_records";
+
+        // Creates the A record DNS
+        $aRecordDns = self::buildADnsRecord(
+            $zoneId,
+            config('ploi.api.host_ip_address'),
+            "@",
+            type: "A",
+        );
+
+        // Creates HTTPS record DNS
+        $httpsDnsRecord = self::buildHttpsDnsRecord(
+            config('ploi.api.host_url'),
+            $zoneId,
+        );
+
+        $aRecordDnsResponse = Http::acceptJson()
+            ->withHeaders(self::getHeaders())
+            ->post(
+                $url,
+                $aRecordDns
+            );
+
+        $httpsDnsRecordResponse = Http::acceptJson()
+            ->withHeaders(self::getHeaders())
+            ->post(
+                $url,
+                $httpsDnsRecord
+            );
+
+        $website->update([
+            "type_a_dns_record" => $aRecordDnsResponse->json(),
+            'type_https_dns_record' => $httpsDnsRecordResponse->json()
+        ]);
+    }
+
     public static function getHeaders(): array
     {
         $token = config('cloudflare.api.api_token');
@@ -67,6 +110,50 @@ class Cloudflare
             ],
             "name" => $domain,
             "type" => "full",
+        ];
+    }
+
+    public static function buildADnsRecord(
+        string $id,
+        string $content,
+        string $name,
+        string $type,
+        bool $proxied = true,
+        string $comment = "",
+        int $ttl = 1,
+    ): array
+    {
+        return [
+            "content" => $content,
+            "name" => $name,
+            "proxied" => $proxied,
+            "type" => $type,
+            "comment" => $comment,
+            "id" => $id,
+            "ttl" => $ttl,
+        ];
+    }
+
+    public static function buildHttpsDnsRecord(
+        string $target,
+        string $id,
+        string $value = "",
+        string $name = "@",
+        string $comment = "",
+        int $ttl = 1,
+    ): array
+    {
+        return [
+            "data" => [
+                "priority" => 1,
+                "target" => $target,
+                "value" => $value,
+            ],
+            "name" => $name,
+            "type" => "HTTPS",
+            "comment" => $comment,
+            "id" => $id,
+            "ttl" => $ttl,
         ];
     }
 }
