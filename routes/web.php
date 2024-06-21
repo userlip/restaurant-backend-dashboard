@@ -24,9 +24,13 @@ Route::get('/', \App\Livewire\Pages\Home::class);
 Route::get('/preview/{website:uuid}', WebsiteThemePreview::class)->name('website-theme-preview');
 
 Route::get('/testing', function () {
-    $website = \App\Models\Website::find(33);
+    $website = \App\Models\Website::find(34);
+
+    $websiteService = new \App\Service\WebsiteService;
 
     $namecheap = new \App\Utils\Namecheap();
+
+    return $websiteService->setupWebsiteDomain($website);
 
     return \App\Utils\Cloudflare::createDnsRecords($website);
 

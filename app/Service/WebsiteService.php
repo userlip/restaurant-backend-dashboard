@@ -25,7 +25,13 @@ class WebsiteService
     {
         $namecheap = $this->namecheap;
 
-        $namecheap->buyDomain($website);
+        // Testing Domain for namecheap sandbox
+        $website->domain = "example-testing-domain.com";
 
+        /**
+         * Add the next steps for processing the connecting domain setup
+         */
+
+        return $namecheap->buyDomain($website);
     }
 }
