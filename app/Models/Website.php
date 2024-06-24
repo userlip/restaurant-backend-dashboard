@@ -29,6 +29,7 @@ class Website extends Model
         'nameserver_transfer',
         'type_a_dns_record',
         'type_https_dns_record',
+        'tenant_create_response',
     ];
 
     protected $casts = [
@@ -38,6 +39,7 @@ class Website extends Model
         'nameserver_transfer' => 'array',
         'type_a_dns_record' => 'array',
         'type_https_dns_record' => 'array',
+        'tenant_create_response' => 'array',
     ];
 
     /**
@@ -58,5 +60,10 @@ class Website extends Model
     public function contactUsMessages() : HasMany
     {
         return $this->hasMany(ContactUsMessage::class);
+    }
+
+    public function getNewNameserversAttribute() : array | null
+    {
+        return data_get($this, 'cloudflare_response.result.name_servers');
     }
 }
