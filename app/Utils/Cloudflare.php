@@ -16,9 +16,9 @@ class Cloudflare
      * After adding the website into the cloudflare, proceed to change the dns servers
      *
      * @param Website $website
-     * @return Website
+     * @return bool
      */
-    public static function createNewDnsZone(Website $website): Website
+    public static function createNewDnsZone(Website $website): bool
     {
         $response = \Http::acceptJson()
             ->withHeaders(self::getHeaders())
@@ -34,17 +34,17 @@ class Cloudflare
             ]);
         }
 
-        $response = $response->json();
+        $responseJson = $response->json();
 
-        $newDns = data_get($response, 'result.name_servers');
+        $newDns = data_get($responseJson, 'result.name_servers');
 
         if ($newDns !== null) {
             $website->update([
-                'cloudflare_response' => $response
+                'cloudflare_response' => $responseJson
             ]);
         }
 
-        return $website;
+        return $response->status() === Response::HTTP_OK;
     }
 
     /**
@@ -85,22 +85,22 @@ class Cloudflare
                 $aRecordDns
             );
 
-        // Creates HTTPS record DNS
-        $httpsDnsRecord = self::buildHttpsDnsRecord(
-            $hostUrl,
-            $zoneId,
-        );
-
-        $httpsDnsRecordResponse = Http::acceptJson()
-            ->withHeaders(self::getHeaders())
-            ->post(
-                $url,
-                $httpsDnsRecord
-            );
+//        // Creates HTTPS record DNS
+//        $httpsDnsRecord = self::buildHttpsDnsRecord(
+//            $hostUrl,
+//            $zoneId,
+//        );
+//
+//        $httpsDnsRecordResponse = Http::acceptJson()
+//            ->withHeaders(self::getHeaders())
+//            ->post(
+//                $url,
+//                $httpsDnsRecord
+//            );
 
         return $website->update([
             "type_a_dns_record" => $aRecordDnsResponse->json(),
-            'type_https_dns_record' => $httpsDnsRecordResponse->json()
+//            'type_https_dns_record' => $httpsDnsRecordResponse->json()
         ]);
     }
 
