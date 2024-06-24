@@ -90,4 +90,48 @@ class WebsiteService
         $ploi = $this->ploi;
         return $ploi::createTenant($website);
     }
+
+
+    /**
+     * This function covers all the process of purchasing, and other setup for the changing the domain dns and etc.
+     * This function must only be used if the domain is available to use or else it will only stop at the 'buyDomain'
+     * function.
+     *
+     * @throws \JsonException
+     * @throws \Exception
+     */
+    public function connectingDomainProcess(Website $website): bool
+    {
+        $buyDomain = $this->buyDomain($website);
+
+        if ($buyDomain === false) {
+            return false;
+        }
+
+        $createDnsZone = $this->createCloudflareDnsZone($website);
+
+        if ($createDnsZone === false) {
+            return false;
+        }
+
+        $changeNameServers = $this->changeNameservers($website);
+
+        if ($changeNameServers === false) {
+            return false;
+        }
+
+        $createDnsRecords = $this->createDnsRecords($website);
+
+        if ($createDnsRecords === false) {
+            return false;
+        }
+
+        $createTenant = $this->createTenant($website);
+
+        if ($createTenant === false) {
+            return false;
+        }
+
+        return true;
+    }
 }
