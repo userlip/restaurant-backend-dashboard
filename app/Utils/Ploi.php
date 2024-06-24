@@ -29,6 +29,10 @@ class Ploi
             throw new \RuntimeException("Failed to create tenant for website {$website->id}");
         }
 
+        $website->update([
+            'tenant_create_response' => $response->json(),
+        ]);
+
         return $response->status() === Response::HTTP_OK;
     }
 }
