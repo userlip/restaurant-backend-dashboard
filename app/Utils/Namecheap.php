@@ -78,7 +78,7 @@ class Namecheap
         $domain = explode(".", $website->domain);
         $sld = data_get($domain, 0);
         $tld = data_get($domain, 1);
-        $nameServers = data_get($website, 'cloudflare_response.result.name_servers');
+        $nameServers = $website->new_nameservers;
         $nameServers = implode(",", $nameServers);
 
         if ($sld === null || $tld === null || $nameServers === null) {
