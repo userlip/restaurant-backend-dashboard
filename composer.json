@@ -25,6 +25,7 @@
     "laravel/tinker": "^2.8",
     "livewire/livewire": "^3.3",
     "naturalbuild/namecheap-sdk": "^1.0",
+    "novadaemon/filament-pretty-json": "^2.2",
     "pboivin/filament-peek": "^2.2",
     "pelmered/filament-money-field": "^1.2",
     "romanzipp/laravel-seo": "^2.6",
