@@ -68,6 +68,18 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 ->action(function (Website $record) use ($service) {
                     $service->createDnsRecords($record);
                 }),
+
+            Actions\Action::make('create_ploi_tenant')
+                ->label("Create Ploi Tenant")
+                ->requiresConfirmation()
+                ->disabled(function (Website $record) {
+                    $domainPurchase = $record->domain_purchase_response;
+
+                    return $domainPurchase !== null;
+                })
+                ->action(function (Website $record) use ($service) {
+                    $service->createTenant($record);
+                }),
         ];
     }
 }
