@@ -40,9 +40,18 @@ class WebsiteDomainSetupResource extends Resource
 
                 Forms\Components\Section::make('Create DNS Zone in Cloudflare')
                     ->collapsible()
+                    ->collapsed()
                     ->schema([
                         PrettyJson::make('cloudflare_response'),
                     ]),
+
+                Forms\Components\Section::make('Change Nameservers')
+                    ->collapsible()
+                    ->collapsed()
+                    ->schema([
+                        PrettyJson::make('nameserver_transfer'),
+                    ]),
+
             ]);
     }
 
