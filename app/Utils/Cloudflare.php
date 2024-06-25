@@ -85,22 +85,8 @@ class Cloudflare
                 $aRecordDns
             );
 
-//        // Creates HTTPS record DNS
-//        $httpsDnsRecord = self::buildHttpsDnsRecord(
-//            $hostUrl,
-//            $zoneId,
-//        );
-//
-//        $httpsDnsRecordResponse = Http::acceptJson()
-//            ->withHeaders(self::getHeaders())
-//            ->post(
-//                $url,
-//                $httpsDnsRecord
-//            );
-
         return $website->update([
             "type_a_dns_record" => $aRecordDnsResponse->json(),
-//            'type_https_dns_record' => $httpsDnsRecordResponse->json()
         ]);
     }
 
