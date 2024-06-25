@@ -725,7 +725,7 @@
       <form wire:submit.prevent="contactUs"
             class='w-full'>
         @session('contact_us_message')
-        <div class='px-4 py-6 bg-[#E1BC84] bg-white mb-4'>
+        <div class='px-4 py-6 bg-[#E1BC84] bg-white mb-4 text-black'>
           {{ session()->get('contact_us_message') }}
         </div>
         @endsession
