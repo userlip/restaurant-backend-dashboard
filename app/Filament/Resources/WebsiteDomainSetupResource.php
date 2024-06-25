@@ -8,13 +8,10 @@ use App\Models\Website;
 use App\Models\WebsiteDomainSetup;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\KeyValueEntry;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 use Novadaemon\FilamentPrettyJson\PrettyJson;
 
 class WebsiteDomainSetupResource extends Resource
@@ -25,6 +22,11 @@ class WebsiteDomainSetupResource extends Resource
     protected static ?string $navigationLabel = "Website Domain Setup";
 
     protected static ?string $label = "Website Domain Setup";
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
 
     public static function form(Form $form): Form
     {
@@ -71,13 +73,6 @@ class WebsiteDomainSetupResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
