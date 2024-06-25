@@ -78,30 +78,39 @@ class Cloudflare
             type: "A",
         );
 
-        $aRecordDnsResponse = Http::acceptJson()
-            ->withHeaders(self::getHeaders())
-            ->post(
-                $url,
-                $aRecordDns
-            );
-
         // Creates HTTPS record DNS
         $httpsDnsRecord = self::buildHttpsDnsRecord(
             $hostUrl,
             $zoneId,
         );
 
-        $httpsDnsRecordResponse = Http::acceptJson()
-            ->withHeaders(self::getHeaders())
-            ->post(
-                $url,
-                $httpsDnsRecord
-            );
+        if (! data_get($website, 'type_a_dns_record.success')) {
+            $aRecordDnsResponse = Http::acceptJson()
+                ->withHeaders(self::getHeaders())
+                ->post(
+                    $url,
+                    $aRecordDns
+                );
 
-        return $website->update([
-            "type_a_dns_record" => $aRecordDnsResponse->json(),
-            'type_https_dns_record' => $httpsDnsRecordResponse->json()
-        ]);
+            $website->update([
+                "type_a_dns_record" => $aRecordDnsResponse->json(),
+            ]);
+        }
+
+        if (! data_get($website, 'type_https_dns_record.success')) {
+            $httpsDnsRecordResponse = Http::acceptJson()
+                ->withHeaders(self::getHeaders())
+                ->post(
+                    $url,
+                    $httpsDnsRecord
+                );
+
+            $website->update([
+                'type_https_dns_record' => $httpsDnsRecordResponse->json()
+            ]);
+        }
+
+        return data_get($website, 'type_a_dns_record.success') || data_get($website, 'type_https_dns_record.success');
     }
 
     public static function getHeaders(): array
