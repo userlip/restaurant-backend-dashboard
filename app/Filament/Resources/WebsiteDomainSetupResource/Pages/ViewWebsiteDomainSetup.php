@@ -53,6 +53,21 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 ->action(function (Website $record) use ($service) {
                     $service->changeNameservers($record);
                 }),
+
+            Actions\Action::make('create_dns_record')
+                ->label("Create DNS record")
+                ->requiresConfirmation()
+                ->disabled(function (Website $record) {
+                    $domainPurchase = $record->domain_purchase_response;
+                    $cloudflareResponse = data_get($record, 'cloudflare_response');
+                    $nameserverTransferStatus = data_get($record, 'nameserver_transfer.ApiResponse._Status');
+                    $status = data_get($record, 'type_a_dns_record.success');
+
+                    return $domainPurchase !== null && $cloudflareResponse && $nameserverTransferStatus && $status;
+                })
+                ->action(function (Website $record) use ($service) {
+                    $service->createDnsRecords($record);
+                }),
         ];
     }
 }
