@@ -24,21 +24,33 @@ Route::get('/', \App\Livewire\Pages\Home::class);
 Route::get('/preview/{website:uuid}', WebsiteThemePreview::class)->name('website-theme-preview');
 
 Route::get('/testing', function () {
-    $website = \App\Models\Website::find(34);
+    $website = \App\Models\Website::find(35);
 
     $websiteService = new \App\Service\WebsiteService;
 
-    $namecheap = new \App\Utils\Namecheap();
+    return $websiteService->createTenant($website);
 
-    return $websiteService->setupWebsiteDomain($website);
+//    $websiteService->createTenant($website);
 
-    return \App\Utils\Cloudflare::createDnsRecords($website);
+//    $websiteService->createDnsRecords($website);
 
-    return \App\Utils\Ploi::createTenant($website);
+//    $websiteService->changeNameservers($website);
 
-    return $namecheap->setHost($website);
+//    $websiteService->createCloudflareDnsZone($website);
 
-    return \App\Utils\Ploi::createTenant($website);
+//    $websiteService->buyDomain($website);
+
+//    $namecheap = new \App\Utils\Namecheap();
+//
+//    return $websiteService->setupWebsiteDomain($website);
+//
+//    return \App\Utils\Cloudflare::createDnsRecords($website);
+//
+//    return \App\Utils\Ploi::createTenant($website);
+//
+//    return $namecheap->setHost($website);
+//
+//    return \App\Utils\Ploi::createTenant($website);
 
 //    return $namecheap->changeNameserver($website);
 //
