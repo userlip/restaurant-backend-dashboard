@@ -52,6 +52,13 @@ class WebsiteDomainSetupResource extends Resource
                         PrettyJson::make('nameserver_transfer'),
                     ]),
 
+                Forms\Components\Section::make('Create DNS record')
+                    ->collapsible()
+                    ->collapsed()
+                    ->schema([
+                        PrettyJson::make('type_a_dns_record'),
+                    ]),
+
             ]);
     }
 
