@@ -61,9 +61,10 @@ class ViewWebsiteDomainSetup extends ViewRecord
                     $domainPurchase = $record->domain_purchase_response;
                     $cloudflareResponse = data_get($record, 'cloudflare_response');
                     $nameserverTransferStatus = data_get($record, 'nameserver_transfer.ApiResponse._Status');
-                    $status = data_get($record, 'type_a_dns_record.success');
+                    $typeADnsRecordStatus = data_get($record, 'type_a_dns_record.success');
+                    $typeHttpsDnsRecordStatus = data_get($record, 'type_https_dns_record.success');
 
-                    return $domainPurchase !== null && $cloudflareResponse && $nameserverTransferStatus && $status;
+                    return $domainPurchase !== null && $cloudflareResponse && $nameserverTransferStatus && $typeADnsRecordStatus && $typeHttpsDnsRecordStatus;
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->createDnsRecords($record);
