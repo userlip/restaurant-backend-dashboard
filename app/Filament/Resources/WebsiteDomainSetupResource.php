@@ -36,7 +36,13 @@ class WebsiteDomainSetupResource extends Resource
                     ->collapsible()
                     ->schema([
                         PrettyJson::make('domain_purchase_response'),
-                    ])
+                    ]),
+
+                Forms\Components\Section::make('Create DNS Zone in Cloudflare')
+                    ->collapsible()
+                    ->schema([
+                        PrettyJson::make('cloudflare_response'),
+                    ]),
             ]);
     }
 

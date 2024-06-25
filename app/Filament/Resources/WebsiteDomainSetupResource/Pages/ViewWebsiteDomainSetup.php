@@ -25,7 +25,20 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->buyDomain($record);
+                }),
+
+            Actions\Action::make('create_dns_zone')
+                ->label("Create DNS Zone")
+                ->requiresConfirmation()
+                ->disabled(function (Website $record) {
+                    $domainPurchase = $record->domain_purchase_response;
+                    $status = data_get($record, 'cloudflare_response');
+
+                    return $domainPurchase !== null && $status;
                 })
+                ->action(function (Website $record) use ($service) {
+                    $service->createCloudflareDnsZone($record);
+                }),
         ];
     }
 }
