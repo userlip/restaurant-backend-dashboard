@@ -39,6 +39,20 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 ->action(function (Website $record) use ($service) {
                     $service->createCloudflareDnsZone($record);
                 }),
+
+            Actions\Action::make('change_nameserver')
+                ->label("Change Nameserver")
+                ->requiresConfirmation()
+                ->disabled(function (Website $record) {
+                    $domainPurchase = $record->domain_purchase_response;
+                    $cloudflareResponse = data_get($record, 'cloudflare_response');
+                    $status = data_get($record, 'nameserver_transfer.ApiResponse._Status');
+
+                    return $domainPurchase !== null && $cloudflareResponse && $status;
+                })
+                ->action(function (Website $record) use ($service) {
+                    $service->changeNameservers($record);
+                }),
         ];
     }
 }
