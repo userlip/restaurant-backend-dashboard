@@ -8,7 +8,7 @@ use App\Models\ContactUsMessage;
 use App\Models\Website;
 use Livewire\Component;
 
-class WebsiteThemePreview extends Component
+class WebsitePageRenderContent extends Component
 {
     public string $template;
 
@@ -23,15 +23,19 @@ class WebsiteThemePreview extends Component
 
     public ?Website $website;
 
-    public function mount(Website $website)
-    {
-        $this->website = $website;
-    }
-
     public function render()
     {
-        $theme = $this->website->theme;
-        $themeData = $this->website->theme_data;
+        $domain = request()->getHost();
+        $website = Website::where('domain', $domain)->first();
+
+        if ($website === null) {
+            return view('home')->layout('components.layouts.page-layout');
+        }
+
+        $this->website = $website;
+
+        $theme = $website->theme;
+        $themeData = $website->theme_data;
 
         $template = WebsitePageRenderHelper::getThemeTemplate($theme);
 

@@ -20,44 +20,5 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', Home::class)->name('home');
 // Route::get('/article/{post:slug}', PostShow::class)->name('post.show');
 //Route::get('/', \App\Livewire\Template::class);
-Route::get('/', \App\Livewire\Pages\Home::class);
+Route::get('/', \App\Livewire\WebsitePageRenderContent::class);
 Route::get('/preview/{website:uuid}', WebsiteThemePreview::class)->name('website-theme-preview');
-
-Route::get('/testing', function () {
-    $website = \App\Models\Website::find(35);
-
-    $websiteService = new \App\Service\WebsiteService;
-
-    return $websiteService->createTenant($website);
-
-//    $websiteService->createTenant($website);
-
-//    $websiteService->createDnsRecords($website);
-
-//    $websiteService->changeNameservers($website);
-
-//    $websiteService->createCloudflareDnsZone($website);
-
-//    $websiteService->buyDomain($website);
-
-//    $namecheap = new \App\Utils\Namecheap();
-//
-//    return $websiteService->setupWebsiteDomain($website);
-//
-//    return \App\Utils\Cloudflare::createDnsRecords($website);
-//
-//    return \App\Utils\Ploi::createTenant($website);
-//
-//    return $namecheap->setHost($website);
-//
-//    return \App\Utils\Ploi::createTenant($website);
-
-//    return $namecheap->changeNameserver($website);
-//
-//
-//    return \App\Utils\Cloudflare::createNewDnsZone($website);
-//
-//    return \App\Utils\Namecheap::buyDomain();
-//
-//    return \App\Utils\DomainChecker::getDomainAvailability('google.com');
-});
