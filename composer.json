@@ -14,7 +14,7 @@
     "awcodes/filament-gravatar": "^2.0",
     "bezhansalleh/filament-shield": "^3.1",
     "diglactic/laravel-breadcrumbs": "^8.1",
-    "filament/filament": "^3.1",
+    "filament/filament": "3.2.92",
     "guzzlehttp/guzzle": "^7.2",
     "jeffgreco13/filament-breezy": "v2.2.1.1",
     "laravel/framework": "^10.10",
