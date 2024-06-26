@@ -26,11 +26,11 @@ class Namecheap
 
         // Domain DNS
         $this->domainsDns = new DomainsDns($apiUser, $apiKey, $userName, $clientIp, 'json');
-        $this->domainsDns->enableSandbox();
+//        $this->domainsDns->enableSandbox();
 
         // Domains
         $this->domains = new Domains($apiUser, $apiKey, $userName, $clientIp, 'json');
-        $this->domains->enableSandbox();
+//        $this->domains->enableSandbox();
     }
 
     /**
