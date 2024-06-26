@@ -96,6 +96,18 @@ class Customer extends Model
      */
     public function getNamecheapFriendlyPhoneNumberAttribute(): string
     {
-        return "{$this->area_code}.{$this->phone}";
+        $phone = str_replace(
+            [
+                "-",
+                '.',
+                ' ',
+                '(',
+                ')',
+            ],
+            "",
+            $this->phone
+        );
+
+        return "{$this->area_code}.{$phone}";
     }
 }
