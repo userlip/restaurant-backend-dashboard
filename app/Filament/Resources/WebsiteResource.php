@@ -138,7 +138,8 @@ class WebsiteResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 Tables\Columns\ImageColumn::make('logo')
-                    ->height(50),
+                    ->width(125)
+                    ->height('auto'),
 
                 Tables\Columns\TextColumn::make('customer.name')
                     ->badge()
@@ -157,19 +158,11 @@ class WebsiteResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('seo_description')
-                    ->limit(20)
-                    ->sortable()
-                    ->searchable(),
-
                 Tables\Columns\TextColumn::make('theme.name')
                     ->badge()
                     ->limit(20)
                     ->sortable()
                     ->searchable(),
-
-                Tables\Columns\ImageColumn::make('favicon')
-                    ->height(50),
             ])
             ->filters([
                 //
