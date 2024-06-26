@@ -64,6 +64,33 @@ class Website extends Model
         return $this->hasMany(ContactUsMessage::class);
     }
 
+    public function getDomainPurchaseResponseStatusResultAttribute() : bool | null
+    {
+        $response = data_get($this, 'domain_purchase_response.ApiResponse._Status');
+
+        if ($response === null) {
+            return null;
+        }
+
+        return $response === "OK";
+    }
+
+    public function getCloudflareResponseStatusResultAttribute() : bool | null
+    {
+        return data_get($this, 'cloudflare_response.success');
+    }
+
+    public function getNameserverTransferStatusResultAttribute() : bool | null
+    {
+        $response = data_get($this, 'nameserver_transfer.ApiResponse._Status');
+
+        if ($response === null) {
+            return null;
+        }
+
+        return $response === "OK";
+    }
+
     public function getNewNameserversAttribute() : array | null
     {
         return data_get($this, 'cloudflare_response.result.name_servers');
