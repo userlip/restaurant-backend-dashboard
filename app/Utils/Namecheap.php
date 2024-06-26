@@ -141,7 +141,7 @@ class Namecheap
             ]);
         }
 
-        return data_get($result, 'ApiResponse.CommandResponse.DomainCheckResult._Available') === "true";
+        return data_get($response, 'ApiResponse.CommandResponse.DomainCheckResult._Available') === "true";
     }
 
     public static function buildContactInfo(Customer $customer, array $user): array

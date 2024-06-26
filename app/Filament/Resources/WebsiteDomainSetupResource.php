@@ -34,6 +34,7 @@ class WebsiteDomainSetupResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Domain Availability')
                     ->collapsible()
+                    ->collapsed()
                     ->schema([
                         PrettyJson::make('domain_availability'),
                     ]),
