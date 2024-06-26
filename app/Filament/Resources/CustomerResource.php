@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Helper\CountryHelper;
 use App\Models\Customer;
 use App\Trait\ResourceModelCountNavigationBadge;
 use Filament\Forms;
@@ -169,6 +170,7 @@ class CustomerResource extends Resource
 
                         Forms\Components\Section::make('Address')
                             ->columns(2)
+                            ->description('Make sure that the address is a valid address, as buying the domain will not work.')
                             ->schema([
                                 Forms\Components\TextInput::make('address')
                                     ->required()
@@ -195,11 +197,9 @@ class CustomerResource extends Resource
                                     ->columns(2)
                                     ->maxLength(255),
 
-                                Forms\Components\TextInput::make('country')
-                                    ->required()
-                                    ->placeholder('Enter the country')
-                                    ->columns(2)
-                                    ->maxLength(255),
+                                Forms\Components\Select::make('country')
+                                    ->options(CountryHelper::getAllCountries())
+                                    ->required(),
                             ]),
 
                         Forms\Components\Section::make('Contact')
