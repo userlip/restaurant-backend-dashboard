@@ -13,6 +13,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use libphonenumber\PhoneNumberUtil;
 use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
@@ -205,11 +206,28 @@ class CustomerResource extends Resource
                         Forms\Components\Section::make('Contact')
                             ->columns()
                             ->schema([
+                                Forms\Components\TextInput::make('area_code')
+                                    ->required()
+                                    ->live(),
+
                                 PhoneInput::make('phone')
-                                    ->countryStatePath('area_code')
+                                    ->autoInsertDialCode()
+                                    ->countryStatePath('phone_country')
                                     ->required()
                                     ->placeholder("Enter the customer phone")
-                                    ->defaultCountry('DE'),
+                                    ->defaultCountry('DE')
+                                    ->live()
+                                    ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set) {
+                                        if (
+                                            ($countryCode = $get('phone_country')) &&
+                                            $phoneNumber = $get('phone')
+                                        ) {
+                                            $phoneUtil = PhoneNumberUtil::getInstance();
+                                            $number = $phoneUtil->parse($phoneNumber, $countryCode);
+
+                                            $set('area_code', '+' . $number->getCountryCode());
+                                        }
+                                    }),
 
                                 PhoneInput::make('whatsapp_number')
                                     ->required()
@@ -217,7 +235,6 @@ class CustomerResource extends Resource
 
                                 Forms\Components\TextInput::make('contact_person')
                                     ->required()
-                                    ->columnSpanFull()
                                     ->placeholder("Enter the customer contact person")
                                     ->maxLength(255),
                             ]),
