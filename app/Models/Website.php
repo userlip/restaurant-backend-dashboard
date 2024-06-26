@@ -24,6 +24,7 @@ class Website extends Model
         'seo_description',
         'favicon',
         'logo',
+        'domain_availability',
         'domain_purchase_response',
         'cloudflare_response',
         'nameserver_transfer',
@@ -34,6 +35,7 @@ class Website extends Model
 
     protected $casts = [
         'theme_data' => 'array',
+        'domain_availability' => 'array',
         'domain_purchase_response' => 'array',
         'cloudflare_response' => 'array',
         'nameserver_transfer' => 'array',
@@ -65,5 +67,10 @@ class Website extends Model
     public function getNewNameserversAttribute() : array | null
     {
         return data_get($this, 'cloudflare_response.result.name_servers');
+    }
+
+    public function getDomainAvailabilityResultAttribute() : bool
+    {
+        return data_get($this->domain_availabilitys, 'ApiResponse.CommandResponse.DomainCheckResult._Available') === "true";
     }
 }

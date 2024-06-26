@@ -126,6 +126,24 @@ class Namecheap
         return $response;
     }
 
+    /**
+     * @throws \JsonException
+     */
+    public function checkDomainAvailability(string $domain): bool
+    {
+        $namecheap = $this->domains;
+        $result = $namecheap->check($domain);
+        $response = json_decode($result, true, 512, JSON_THROW_ON_ERROR);
+
+        if ($website = Website::where('domain', $domain)->first()) {
+            $website->update([
+                'domain_availability' => $response
+            ]);
+        }
+
+        return data_get($result, 'ApiResponse.CommandResponse.DomainCheckResult._Available') === "true";
+    }
+
     public static function buildContactInfo(Customer $customer, array $user): array
     {
         return [

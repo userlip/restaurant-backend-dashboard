@@ -10,11 +10,13 @@ use App\Forms\Components\FillWithGpt;
 use App\Models\Theme;
 use App\Models\Website;
 use App\Trait\ResourceModelCountNavigationBadge;
+use App\Utils\Namecheap;
 use App\Utils\WhoIsJsonApiChecker;
 use dacoto\DomainValidator\Validator\Domain;
 use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
@@ -71,24 +73,38 @@ class WebsiteResource extends Resource
 
                         Forms\Components\TextInput::make('domain')
                             ->required()
-                            ->live(debounce: 750)
+                            ->live(debounce: 500)
                             ->placeholder('Enter the domain')
                             ->hintActions([
-                                Forms\Components\Actions\Action::make('purchase_or_check_domain')
-                                    ->label('Purchase/Check Domain')
+                                Forms\Components\Actions\Action::make('check_domain_availability')
+                                    ->label('Check Domain Availability')
                                     ->icon('heroicon-o-link')
                                     ->requiresConfirmation()
-                                    ->modalHeading("You'll be redirected to porkbun's website")
-                                    ->openUrlInNewTab()
-                                    ->url(function (Forms\Get $get) {
-                                        $domain = str_replace(' ', '-', strtolower(trim($get('domain'))));
+                                    ->action(function (Forms\Get $get) {
+                                        $namecheap = new Namecheap;
 
-                                        if (! self::validateDomain($domain)) {
-                                            return null;
+                                        if (! ($domain = $get('domain'))) {
+                                            Notification::make('error')
+                                                ->danger()
+                                                ->title('Domain is required!')
+                                                ->send();
                                         }
 
-                                        return Website::PORKBUN_QUERY_WEBSITE . $domain;
+                                        $result = $namecheap->checkDomainAvailability($domain);
+
+                                        $notification = Notification::make('check_domain_availability');
+
+                                        if ($result) {
+                                            $notification->title("Domain is available")
+                                                ->success();
+                                        } else {
+                                            $notification->title("Domain is not available")
+                                                ->danger();
+                                        }
+
+                                        $notification->send();
                                     })
+
                                     ->visible(function (Forms\Get $get) {
                                         $domain = str_replace(' ', '-', strtolower(trim($get('domain'))));
 
