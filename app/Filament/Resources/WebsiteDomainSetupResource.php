@@ -32,6 +32,12 @@ class WebsiteDomainSetupResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('Domain Availability')
+                    ->collapsible()
+                    ->schema([
+                        PrettyJson::make('domain_availability'),
+                    ]),
+
                 Forms\Components\Section::make('Domain Purchase from Namecheap')
                     ->collapsible()
                     ->schema([
