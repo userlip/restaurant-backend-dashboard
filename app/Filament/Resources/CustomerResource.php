@@ -68,11 +68,17 @@ class CustomerResource extends Resource
         return $table
             ->defaultSort('id', 'DESC')
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable()
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('email')
+                    ->copyable()
+                    ->limit(20)
                     ->sortable()
                     ->searchable(),
 
@@ -161,40 +167,78 @@ class CustomerResource extends Resource
                             ->placeholder("Enter the customer email")
                             ->maxLength(255),
 
-                        Forms\Components\TextInput::make('address')
-                            ->required()
-                            ->placeholder('Enter the customer address')
-                            ->columnSpanFull()
-                            ->maxLength(255),
+                        Forms\Components\Section::make('Address')
+                            ->columns(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('address')
+                                    ->required()
+                                    ->placeholder('Enter the customer address')
+                                    ->columnSpanFull()
+                                    ->maxLength(255),
 
-                        PhoneInput::make('phone')
-                            ->required()
-                            ->placeholder("Enter the customer phone")
-                            ->defaultCountry('DE'),
+                                Forms\Components\TextInput::make('city')
+                                    ->required()
+                                    ->placeholder('Enter the city')
+                                    ->columns(2)
+                                    ->maxLength(255),
 
-                        PhoneInput::make('whatsapp_number')
-                            ->required()
-                            ->placeholder("Enter the customer whatsapp"),
+                                Forms\Components\TextInput::make('state')
+                                    ->required()
+                                    ->placeholder('Enter the state')
+                                    ->columns(2)
+                                    ->maxLength(255),
 
-                        Forms\Components\TextInput::make('contact_person')
-                            ->required()
-                            ->columnSpanFull()
-                            ->placeholder("Enter the customer contact person")
-                            ->maxLength(255),
+                                Forms\Components\TextInput::make('postal_code')
+                                    ->required()
+                                    ->numeric()
+                                    ->placeholder('Enter the postal_code')
+                                    ->columns(2)
+                                    ->maxLength(255),
 
-                        Forms\Components\Toggle::make('is_invoice')
-                            ->columnSpanFull()
-                            ->required(),
+                                Forms\Components\TextInput::make('country')
+                                    ->required()
+                                    ->placeholder('Enter the country')
+                                    ->columns(2)
+                                    ->maxLength(255),
+                            ]),
 
-                        Forms\Components\DatePicker::make('next_payment_date')
-                            ->required()
-                            ->columnSpanFull()
-                            ->default(now()),
+                        Forms\Components\Section::make('Contact')
+                            ->columns()
+                            ->schema([
+                                PhoneInput::make('phone')
+                                    ->countryStatePath('area_code')
+                                    ->required()
+                                    ->placeholder("Enter the customer phone")
+                                    ->defaultCountry('DE'),
 
-                        MoneyInput::make('agreed_price')
-                            ->required()
-                            ->columnSpan(1)
-                            ->minValue(0),
+                                PhoneInput::make('whatsapp_number')
+                                    ->required()
+                                    ->placeholder("Enter the customer whatsapp"),
+
+                                Forms\Components\TextInput::make('contact_person')
+                                    ->required()
+                                    ->columnSpanFull()
+                                    ->placeholder("Enter the customer contact person")
+                                    ->maxLength(255),
+                            ]),
+
+                        Forms\Components\Section::make('Invoice')
+                            ->columns()
+                            ->schema([
+                                Forms\Components\Toggle::make('is_invoice')
+                                    ->columnSpanFull()
+                                    ->required(),
+
+                                Forms\Components\DatePicker::make('next_payment_date')
+                                    ->required()
+                                    ->columnSpanFull()
+                                    ->default(now()),
+
+                                MoneyInput::make('agreed_price')
+                                    ->required()
+                                    ->columnSpan(1)
+                                    ->minValue(0),
+                            ]),
 
                         Forms\Components\Textarea::make('impressum')
                             ->columnSpanFull()
