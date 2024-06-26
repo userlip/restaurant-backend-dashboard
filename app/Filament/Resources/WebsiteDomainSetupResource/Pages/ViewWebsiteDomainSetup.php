@@ -31,10 +31,14 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 ->label("Create DNS Zone")
                 ->requiresConfirmation()
                 ->disabled(function (Website $record) {
-                    $domainPurchase = $record->domain_purchase_response;
-                    $status = data_get($record, 'cloudflare_response');
+                    $domainPurchase = $record->domain_purchase_response_status_result;
+                    $status = data_get($record, 'cloudflare_response.success');
 
-                    return $domainPurchase !== null && $status;
+                    if ($domainPurchase === null) {
+                        return true;
+                    }
+
+                    return $domainPurchase && $status;
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->createCloudflareDnsZone($record);
@@ -44,11 +48,14 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 ->label("Change Nameserver")
                 ->requiresConfirmation()
                 ->disabled(function (Website $record) {
-                    $domainPurchase = $record->domain_purchase_response;
-                    $cloudflareResponse = data_get($record, 'cloudflare_response');
-                    $status = data_get($record, 'nameserver_transfer.ApiResponse._Status');
+                    $cloudflareResponse = $record->cloudflare_response_status_result;
+                    $status = $record->nameserver_transfer_status_result;
 
-                    return $domainPurchase !== null && $cloudflareResponse && $status;
+                    if ($cloudflareResponse === true && $cloudflareResponse === true && $status === null) {
+                        return false;
+                    }
+
+                    return true;
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->changeNameservers($record);
@@ -58,13 +65,16 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 ->label("Create DNS record")
                 ->requiresConfirmation()
                 ->disabled(function (Website $record) {
-                    $domainPurchase = $record->domain_purchase_response;
-                    $cloudflareResponse = data_get($record, 'cloudflare_response');
-                    $nameserverTransferStatus = data_get($record, 'nameserver_transfer.ApiResponse._Status');
+                    $cloudflareResponse = $record->cloudflare_response_status_result;
+                    $nameserverTransferStatus = $record->nameserver_transfer_status_result;
                     $typeADnsRecordStatus = data_get($record, 'type_a_dns_record.success');
                     $typeHttpsDnsRecordStatus = data_get($record, 'type_https_dns_record.success');
 
-                    return $domainPurchase !== null && $cloudflareResponse && $nameserverTransferStatus && $typeADnsRecordStatus && $typeHttpsDnsRecordStatus;
+                    if ($cloudflareResponse && $nameserverTransferStatus && ($typeADnsRecordStatus === null || $typeHttpsDnsRecordStatus === null)) {
+                        return false;
+                    }
+
+                    return true;
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->createDnsRecords($record);
@@ -74,9 +84,14 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 ->label("Create Ploi Tenant")
                 ->requiresConfirmation()
                 ->disabled(function (Website $record) {
-                    $domainPurchase = $record->domain_purchase_response;
+                    $domainPurchase = $record->domain_purchase_response_status_result;
+                    $tenantRecord = $record->tenant_create_response;
 
-                    return $domainPurchase !== null;
+                    if ($domainPurchase === true && $tenantRecord === null) {
+                        return false;
+                    }
+
+                    return true;
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->createTenant($record);
