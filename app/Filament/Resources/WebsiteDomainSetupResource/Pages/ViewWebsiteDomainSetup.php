@@ -101,6 +101,18 @@ class ViewWebsiteDomainSetup extends ViewRecord
             Actions\Action::make('create_dns_record')
                 ->label("Create DNS record")
                 ->requiresConfirmation()
+                ->color(function (Website $record) {
+                    $typeADnsRecordStatus = data_get($record, 'type_a_dns_record.success');
+                    $httpsDnsRecordStatus = data_get($record, 'type_https_dns_record.success');
+
+                    if ($typeADnsRecordStatus === true || $httpsDnsRecordStatus === true ) {
+                        return "success";
+                    }
+
+                    if ($typeADnsRecordStatus === false || $httpsDnsRecordStatus === false ) {
+                        return "danger";
+                    }
+                })
                 ->disabled(function (Website $record) {
                     $cloudflareResponse = $record->cloudflare_response_status_result;
                     $nameserverTransferStatus = $record->nameserver_transfer_status_result;
