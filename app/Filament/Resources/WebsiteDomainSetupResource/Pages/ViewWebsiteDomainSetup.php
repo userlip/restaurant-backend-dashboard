@@ -41,6 +41,17 @@ class ViewWebsiteDomainSetup extends ViewRecord
             Actions\Action::make('create_dns_zone')
                 ->label("Create DNS Zone")
                 ->requiresConfirmation()
+                ->color(function (Website $record) {
+                    $status = data_get($record, 'cloudflare_response.success');
+
+                    if ($status === true) {
+                        return "success";
+                    }
+
+                    if ($status === false) {
+                        return "danger";
+                    }
+                })
                 ->disabled(function (Website $record) {
                     $domainPurchase = $record->domain_purchase_response_status_result;
                     $status = data_get($record, 'cloudflare_response.success');
