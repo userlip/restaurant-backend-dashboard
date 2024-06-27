@@ -31,6 +31,7 @@ class Website extends Model
         'type_a_dns_record',
         'type_https_dns_record',
         'tenant_create_response',
+        'tenant_ssl_request_response',
     ];
 
     protected $casts = [
@@ -42,6 +43,7 @@ class Website extends Model
         'type_a_dns_record' => 'array',
         'type_https_dns_record' => 'array',
         'tenant_create_response' => 'array',
+        'tenant_ssl_request_response' => 'array',
     ];
 
     /**
