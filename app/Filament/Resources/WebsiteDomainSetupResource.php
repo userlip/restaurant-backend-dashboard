@@ -74,6 +74,12 @@ class WebsiteDomainSetupResource extends Resource
                         PrettyJson::make('tenant_create_response'),
                     ]),
 
+                Forms\Components\Section::make('Request SSL Certificate')
+                    ->collapsible()
+                    ->collapsed()
+                    ->schema([
+                        PrettyJson::make('tenant_ssl_request_response'),
+                    ]),
             ]);
     }
 
