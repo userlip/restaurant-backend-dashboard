@@ -24,10 +24,26 @@ class Website extends Model
         'seo_description',
         'favicon',
         'logo',
+        'domain_availability',
+        'domain_purchase_response',
+        'cloudflare_response',
+        'nameserver_transfer',
+        'type_a_dns_record',
+        'type_https_dns_record',
+        'tenant_create_response',
+        'tenant_ssl_request_response',
     ];
 
     protected $casts = [
-        'theme_data' => 'array'
+        'theme_data' => 'array',
+        'domain_availability' => 'array',
+        'domain_purchase_response' => 'array',
+        'cloudflare_response' => 'array',
+        'nameserver_transfer' => 'array',
+        'type_a_dns_record' => 'array',
+        'type_https_dns_record' => 'array',
+        'tenant_create_response' => 'array',
+        'tenant_ssl_request_response' => 'array',
     ];
 
     /**
@@ -48,5 +64,42 @@ class Website extends Model
     public function contactUsMessages() : HasMany
     {
         return $this->hasMany(ContactUsMessage::class);
+    }
+
+    public function getDomainPurchaseResponseStatusResultAttribute() : bool | null
+    {
+        $response = data_get($this, 'domain_purchase_response.ApiResponse._Status');
+
+        if ($response === null) {
+            return null;
+        }
+
+        return $response === "OK";
+    }
+
+    public function getCloudflareResponseStatusResultAttribute() : bool | null
+    {
+        return data_get($this, 'cloudflare_response.success');
+    }
+
+    public function getNameserverTransferStatusResultAttribute() : bool | null
+    {
+        $response = data_get($this, 'nameserver_transfer.ApiResponse._Status');
+
+        if ($response === null) {
+            return null;
+        }
+
+        return $response === "OK";
+    }
+
+    public function getNewNameserversAttribute() : array | null
+    {
+        return data_get($this, 'cloudflare_response.result.name_servers');
+    }
+
+    public function getDomainAvailabilityResultAttribute() : bool
+    {
+        return data_get($this->domain_availabilitys, 'ApiResponse.CommandResponse.DomainCheckResult._Available') === "true";
     }
 }

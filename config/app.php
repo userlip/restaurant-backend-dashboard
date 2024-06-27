@@ -185,6 +185,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Countries' => Monarobase\CountryList\CountryListFacade::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
