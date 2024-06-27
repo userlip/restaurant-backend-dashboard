@@ -58,9 +58,24 @@ class ViewWebsiteDomainSetup extends ViewRecord
             Actions\Action::make('change_nameserver')
                 ->label("Change Nameserver")
                 ->requiresConfirmation()
+                ->color(function (Website $record) {
+                    $status = data_get($record, 'nameserver_transfer.ApiResponse._Status');
+
+                    if ($status === "OK") {
+                        return "success";
+                    }
+
+                    if ($status === "ERROR") {
+                        return "danger";
+                    }
+                })
                 ->disabled(function (Website $record) {
                     $cloudflareResponse = $record->cloudflare_response_status_result;
                     $status = $record->nameserver_transfer_status_result;
+
+                    if ($status === false) {
+                        return false;
+                    }
 
                     if ($cloudflareResponse === true && $cloudflareResponse === true && $status === null) {
                         return false;
