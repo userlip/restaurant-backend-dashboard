@@ -5,6 +5,7 @@ namespace App\Filament\Resources\WebsiteDomainSetupResource\Pages;
 use App\Filament\Resources\WebsiteDomainSetupResource;
 use App\Models\Website;
 use App\Service\WebsiteService;
+use App\Utils\Ploi;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -159,6 +160,39 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->createTenant($record);
+                }),
+
+            Actions\Action::make('tenant_request_certificate')
+                ->label("Request SSL Certificate")
+                ->requiresConfirmation()
+                ->color(function (Website $record) {
+                    $isResponseDataExists = data_get($record, 'tenant_ssl_request_response.message');
+
+                    if ($isResponseDataExists === null) {
+                        return ;
+                    }
+
+                    if ($isResponseDataExists === "Let's Encrypt certificate request has been issued") {
+                        return "success";
+                    } else {
+                        return "danger";
+                    }
+                })
+                ->disabled(function (Website $record) {
+                    $tenantResponse = data_get($record, 'tenant_ssl_request_response.message');
+
+                    if ($tenantResponse === null) {
+                        return false;
+                    }
+
+                    if ($tenantResponse === "Let's Encrypt certificate request has been issued") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                ->action(function (Website $record) use ($service) {
+                    Ploi::requestCertificate($record);
                 }),
         ];
     }
