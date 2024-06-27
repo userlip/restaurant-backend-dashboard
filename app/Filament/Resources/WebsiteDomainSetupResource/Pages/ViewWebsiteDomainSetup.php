@@ -132,6 +132,21 @@ class ViewWebsiteDomainSetup extends ViewRecord
             Actions\Action::make('create_ploi_tenant')
                 ->label("Create Ploi Tenant")
                 ->requiresConfirmation()
+                ->color(function (Website $record) {
+                    $isResponseDataExists = data_get($record, 'tenant_create_response.data');
+
+                    if (is_array($isResponseDataExists) === true) {
+                        return "success";
+                    }
+
+                    if ($isResponseDataExists === null) {
+                        return ;
+                    }
+
+                    if (is_array($isResponseDataExists) === false) {
+                        return "danger";
+                    }
+                })
                 ->disabled(function (Website $record) {
                     $domainPurchase = $record->domain_purchase_response_status_result;
                     $tenantRecord = $record->tenant_create_response;
