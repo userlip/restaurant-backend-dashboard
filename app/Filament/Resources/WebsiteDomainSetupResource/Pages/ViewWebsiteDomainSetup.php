@@ -19,6 +19,17 @@ class ViewWebsiteDomainSetup extends ViewRecord
         return [
             Actions\Action::make('purchase domain')
                 ->requiresConfirmation()
+                ->color(function (Website $record) {
+                    $status = data_get($record, 'domain_purchase_response.ApiResponse._Status');
+
+                    if ($status === "OK") {
+                        return "success";
+                    }
+
+                    if ($status === "ERROR") {
+                        return "danger";
+                    }
+                })
                 ->disabled(function (Website $record) {
                     $status = data_get($record, 'domain_purchase_response.ApiResponse._Status');
                     return $status === "OK";
