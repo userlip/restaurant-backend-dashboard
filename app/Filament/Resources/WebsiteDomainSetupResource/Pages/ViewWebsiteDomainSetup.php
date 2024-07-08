@@ -37,6 +37,8 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->buyDomain($record);
+
+                    $this->refreshPage();
                 }),
 
             Actions\Action::make('create_dns_zone')
@@ -65,6 +67,8 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->createCloudflareDnsZone($record);
+
+                    $this->refreshPage();
                 }),
 
             Actions\Action::make('change_nameserver')
@@ -97,6 +101,8 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->changeNameservers($record);
+
+                    $this->refreshPage();
                 }),
 
             Actions\Action::make('create_dns_record')
@@ -128,6 +134,8 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->createDnsRecords($record);
+
+                    $this->refreshPage();
                 }),
 
             Actions\Action::make('create_ploi_tenant')
@@ -160,6 +168,8 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 })
                 ->action(function (Website $record) use ($service) {
                     $service->createTenant($record);
+
+                    $this->refreshPage();
                 }),
 
             Actions\Action::make('tenant_request_certificate')
@@ -193,7 +203,14 @@ class ViewWebsiteDomainSetup extends ViewRecord
                 })
                 ->action(function (Website $record) use ($service) {
                     Ploi::requestCertificate($record);
+
+                    $this->refreshPage();
                 }),
         ];
+    }
+
+    public function refreshPage(): void
+    {
+        $this->js('window.location.reload()');
     }
 }
