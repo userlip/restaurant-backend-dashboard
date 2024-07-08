@@ -49,7 +49,7 @@ class Namecheap
             'state' => 'Berlin',
             'postal_code' => '12309',
             'country' => 'Germany',
-            'phone' => "+4915228983868",
+            'phone' => "+49.15228983868",
             'email' => 'hello@marin.sh',
         ];
 
