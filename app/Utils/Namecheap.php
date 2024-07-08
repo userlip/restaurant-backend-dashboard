@@ -42,15 +42,15 @@ class Namecheap
 
         // Dummy User
         $adminUser = [
-            'first_name' => 'Alice TESTING',
-            'last_name' => 'Smith TESTING',
-            'address' => 'Heinrich Heine Platz 88, Weißensee,  Freistaat Thüringen',
-            'city' => 'Weißensee',
-            'state' => 'Freistaat Thüringen',
-            'postal_code' => '99630',
+            'first_name' => 'Marin',
+            'last_name' => 'Delija',
+            'address' => 'Nahariyastr. 34, 12309 Berlin, Germany',
+            'city' => 'Berlin',
+            'state' => 'Berlin',
+            'postal_code' => '12309',
             'country' => 'Germany',
-            'phone' => "+49.03636836080",
-            'email' => 'alice_smith_testing_admin@mailinator.com',
+            'phone' => "+4915228983868",
+            'email' => 'hello@marin.sh',
         ];
 
         // Dummy Data
