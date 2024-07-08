@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Enums\SupportedLocaleEnums;
+use App\Helper\WebsitePageRenderHelper;
 use App\Models\ContactUsMessage;
 use App\Models\Website;
 use Livewire\Component;
@@ -32,22 +33,7 @@ class WebsiteThemePreview extends Component
         $theme = $this->website->theme;
         $themeData = $this->website->theme_data;
 
-        $template = match ($theme?->template) {
-            "template_1" => [
-                "view" => "templates.template-1",
-                "layout" => 'components.template-layouts.template-1',
-            ],
-
-            "template_2" => [
-                "view" => "templates.template-2",
-                "layout" => 'components.template-layouts.template-2',
-            ],
-
-            default => [
-                "view" => 'home',
-                "layout" => 'components.layouts.page-layout',
-            ]
-        };
+        $template = WebsitePageRenderHelper::getThemeTemplate($theme);
 
         $data = collect($themeData)
             ->mapWithKeys(function (array $item) {
