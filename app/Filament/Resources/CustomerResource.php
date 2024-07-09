@@ -13,6 +13,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Validation\ValidationException;
+use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberUtil;
 use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
@@ -222,10 +224,16 @@ class CustomerResource extends Resource
                                             ($countryCode = $get('phone_country')) &&
                                             $phoneNumber = $get('phone')
                                         ) {
-                                            $phoneUtil = PhoneNumberUtil::getInstance();
-                                            $number = $phoneUtil->parse($phoneNumber, $countryCode);
+                                            try {
+                                                $phoneUtil = PhoneNumberUtil::getInstance();
+                                                $number = $phoneUtil->parse($phoneNumber, $countryCode);
 
-                                            $set('area_code', '+' . $number->getCountryCode());
+                                                $set('area_code', '+' . $number->getCountryCode());
+                                            } catch (NumberParseException $exception) {
+                                                throw ValidationException::withMessages([
+                                                    'data.phone' => $exception->getMessage(),
+                                                ]);
+                                            }
                                         }
                                     }),
 
