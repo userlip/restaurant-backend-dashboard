@@ -153,7 +153,7 @@ class Namecheap
         ];
     }
 
-    public static function buildDomain(Website $website, int $year = 2): array
+    public static function buildDomain(Website $website, int $year = 1): array
     {
         return [
             "domainName" => $website->domain,
