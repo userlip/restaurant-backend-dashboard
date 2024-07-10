@@ -76,6 +76,7 @@ class Cloudflare
             $hostIpAddress,
             "@",
             type: "A",
+            proxied: false,
         );
 
         // Creates HTTPS record DNS
