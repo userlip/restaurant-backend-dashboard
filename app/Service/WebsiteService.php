@@ -91,6 +91,12 @@ class WebsiteService
         return $ploi::createTenant($website);
     }
 
+    public function updateTypeADnsRecord(Website $website)
+    {
+        $cloudflare = $this->cloudflare;
+        return $cloudflare::updateProxiedTypeADnsRecords($website);
+    }
+
 
     /**
      * This function covers all the process of purchasing, and other setup for the changing the domain dns and etc.

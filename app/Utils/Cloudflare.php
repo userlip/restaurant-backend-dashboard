@@ -113,6 +113,62 @@ class Cloudflare
         return data_get($website, 'type_a_dns_record.success') || data_get($website, 'type_https_dns_record.success');
     }
 
+    /**
+     * This method will update the old proxied dns type a records to false
+     *
+     * @param Website $website
+     * @return bool
+     */
+    public static function updateProxiedTypeADnsRecords(Website $website) : bool
+    {
+        $zoneId = data_get($website->cloudflare_response, 'result.id');
+        $hostIpAddress = config('ploi.api.host_ip_address');
+        $dnsRecordId = data_get($website->type_a_dns_record, 'result.id');
+
+        if ($zoneId === null) {
+            throw new \RuntimeException("Missing Zone ID data");
+        }
+
+        if ($hostIpAddress === null) {
+            throw new \RuntimeException("Missing Ploi Host IP Address");
+        }
+
+        if ($dnsRecordId === null) {
+            throw new \RuntimeException("Missing DNS record id data");
+        }
+
+        $url = self::ZONE_URL . "/{$zoneId}" . "/dns_records/" . $dnsRecordId;
+
+        $typeADnsRecord = self::buildADnsRecord(
+            $zoneId,
+            $hostIpAddress,
+            "@",
+            type: "A",
+        );
+
+        $response = Http::acceptJson()
+            ->withHeaders(self::getHeaders())
+            ->patch(
+                $url,
+                $typeADnsRecord
+            );
+
+        if ($response->status() !== Response::HTTP_OK) {
+            $website->update([
+                'old_type_a_dns_record' => $response->json()
+            ]);
+
+            return false;
+        }
+
+        $response = $response->json();
+
+        return $website->update([
+            'type_a_dns_record' => $response,
+            'old_type_a_dns_record' => $website->type_a_dns_record,
+        ]);
+    }
+
     public static function getHeaders(): array
     {
         $token = config('cloudflare.api.api_token');
