@@ -76,7 +76,6 @@ class Cloudflare
             $hostIpAddress,
             "@",
             type: "A",
-            proxied: false,
         );
 
         // Creates HTTPS record DNS
@@ -143,7 +142,7 @@ class Cloudflare
         string $content,
         string $name,
         string $type,
-        bool $proxied = true,
+        bool $proxied = false,
         string $comment = "",
         int $ttl = 1,
     ): array
