@@ -65,6 +65,7 @@ class WebsiteDomainSetupResource extends Resource
                     ->schema([
                         PrettyJson::make('type_a_dns_record'),
                         PrettyJson::make('type_https_dns_record'),
+                        PrettyJson::make('old_type_a_dns_record'),
                     ]),
 
                 Forms\Components\Section::make('Create Ploi Tenant')
