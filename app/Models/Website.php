@@ -29,6 +29,7 @@ class Website extends Model
         'cloudflare_response',
         'nameserver_transfer',
         'type_a_dns_record',
+        'old_type_a_dns_record',
         'type_https_dns_record',
         'tenant_create_response',
         'tenant_ssl_request_response',
