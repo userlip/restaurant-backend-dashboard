@@ -206,6 +206,36 @@ class ViewWebsiteDomainSetup extends ViewRecord
 
                     $this->refreshPage();
                 }),
+
+            Actions\Action::make('update_proxied_dns_records')
+                ->label("Update dns proxy to false")
+                ->requiresConfirmation()
+                ->outlined()
+                ->color(function (Website $record) {
+                    $typeADnsRecordStatus = data_get($record->type_a_dns_record, 'result.proxied');
+
+                    if ($typeADnsRecordStatus === false) {
+                        return "success";
+                    }
+
+                    if ($typeADnsRecordStatus === true) {
+                        return "danger";
+                    }
+                })
+                ->disabled(function (Website $record) {
+                    $typeADnsRecord = $record->type_a_dns_record;
+
+                    if (data_get($typeADnsRecord, 'result.proxied')) {
+                        return false;
+                    }
+
+                    return true;
+                })
+                ->action(function (Website $record) use ($service) {
+                    $service->updateTypeADnsRecord($record);
+
+                    $this->refreshPage();
+                }),
         ];
     }
 
