@@ -24,11 +24,16 @@ class Helper
      * FileUpload : string = 'public/path/path.jpg'
      * Media : int = 1 (Media::find(1)->url)
      *
-     * @param string|int $asset
+     * @param string|int|null $asset
      * @return string|null
      */
-    public static function getAssetPath(string | int $asset) : string | null
+    public static function getAssetPath(string | int | null $asset) : string | null
     {
+        // Return null early if asset is null
+        if ($asset === null) {
+            return null;
+        }
+
         // Checks if the asset has '/storage/' in its path as all assets
         // including uploaded ones must be in the storage folder
         if (! preg_match('/\\/storage\\//', $asset)) {
