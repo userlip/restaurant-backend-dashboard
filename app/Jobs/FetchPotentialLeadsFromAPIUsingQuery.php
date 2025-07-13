@@ -50,6 +50,7 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
                         'address' => $address,
                         'phone' => $phone,
                         'link' => $link,
+                        'google_business_id' => $restaurant['business_id'] ?? null,
                         'search_term' => $this->query,
                         'status' => LeadStatusEnums::NEW,
                     ]);
