@@ -51,7 +51,8 @@
       <div class="flex items-center tablet:gap-[2.5rem]">
         <button
           data-language='{{ App::currentLocale() }}'
-          class="hidden language-selected z-10 tablet:flex font-alt text-[1.25rem] tracking-[0.0625rem]">
+          class="hidden language-selected z-10 tablet:flex font-alt text-[1.25rem] tracking-[0.0625rem] cursor-pointer hover:opacity-80 transition-opacity"
+          title="{{ __('pages/home.language') }}">
           {{ $languageThreeLetterCode }}
         </button>
         <button
@@ -798,16 +799,21 @@
           {{ __('pages/home.about_us_header_subtext') }}
         </p>
       </div>
-      <button
-        class="flex text-white rounded-[22.1875rem] gap-[1.5rem] justify-center items-center p-[1.125rem_2.875rem] bg-[#FC1919] hover:bg-[#FC1919]/80">
-        {{ __('pages/home.contact') }}
-        <svg class="stroke-[1.5px]" xmlns="http://www.w3.org/2000/svg" width="11" height="10"
-             viewBox="0 0 11 10" fill="#fff">
-          <path
-            d="M0.71967 8.71967C0.426777 9.01256 0.426777 9.48744 0.71967 9.78033C1.01256 10.0732 1.48744 10.0732 1.78033 9.78033L0.71967 8.71967ZM10.5 0.75C10.5 0.335786 10.1642 0 9.75 0H3C2.58579 0 2.25 0.335786 2.25 0.75C2.25 1.16421 2.58579 1.5 3 1.5H9V7.5C9 7.91421 9.33579 8.25 9.75 8.25C10.1642 8.25 10.5 7.91421 10.5 7.5V0.75ZM1.78033 9.78033L10.2803 1.28033L9.21967 0.21967L0.71967 8.71967L1.78033 9.78033Z"
-            fill="white" />
-        </svg>
-      </button>
+      <div class="flex flex-col tablet:flex-row gap-[1rem] items-center">
+        <button
+          class="flex text-white rounded-[22.1875rem] gap-[1.5rem] justify-center items-center p-[1.125rem_2.875rem] bg-[#FC1919] hover:bg-[#FC1919]/80">
+          {{ __('pages/home.contact') }}
+          <svg class="stroke-[1.5px]" xmlns="http://www.w3.org/2000/svg" width="11" height="10"
+               viewBox="0 0 11 10" fill="#fff">
+            <path
+              d="M0.71967 8.71967C0.426777 9.01256 0.426777 9.48744 0.71967 9.78033C1.01256 10.0732 1.48744 10.0732 1.78033 9.78033L0.71967 8.71967ZM10.5 0.75C10.5 0.335786 10.1642 0 9.75 0H3C2.58579 0 2.25 0.335786 2.25 0.75C2.25 1.16421 2.58579 1.5 3 1.5H9V7.5C9 7.91421 9.33579 8.25 9.75 8.25C10.1642 8.25 10.5 7.91421 10.5 7.5V0.75ZM1.78033 9.78033L10.2803 1.28033L9.21967 0.21967L0.71967 8.71967L1.78033 9.78033Z"
+              fill="white" />
+          </svg>
+        </button>
+        <a href="/agb" class="text-[#FC1919] underline hover:text-[#FC1919]/80 text-[0.875rem] tablet:text-[1rem]">
+          AGB (Allgemeine Geschäftsbedingungen)
+        </a>
+      </div>
     </div>
     <div class="image-laptop self-stretch big-tablet:block flex-1 h-[36.1875rem] min-w-[20.75rem]"></div>
   </div>

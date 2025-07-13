@@ -33,9 +33,17 @@ function initializeCloseButton() {
   closeButton.addEventListener("click", closeDrawer)
 }
 
+function initializeLanguageButton() {
+  const languageButton = document.querySelector('.language-selected')
+  if (languageButton) {
+    languageButton.addEventListener("click", openDrawer)
+  }
+}
+
 function initialize() {
   initializeDrawerButton()
   initializeCloseButton()
+  initializeLanguageButton()
 }
 
 function getUserLang() {

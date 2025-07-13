@@ -1,17 +1,113 @@
 {
+  "node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff": {
+    "file": "assets/poppins-latin-400-normal-Tm9xNzdG.woff",
+    "src": "node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff2": {
+    "file": "assets/poppins-latin-400-normal-HKcQETrj.woff2",
+    "src": "node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/poppins/files/poppins-latin-ext-400-normal.woff": {
+    "file": "assets/poppins-latin-ext-400-normal-nv7lqtWR.woff",
+    "src": "node_modules/@fontsource/poppins/files/poppins-latin-ext-400-normal.woff"
+  },
+  "node_modules/@fontsource/poppins/files/poppins-latin-ext-400-normal.woff2": {
+    "file": "assets/poppins-latin-ext-400-normal-AiKXiRGc.woff2",
+    "src": "node_modules/@fontsource/poppins/files/poppins-latin-ext-400-normal.woff2"
+  },
+  "public/assets/example-image.jpg": {
+    "file": "assets/example-image-Agb_79dt.jpg",
+    "src": "public/assets/example-image.jpg"
+  },
+  "public/assets/fonts/Involve-Bold.otf": {
+    "file": "assets/Involve-Bold-M11TRzWG.otf",
+    "src": "public/assets/fonts/Involve-Bold.otf"
+  },
+  "public/assets/fonts/Involve-Regular.otf": {
+    "file": "assets/Involve-Regular-Lh1do3tP.otf",
+    "src": "public/assets/fonts/Involve-Regular.otf"
+  },
+  "public/assets/hero-image.jpg": {
+    "file": "assets/hero-image-5texLJIz.jpg",
+    "src": "public/assets/hero-image.jpg"
+  },
+  "public/assets/laptop.jpg": {
+    "file": "assets/laptop-C_NyD1NW.jpg",
+    "src": "public/assets/laptop.jpg"
+  },
+  "public/assets/templates/1/asset-1.jpg": {
+    "file": "assets/asset-1-3W3f2trZ.jpg",
+    "src": "public/assets/templates/1/asset-1.jpg"
+  },
+  "public/assets/templates/1/asset-2.jpg": {
+    "file": "assets/asset-2-VIYx3zp8.jpg",
+    "src": "public/assets/templates/1/asset-2.jpg"
+  },
+  "public/assets/templates/1/asset-3.jpg": {
+    "file": "assets/asset-3-WLv1pcoN.jpg",
+    "src": "public/assets/templates/1/asset-3.jpg"
+  },
+  "public/assets/templates/1/hero-image.jpg": {
+    "file": "assets/hero-image-y-l4vYKs.jpg",
+    "src": "public/assets/templates/1/hero-image.jpg"
+  },
+  "public/assets/templates/2/about-image.jpg": {
+    "file": "assets/about-image-yT2riJtb.jpg",
+    "src": "public/assets/templates/2/about-image.jpg"
+  },
+  "public/assets/templates/2/contact-image.jpg": {
+    "file": "assets/contact-image-RlvKePK4.jpg",
+    "src": "public/assets/templates/2/contact-image.jpg"
+  },
+  "public/assets/templates/2/fonts/Rakesly-Bold.otf": {
+    "file": "assets/Rakesly-Bold-hcyu2S4S.otf",
+    "src": "public/assets/templates/2/fonts/Rakesly-Bold.otf"
+  },
+  "public/assets/templates/2/fonts/Rakesly-Light.otf": {
+    "file": "assets/Rakesly-Light-9BadwxB_.otf",
+    "src": "public/assets/templates/2/fonts/Rakesly-Light.otf"
+  },
+  "public/assets/templates/2/fonts/Rakesly-Regular.otf": {
+    "file": "assets/Rakesly-Regular-xaYmf8pP.otf",
+    "src": "public/assets/templates/2/fonts/Rakesly-Regular.otf"
+  },
+  "public/assets/templates/2/hero-image.png": {
+    "file": "assets/hero-image-YaXaZj-7.png",
+    "src": "public/assets/templates/2/hero-image.png"
+  },
   "resources/css/admin.css": {
-    "file": "assets/admin-2VS9rW3a.css",
+    "file": "assets/admin-0mampzLK.css",
     "isEntry": true,
     "src": "resources/css/admin.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-9fCR1l1o.css",
+    "file": "assets/app-_lmjFy1n.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/css/templates/1/app.css": {
+    "file": "assets/app-OjTq_TEV.css",
+    "isEntry": true,
+    "src": "resources/css/templates/1/app.css"
+  },
+  "resources/css/templates/2/app.css": {
+    "file": "assets/app-5q-1itIF.css",
+    "isEntry": true,
+    "src": "resources/css/templates/2/app.css"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-TRHwf-sy.js",
+    "file": "assets/app-geAJ73kF.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/templates/1/app.js": {
+    "file": "assets/app-FOu_ZAW3.js",
+    "isEntry": true,
+    "src": "resources/js/templates/1/app.js"
+  },
+  "resources/js/templates/2/app.js": {
+    "file": "assets/app-Z6E0cSWz.js",
+    "isEntry": true,
+    "src": "resources/js/templates/2/app.js"
   }
 }
