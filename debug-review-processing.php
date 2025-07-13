@@ -67,12 +67,19 @@ if (!$response) {
 echo "\nAPI Response Structure:\n";
 echo "Top-level keys: " . implode(', ', array_keys($response)) . "\n";
 
-if (isset($response['data'])) {
-    echo "Number of reviews in data: " . count($response['data']) . "\n";
-    
-    if (!empty($response['data'])) {
-        echo "\nFirst Review Structure:\n";
-        $firstReview = $response['data'][0];
+// Check for items or data key
+$reviewsKey = null;
+if (isset($response['items'])) {
+    $reviewsKey = 'items';
+    echo "Number of reviews in 'items': " . count($response['items']) . "\n";
+} elseif (isset($response['data'])) {
+    $reviewsKey = 'data';
+    echo "Number of reviews in 'data': " . count($response['data']) . "\n";
+}
+
+if ($reviewsKey && !empty($response[$reviewsKey])) {
+    echo "\nFirst Review Structure:\n";
+    $firstReview = $response[$reviewsKey][0];
         
         // Show all fields
         foreach ($firstReview as $key => $value) {
@@ -121,7 +128,7 @@ if (isset($response['data'])) {
         $counts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
         $foundRatings = 0;
         
-        foreach ($response['data'] as $idx => $review) {
+        foreach ($response[$reviewsKey] as $idx => $review) {
             $rating = null;
             
             // Try different rating locations

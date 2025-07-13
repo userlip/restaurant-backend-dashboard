@@ -57,14 +57,17 @@ class ReviewService
                     break;
                 }
                 
-                if (empty($reviews['data'])) {
+                // Check for 'items' key (used by Scrappa API)
+                $reviewsArray = $reviews['items'] ?? $reviews['data'] ?? [];
+                
+                if (empty($reviewsArray)) {
                     Log::info("No reviews found for lead {$lead->id} on page {$pageCount}");
                     break;
                 }
                 
-                Log::info("Fetched " . count($reviews['data']) . " reviews for lead {$lead->id} on page {$pageCount}");
+                Log::info("Fetched " . count($reviewsArray) . " reviews for lead {$lead->id} on page {$pageCount}");
 
-                foreach ($reviews['data'] as $review) {
+                foreach ($reviewsArray as $review) {
                     // The rating might be in a nested user_review object
                     $rating = null;
                     
@@ -161,9 +164,16 @@ class ReviewService
                 $data = $response->json();
                 
                 // Log the first response structure for debugging
-                if (!$nextPageToken && !empty($data['data'])) {
+                if (!$nextPageToken) {
                     Log::debug("Scrappa API response structure for business {$businessId}: " . json_encode(array_keys($data)));
-                    Log::debug("First review structure: " . json_encode(array_keys($data['data'][0] ?? [])));
+                    $firstItem = $data['items'][0] ?? $data['data'][0] ?? null;
+                    if ($firstItem) {
+                        Log::debug("First review structure: " . json_encode(array_keys($firstItem)));
+                        // Log nested structure if exists
+                        if (isset($firstItem['user_review'])) {
+                            Log::debug("user_review structure: " . json_encode(array_keys($firstItem['user_review'])));
+                        }
+                    }
                 }
                 
                 return $data;
