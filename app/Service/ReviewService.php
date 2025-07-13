@@ -69,14 +69,24 @@ class ReviewService
                 
                 Log::info("Fetched " . count($reviewsArray) . " reviews for lead {$lead->id} on page {$pageCount}");
 
-                foreach ($reviewsArray as $review) {
+                foreach ($reviewsArray as $reviewIndex => $review) {
                     // Rating is at the main level
                     $rating = isset($review['rating']) ? (int)$review['rating'] : null;
+                    
+                    // Debug first few reviews
+                    if ($reviewIndex < 3) {
+                        Log::debug("Lead {$lead->id} - Review {$reviewIndex}: raw rating = " . json_encode($review['rating'] ?? 'missing') . ", converted = {$rating}");
+                    }
                     
                     if ($rating >= 1 && $rating <= 5) {
                         $reviewCounts[$rating]++;
                         $totalRating += $rating;
                         $totalReviews++;
+                        
+                        // Debug the array state
+                        if ($reviewIndex < 3) {
+                            Log::debug("Lead {$lead->id} - After incrementing rating {$rating}: " . json_encode($reviewCounts));
+                        }
                         
                         // Stop when we encounter a 4-star review (since we're sorting by lowest rating first)
                         if ($rating >= 4) {
