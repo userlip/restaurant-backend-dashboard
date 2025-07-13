@@ -5,7 +5,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Boot Laravel
-$app = require_once __DIR__.'/bootstrap/app.php';
+$app = require_once __DIR__ . '/bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 
@@ -29,7 +29,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "https://app.scrappa.co/api/maps/reviews?business_id=" . urlencode($businessId) . "&sort=1&page=1");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    "x-rapidapi-key: $apiKey",
+    "x-api-key: $apiKey",
     "Content-Type: application/json"
 ]);
 
@@ -58,15 +58,15 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 if ($data) {
     echo "Response structure:\n";
     echo "  Top-level keys: " . implode(', ', array_keys($data)) . "\n";
-    
+
     if (isset($data['error'])) {
         echo "\nERROR from API:\n";
         echo json_encode($data['error'], JSON_PRETTY_PRINT) . "\n";
     }
-    
+
     if (isset($data['data']) && is_array($data['data'])) {
         echo "\nFound " . count($data['data']) . " reviews\n";
-        
+
         if (!empty($data['data'])) {
             echo "\nFirst review fields:\n";
             $first = $data['data'][0];
@@ -76,7 +76,7 @@ if ($data) {
             }
         }
     }
-    
+
     // Check for pagination
     if (isset($data['has_more'])) {
         echo "\nPagination: has_more = " . json_encode($data['has_more']) . "\n";
@@ -87,7 +87,7 @@ if ($data) {
 if (isset($data['data'][0])) {
     $review = $data['data'][0];
     echo "\nRating field detection:\n";
-    
+
     $possibleRatingFields = ['rating', 'star_rating', 'stars', 'score', 'user_rating'];
     foreach ($possibleRatingFields as $field) {
         if (isset($review[$field])) {

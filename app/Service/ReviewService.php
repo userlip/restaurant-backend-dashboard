@@ -46,14 +46,13 @@ class ReviewService
             ];
             $totalRating = 0;
             $totalReviews = 0;
-            $page = 1;
-            $hasMore = true;
+            $nextPageToken = null;
+            $pageCount = 0;
 
-            while ($hasMore) {
-                $reviews = $this->fetchReviewsPage($lead->google_business_id, $page);
+            do {
+                $reviews = $this->fetchReviewsPage($lead->google_business_id, $nextPageToken);
                 
                 if (!$reviews || empty($reviews['data'])) {
-                    $hasMore = false;
                     break;
                 }
 
@@ -67,16 +66,21 @@ class ReviewService
                     }
                 }
 
-                // Check if there are more pages
-                $hasMore = $reviews['has_more'] ?? false;
-                $page++;
+                // Get next page token
+                $nextPageToken = $reviews['nextPage'] ?? null;
+                $pageCount++;
 
                 // Safety limit to prevent infinite loops
-                if ($page > 50) {
+                if ($pageCount > 50) {
                     Log::warning("Review fetching stopped at page 50 for lead: {$lead->id}");
                     break;
                 }
-            }
+
+                // Small delay between requests
+                if ($nextPageToken) {
+                    sleep(1);
+                }
+            } while ($nextPageToken);
 
             // Calculate average rating
             $averageRating = $totalReviews > 0 ? round($totalRating / $totalReviews, 2) : null;
@@ -106,19 +110,25 @@ class ReviewService
      * Fetch a single page of reviews
      *
      * @param string $businessId
-     * @param int $page
+     * @param string|null $nextPageToken
      * @return array|null
      */
-    protected function fetchReviewsPage(string $businessId, int $page = 1): ?array
+    protected function fetchReviewsPage(string $businessId, ?string $nextPageToken = null): ?array
     {
         try {
-            $response = Http::withHeaders([
-                'x-api-key' => $this->apiKey,
-            ])->get($this->baseUrl, [
+            $params = [
                 'business_id' => $businessId,
                 'sort' => 1, // Sort by newest
-                'page' => $page,
-            ]);
+            ];
+
+            // Add next page token if available
+            if ($nextPageToken) {
+                $params['nextPage'] = $nextPageToken;
+            }
+
+            $response = Http::withHeaders([
+                'x-api-key' => $this->apiKey,
+            ])->get($this->baseUrl, $params);
 
             if ($response->successful()) {
                 return $response->json();
