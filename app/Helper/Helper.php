@@ -10,7 +10,7 @@ class Helper
     {
         return match ($lang) {
             "en" => "ENG",
-            "de" => "DUE",
+            "de" => "DEU",
             "tr" => "TÜR",
             "ar" => "عربي",
         };

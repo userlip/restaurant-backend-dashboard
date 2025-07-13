@@ -5,7 +5,7 @@ namespace App\Enums;
 enum SupportedLocaleEnums : string
 {
     case en = "ENG";
-    case de = "DUE";
+    case de = "DEU";
     case tr = "TÜR";
     case ar = "عربي";
 
