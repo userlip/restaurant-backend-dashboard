@@ -80,98 +80,97 @@ if (isset($response['items'])) {
 if ($reviewsKey && !empty($response[$reviewsKey])) {
     echo "\nFirst Review Structure:\n";
     $firstReview = $response[$reviewsKey][0];
-        
-        // Show all fields
-        foreach ($firstReview as $key => $value) {
-            if (is_array($value)) {
-                echo "  $key: [array with " . count($value) . " items]\n";
-                // If it's a small array, show its structure
-                if (count($value) <= 5) {
-                    foreach ($value as $subKey => $subValue) {
-                        echo "    $subKey: " . (is_string($subValue) ? substr($subValue, 0, 50) : json_encode($subValue)) . "\n";
-                    }
+    
+    // Show all fields
+    foreach ($firstReview as $key => $value) {
+        if (is_array($value)) {
+            echo "  $key: [array with " . count($value) . " items]\n";
+            // If it's a small array, show its structure
+            if (count($value) <= 5) {
+                foreach ($value as $subKey => $subValue) {
+                    echo "    $subKey: " . (is_string($subValue) ? substr($subValue, 0, 50) : json_encode($subValue)) . "\n";
                 }
-            } else {
-                echo "  $key: " . (is_string($value) ? substr($value, 0, 100) : json_encode($value)) . "\n";
+            }
+        } else {
+            echo "  $key: " . (is_string($value) ? substr($value, 0, 100) : json_encode($value)) . "\n";
+        }
+    }
+    
+    echo "\nRating Detection:\n";
+    
+    // Check for rating in main object
+    $rating = null;
+    if (isset($firstReview['rating'])) {
+        $rating = $firstReview['rating'];
+        echo "Found 'rating' field: $rating\n";
+    }
+    if (isset($firstReview['star_rating'])) {
+        $rating = $firstReview['star_rating'];
+        echo "Found 'star_rating' field: $rating\n";
+    }
+    
+    // Check if rating might be nested
+    foreach ($firstReview as $key => $value) {
+        if (is_array($value)) {
+            if (isset($value['rating'])) {
+                echo "Found nested rating in '$key': " . $value['rating'] . "\n";
+            }
+            if (isset($value['star_rating'])) {
+                echo "Found nested star_rating in '$key': " . $value['star_rating'] . "\n";
+            }
+            if (isset($value['stars'])) {
+                echo "Found nested stars in '$key': " . $value['stars'] . "\n";
             }
         }
-        
-        echo "\nRating Detection:\n";
-        
-        // Check for rating in main object
+    }
+    
+    echo "\nProcessing all reviews on first page:\n";
+    $counts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
+    $foundRatings = 0;
+    
+    foreach ($response[$reviewsKey] as $idx => $review) {
         $rating = null;
-        if (isset($firstReview['rating'])) {
-            $rating = $firstReview['rating'];
-            echo "Found 'rating' field: $rating\n";
-        }
-        if (isset($firstReview['star_rating'])) {
-            $rating = $firstReview['star_rating'];
-            echo "Found 'star_rating' field: $rating\n";
+        
+        // Try different rating locations
+        if (isset($review['rating'])) {
+            $rating = $review['rating'];
+        } elseif (isset($review['star_rating'])) {
+            $rating = $review['star_rating'];
+        } elseif (isset($review['stars'])) {
+            $rating = $review['stars'];
         }
         
-        // Check if rating might be nested
-        foreach ($firstReview as $key => $value) {
-            if (is_array($value)) {
-                if (isset($value['rating'])) {
-                    echo "Found nested rating in '$key': " . $value['rating'] . "\n";
-                }
-                if (isset($value['star_rating'])) {
-                    echo "Found nested star_rating in '$key': " . $value['star_rating'] . "\n";
-                }
-                if (isset($value['stars'])) {
-                    echo "Found nested stars in '$key': " . $value['stars'] . "\n";
+        // Check nested structures
+        if (!$rating) {
+            foreach ($review as $field => $value) {
+                if (is_array($value) && (isset($value['rating']) || isset($value['star_rating']) || isset($value['stars']))) {
+                    $rating = $value['rating'] ?? $value['star_rating'] ?? $value['stars'];
+                    break;
                 }
             }
         }
         
-        echo "\nProcessing all reviews on first page:\n";
-        $counts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
-        $foundRatings = 0;
-        
-        foreach ($response[$reviewsKey] as $idx => $review) {
-            $rating = null;
-            
-            // Try different rating locations
-            if (isset($review['rating'])) {
-                $rating = $review['rating'];
-            } elseif (isset($review['star_rating'])) {
-                $rating = $review['star_rating'];
-            } elseif (isset($review['stars'])) {
-                $rating = $review['stars'];
-            }
-            
-            // Check nested structures
-            if (!$rating) {
-                foreach ($review as $field => $value) {
-                    if (is_array($value) && (isset($value['rating']) || isset($value['star_rating']) || isset($value['stars']))) {
-                        $rating = $value['rating'] ?? $value['star_rating'] ?? $value['stars'];
-                        break;
-                    }
-                }
-            }
-            
-            if ($rating !== null) {
-                $ratingInt = (int)$rating;
-                if ($ratingInt >= 1 && $ratingInt <= 5) {
-                    $counts[$ratingInt]++;
-                    $foundRatings++;
-                } else {
-                    echo "  Review $idx: Invalid rating value: $rating\n";
-                }
+        if ($rating !== null) {
+            $ratingInt = (int)$rating;
+            if ($ratingInt >= 1 && $ratingInt <= 5) {
+                $counts[$ratingInt]++;
+                $foundRatings++;
             } else {
-                echo "  Review $idx: No rating found\n";
-                if ($idx < 3) { // Show structure of first few reviews without rating
-                    echo "    Fields: " . implode(', ', array_keys($review)) . "\n";
-                }
+                echo "  Review $idx: Invalid rating value: $rating\n";
+            }
+        } else {
+            echo "  Review $idx: No rating found\n";
+            if ($idx < 3) { // Show structure of first few reviews without rating
+                echo "    Fields: " . implode(', ', array_keys($review)) . "\n";
             }
         }
-        
-        echo "\nRating Summary:\n";
-        echo "Found ratings in $foundRatings/" . count($response['data']) . " reviews\n";
-        foreach ($counts as $stars => $count) {
-            if ($count > 0) {
-                echo "  $stars stars: $count\n";
-            }
+    }
+    
+    echo "\nRating Summary:\n";
+    echo "Found ratings in $foundRatings/" . count($response[$reviewsKey]) . " reviews\n";
+    foreach ($counts as $stars => $count) {
+        if ($count > 0) {
+            echo "  $stars stars: $count\n";
         }
     }
 }

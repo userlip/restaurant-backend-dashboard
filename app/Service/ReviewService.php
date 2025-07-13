@@ -68,31 +68,13 @@ class ReviewService
                 Log::info("Fetched " . count($reviewsArray) . " reviews for lead {$lead->id} on page {$pageCount}");
 
                 foreach ($reviewsArray as $review) {
-                    // The rating might be in a nested user_review object
-                    $rating = null;
-                    
-                    // Check for rating in main review object
-                    if (isset($review['rating'])) {
-                        $rating = (int)$review['rating'];
-                    } 
-                    // Check for rating in user_review sub-object
-                    elseif (isset($review['user_review']['rating'])) {
-                        $rating = (int)$review['user_review']['rating'];
-                    }
-                    // Check other possible field names
-                    elseif (isset($review['star_rating'])) {
-                        $rating = (int)$review['star_rating'];
-                    }
-                    elseif (isset($review['stars'])) {
-                        $rating = (int)$review['stars'];
-                    }
+                    // Rating is at the main level
+                    $rating = isset($review['rating']) ? (int)$review['rating'] : null;
                     
                     if ($rating >= 1 && $rating <= 5) {
                         $reviewCounts[$rating]++;
                         $totalRating += $rating;
                         $totalReviews++;
-                    } else {
-                        Log::debug("Invalid or missing rating for review in lead {$lead->id}: " . json_encode($review));
                     }
                 }
 
@@ -163,18 +145,6 @@ class ReviewService
             if ($response->successful()) {
                 $data = $response->json();
                 
-                // Log the first response structure for debugging
-                if (!$nextPageToken) {
-                    Log::debug("Scrappa API response structure for business {$businessId}: " . json_encode(array_keys($data)));
-                    $firstItem = $data['items'][0] ?? $data['data'][0] ?? null;
-                    if ($firstItem) {
-                        Log::debug("First review structure: " . json_encode(array_keys($firstItem)));
-                        // Log nested structure if exists
-                        if (isset($firstItem['user_review'])) {
-                            Log::debug("user_review structure: " . json_encode(array_keys($firstItem['user_review'])));
-                        }
-                    }
-                }
                 
                 return $data;
             }
