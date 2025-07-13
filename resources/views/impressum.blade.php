@@ -1,6 +1,4 @@
-@extends('components.layouts.page-layout')
-
-@section('content')
+<x-layouts.page-layout>
 <section class="min-h-screen bg-white">
   <div class="max-w-4xl mx-auto px-4 py-16">
     <h1 class="text-4xl font-bold mb-8">Impressum</h1>
@@ -64,4 +62,4 @@
     </div>
   </div>
 </section>
-@endsection
+</x-layouts.page-layout>

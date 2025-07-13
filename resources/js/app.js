@@ -51,7 +51,8 @@ function initialize() {
 }
 
 function getUserLang() {
-  return document.querySelector('.language-selected').dataset.language || "de"
+  // Default to German if no language is set
+  return localStorage.getItem("eatweb-lang") || document.querySelector('.language-selected')?.dataset.language || "de"
 }
 
 function handleLanChange(lang) {
