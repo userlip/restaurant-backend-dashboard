@@ -49,8 +49,6 @@ class ReviewService
             $nextPageToken = null;
             $pageCount = 0;
 
-            $stopFetching = false;
-            
             do {
                 $reviews = $this->fetchReviewsPage($lead->google_business_id, $nextPageToken);
                 
@@ -69,36 +67,15 @@ class ReviewService
                 
                 Log::info("Fetched " . count($reviewsArray) . " reviews for lead {$lead->id} on page {$pageCount}");
 
-                foreach ($reviewsArray as $reviewIndex => $review) {
+                foreach ($reviewsArray as $review) {
                     // Rating is at the main level
                     $rating = isset($review['rating']) ? (int)$review['rating'] : null;
-                    
-                    // Debug first few reviews
-                    if ($reviewIndex < 3) {
-                        Log::debug("Lead {$lead->id} - Review {$reviewIndex}: raw rating = " . json_encode($review['rating'] ?? 'missing') . ", converted = {$rating}");
-                    }
                     
                     if ($rating >= 1 && $rating <= 5) {
                         $reviewCounts[$rating]++;
                         $totalRating += $rating;
                         $totalReviews++;
-                        
-                        // Debug the array state
-                        if ($reviewIndex < 3) {
-                            Log::debug("Lead {$lead->id} - After incrementing rating {$rating}: " . json_encode($reviewCounts));
-                        }
-                        
-                        // Stop when we encounter a 4-star review (since we're sorting by lowest rating first)
-                        if ($rating >= 4) {
-                            Log::info("Stopping at 4-star review for lead {$lead->id}. Total reviews processed: {$totalReviews}");
-                            $stopFetching = true;
-                            break;
-                        }
                     }
-                }
-
-                if ($stopFetching) {
-                    break;
                 }
 
                 // Get next page token
@@ -106,14 +83,9 @@ class ReviewService
                 $pageCount++;
 
                 // Safety limit to prevent infinite loops
-                if ($pageCount > 50) {
-                    Log::warning("Review fetching stopped at page 50 for lead: {$lead->id}");
+                if ($pageCount > 500) {
+                    Log::warning("Review fetching stopped at page 100 for lead: {$lead->id}");
                     break;
-                }
-
-                // Small delay between requests
-                if ($nextPageToken) {
-                    sleep(1);
                 }
             } while ($nextPageToken);
 
@@ -163,7 +135,7 @@ class ReviewService
         try {
             $params = [
                 'business_id' => $businessId,
-                'sort' => 4, // Sort by lowest rating first
+                'sort' => 1, // Sort by most relevant
             ];
 
             // Add next page token if available
