@@ -110,6 +110,16 @@ class ReviewService
             // Calculate average rating
             $averageRating = $totalReviews > 0 ? round($totalRating / $totalReviews, 2) : null;
 
+            // Log the counts before updating
+            Log::info("Review counts for lead {$lead->id}: " . json_encode([
+                '1_star' => $reviewCounts[1],
+                '2_star' => $reviewCounts[2],
+                '3_star' => $reviewCounts[3],
+                '4_star' => $reviewCounts[4],
+                '5_star' => $reviewCounts[5],
+                'total' => $totalReviews
+            ]));
+
             // Update the lead with review data
             $lead->update([
                 'one_star_count' => $reviewCounts[1],
