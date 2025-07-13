@@ -49,6 +49,8 @@ class ReviewService
             $nextPageToken = null;
             $pageCount = 0;
 
+            $stopFetching = false;
+            
             do {
                 $reviews = $this->fetchReviewsPage($lead->google_business_id, $nextPageToken);
                 
@@ -75,7 +77,18 @@ class ReviewService
                         $reviewCounts[$rating]++;
                         $totalRating += $rating;
                         $totalReviews++;
+                        
+                        // Stop when we encounter a 4-star review (since we're sorting by lowest rating first)
+                        if ($rating >= 4) {
+                            Log::info("Stopping at 4-star review for lead {$lead->id}. Total reviews processed: {$totalReviews}");
+                            $stopFetching = true;
+                            break;
+                        }
                     }
+                }
+
+                if ($stopFetching) {
+                    break;
                 }
 
                 // Get next page token
@@ -130,7 +143,7 @@ class ReviewService
         try {
             $params = [
                 'business_id' => $businessId,
-                'sort' => 1, // Sort by newest
+                'sort' => 4, // Sort by lowest rating first
             ];
 
             // Add next page token if available
