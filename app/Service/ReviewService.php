@@ -170,18 +170,23 @@ class ReviewService
             return null;
         }
 
-        // Pattern to match Google Business ID in various URL formats
-        // Example: https://www.google.com/maps/place/.../@...!1s0x3bae179ad3b6da99:0xd823b05add6a7fae
+        // Try to find any business ID pattern in the URL
+        // Business IDs are in format: 0x[hex]:0x[hex]
+        if (preg_match('/(0x[a-f0-9]+:0x[a-f0-9]+)/i', $url, $matches)) {
+            return $matches[1];
+        }
+
+        // Alternative patterns for different URL structures
         $patterns = [
-            '/!1s(0x[a-f0-9]+:[a-f0-9x]+)/',
-            '/0x[a-f0-9]+:[a-f0-9x]+/',
-            '/place\/.*\/data=.*!1s(0x[a-f0-9]+:[a-f0-9x]+)/',
-            '/data=!.*!1s(0x[a-f0-9]+:0x[a-f0-9]+)/',
+            '/!1s(0x[a-f0-9]+:[a-f0-9x]+)/i',
+            '/place\/[^\/]+\/(0x[a-f0-9]+:0x[a-f0-9]+)/i',
+            '/data=!.*!1s(0x[a-f0-9]+:0x[a-f0-9]+)/i',
+            '/\@.*?!1s(0x[a-f0-9]+:0x[a-f0-9]+)/i',
         ];
 
         foreach ($patterns as $pattern) {
             if (preg_match($pattern, $url, $matches)) {
-                return $matches[1] ?? $matches[0];
+                return $matches[1];
             }
         }
 
