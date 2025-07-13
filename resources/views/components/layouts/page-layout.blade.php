@@ -19,5 +19,7 @@
     </main>
 
     <x-pages.sections.footer />
+    
+    @livewireScripts
 </body>
 </html>

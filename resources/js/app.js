@@ -25,12 +25,16 @@ function closeDrawer() {
 
 function initializeDrawerButton() {
   const drawerButton = document.getElementById("drawer-button")
-  drawerButton.addEventListener("click", openDrawer)
+  if (drawerButton) {
+    drawerButton.addEventListener("click", openDrawer)
+  }
 }
 
 function initializeCloseButton() {
   const closeButton = document.getElementById("close-drawer")
-  closeButton.addEventListener("click", closeDrawer)
+  if (closeButton) {
+    closeButton.addEventListener("click", closeDrawer)
+  }
 }
 
 function initializeLanguageButton() {
@@ -63,10 +67,18 @@ function handleLanChange(lang) {
   })
 }
 
-document.getElementById("en").addEventListener("click", () => handleLanChange("en"))
-document.getElementById("de").addEventListener("click", () => handleLanChange("de"))
-document.getElementById("tr").addEventListener("click", () => handleLanChange("tr"))
-document.getElementById("ar").addEventListener("click", () => handleLanChange("ar"))
+// Language button event listeners - wrapped in DOMContentLoaded to ensure elements exist
+document.addEventListener("DOMContentLoaded", () => {
+  const enBtn = document.getElementById("en")
+  const deBtn = document.getElementById("de")
+  const trBtn = document.getElementById("tr")
+  const arBtn = document.getElementById("ar")
+  
+  if (enBtn) enBtn.addEventListener("click", () => handleLanChange("en"))
+  if (deBtn) deBtn.addEventListener("click", () => handleLanChange("de"))
+  if (trBtn) trBtn.addEventListener("click", () => handleLanChange("tr"))
+  if (arBtn) arBtn.addEventListener("click", () => handleLanChange("ar"))
+})
 
 document.addEventListener("DOMContentLoaded", initialize)
 document.addEventListener("DOMContentLoaded", () => {
