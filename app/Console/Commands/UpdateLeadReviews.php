@@ -45,7 +45,7 @@ class UpdateLeadReviews extends Command
                 
                 $this->info("Updating reviews for lead: {$lead->name}");
                 
-                if ($reviewService->fetchAndUpdateReviews($lead)) {
+                if ($reviewService->fetchAndUpdateReviews($lead, $this->output)) {
                     $this->info("Successfully updated reviews for {$lead->name}");
                     $this->table(
                         ['Rating', 'Count'],
@@ -90,16 +90,13 @@ class UpdateLeadReviews extends Command
                 $failCount = 0;
                 
                 foreach ($leads as $lead) {
-                    if ($reviewService->fetchAndUpdateReviews($lead)) {
+                    if ($reviewService->fetchAndUpdateReviews($lead, $this->output)) {
                         $successCount++;
                     } else {
                         $failCount++;
                     }
                     
                     $progressBar->advance();
-                    
-                    // Small delay to avoid rate limiting
-                    sleep(1);
                 }
                 
                 $progressBar->finish();
