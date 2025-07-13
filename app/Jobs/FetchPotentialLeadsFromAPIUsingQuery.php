@@ -34,14 +34,14 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
         $service = app(LeadService::class);
         $data = $service->fetchLeads($this->query);
 
-        foreach ($data['data'] as $restaurant) {
+        foreach ($data['items'] as $restaurant) {
             // If Website is null or contains "facebook"
             if ($restaurant['website'] == null || strpos($restaurant['website'], 'facebook') !== false) {
                 // Save it to the file
                 $name = $restaurant['name'];
                 $address = $restaurant['full_address'];
-                $phone = $restaurant['phone_number'];
-                $link = $restaurant['place_link'];
+                $phone = isset($restaurant['phone_numbers'][0]) ? $restaurant['phone_numbers'][0] : null;
+                $link = 'https://www.google.com/maps/place/?q=place_id:' . $restaurant['place_id'];
 
                 if (! Lead::where('name', $name)->exists()) {
                     Lead::create([

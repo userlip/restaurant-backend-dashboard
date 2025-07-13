@@ -44,7 +44,7 @@ class LeadService
         $query = urlencode($searchTerm);
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://maps-data.p.rapidapi.com/searchmaps.php?query=" . $query . "&limit=500&country=de&lang=de&zoom=13",
+            CURLOPT_URL => "https://app.scrappa.co/api/maps/advance-search?zoom=13&query=" . $query,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -52,17 +52,23 @@ class LeadService
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
-                "X-RapidAPI-Host: maps-data.p.rapidapi.com",
-                "X-RapidAPI-Key: aff74e61b2msh5bbea73eadf04e4p1f2d78jsn83ceea7b1158"
+                "x-api-key: " . env('SCRAPPA_API_KEY')
             ],
         ]);
 
         $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            throw new \Exception("cURL Error #:" . $err);
+        }
 
         $data = json_decode($response, true);
 
         if ($data === null) {
-            $this->fetchLeads($searchTerm);
+            throw new \Exception("Failed to decode API response");
         }
 
         return $data;
