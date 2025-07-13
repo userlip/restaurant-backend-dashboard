@@ -38,19 +38,10 @@
                 </div>
                 <div class="flex gap-[1rem] items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-                        <path d="M18.3563 9.02031C18.3563 9.02031 17.8407 7.8125 17.0532 7.8125C16.2782 7.8125 15.8751 8.17031 15.6063 8.41719C15.3376 8.66406 10.8407 12.3594 10.8407 12.3594C10.8407 12.3594 9.5329 13.5016 9.6329 15.65C9.71727 17.7984 10.1376 20.8562 12.3188 25.1156C14.4845 29.3656 19.9048 35.8594 23.3298 38.1422C23.3298 38.1422 26.5032 40.5766 29.4563 41.5656C30.3141 41.8359 32.0298 42.1875 32.4298 42.1875C32.836 42.1875 33.5532 42.1875 34.3766 41.5859C35.2141 40.9781 39.9126 37.2 39.9126 37.2C39.9126 37.2 41.0626 36.1609 39.7266 34.9531C38.3845 33.7453 34.3095 31.0594 33.4376 30.3531C32.5641 29.6359 31.3204 29.9516 30.7829 30.4375C30.247 30.9266 29.2891 31.7312 29.172 31.8328C28.997 31.9672 28.5173 32.4031 27.9798 32.1859C27.2954 31.9156 24.4891 30.3922 21.8876 26.8328C19.3016 23.2766 19.0173 22.1141 18.6313 20.8578C18.5659 20.6721 18.565 20.4697 18.6288 20.2835C18.6926 20.0972 18.8173 19.9378 18.9829 19.8313C19.3704 19.5625 20.797 18.3734 20.797 18.3734C20.797 18.3734 21.7204 17.4625 21.3345 16.3891C20.9485 15.3156 18.3563 9.02031 18.3563 9.02031Z" fill="black"/>
-                    </svg>
-                    <div class="flex flex-col justify-center items-start gap-[0.125rem]">
-                        <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">+49 1577 021 7672</span>
-                        <span class="text-body text-[0.75rem] tracking-[0.0625rem]">Mon - Fri, <span class="font-bold">09:00 - 18:00</span></span>
-                    </div>
-                </div>
-                <div class="flex gap-[1rem] items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M24.7139 28.5137L21.0427 25.4703L8.23442 38.5819H40.8678L28.2954 25.4481L24.7139 28.5137ZM30.1277 24.0565L42.3082 36.7208C42.3779 36.475 42.4277 36.2204 42.4277 35.9514V14.0615L30.1277 24.0565ZM7 14.0105V35.9514C7 36.2204 7.04982 36.475 7.11957 36.7208L19.341 24.0975L7 14.0105ZM41.3206 12H8.10712L24.7139 25.3064L41.3206 12Z" fill="black"/>
                     </svg>
                     <div class="flex flex-col justify-center items-start gap-[0.125rem]">
-                        <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">company@mail.com</span>
+                        <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">contact.simpleeats@gmail.com</span>
                         <span class="text-body text-[0.75rem] tracking-[0.0625rem]">We respond within <span class="font-bold">24 hrs</span></span>
                     </div>
                 </div>

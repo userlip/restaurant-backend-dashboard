@@ -38,7 +38,6 @@
               fill="black" />
           </svg>
           <div class="flex w-full flex-col items-start justify-center gap-[0.125rem]">
-            <span class="text-[1.125rem] font-bold tracking-[0.0625rem]">+49 1577 021 7672</span>
             <span class="text-[#5E5D5A] text-[0.75rem] tracking-[0.0625rem]">
               Mon- Fri,
               <span
@@ -434,7 +433,6 @@
           </svg>
           <div class="flex flex-col gap-[0.125rem] justify-center">
             <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">
-              +49 1577 021 7672
             </span>
             <span class="text-[0.75rem] tracking-[0.0625rem]">
               Mon - Fri
@@ -531,7 +529,7 @@
             class="text-white hidden tablet:block text-center laptop:text-[2.5rem] text-[2.125rem] font-bold leading-[120%]">
             {{ __('pages/home.price_header') }}
             <span class="text-[#FC1919]">
-              € 40
+              ab 39,99 €
             </span>
             / {{ __('pages/home.price_per_month') }}
           </h1>
@@ -596,7 +594,7 @@
             <div class="flex justify-between p-[1rem_1.25rem] items-center self-stretch border-b border-black">
               <input type="email" id="email"
                      class="w-full italic border-none text-[1.125rem] bg-transparent font-light text-body leading-[150%] tracking-[0.0625rem] outline-none"
-                     placeholder="your@mail.com">
+                     placeholder="contact.simpleeats@gmail.com">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17"
                    fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -651,7 +649,6 @@
                 fill="black" />
             </svg>
             <div class="flex flex-col justify-center items-start gap-[0.125rem]">
-              <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">+49 1577 021 7672</span>
               <span class="text-body text-[0.75rem] tracking-[0.0625rem]">Mon - Fri, <span
                   class="font-bold">09:00 - 18:00</span></span>
             </div>
@@ -664,7 +661,7 @@
                     fill="black" />
             </svg>
             <div class="flex flex-col justify-center items-start gap-[0.125rem]">
-              <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">company@mail.com</span>
+              <span class="font-bold text-[1.125rem] tracking-[0.0625rem]">contact.simpleeats@gmail.com</span>
               <span class="text-body text-[0.75rem] tracking-[0.0625rem]">{{ __('pages/home.we_respond_within') }} <span
                   class="font-bold">24 hrs</span></span>
             </div>
