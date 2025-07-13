@@ -23,6 +23,7 @@ class Lead extends Model
      */
     protected $fillable = [
         'customer_id',
+        'sales_person_id',
         'name',
         'address',
         'phone',
@@ -39,6 +40,16 @@ class Lead extends Model
     public function customer() : BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * The Sales Person relationship of the Lead model
+     *
+     * @return BelongsTo
+     */
+    public function salesPerson() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'sales_person_id');
     }
 
     /**

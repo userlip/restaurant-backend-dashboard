@@ -7,7 +7,9 @@ use phpDocumentor\Reflection\Types\Self_;
 class LeadStatusEnums
 {
     public const NEW = "new";
-    public const PROCESSED = "processed";
+    public const CONTACTED = "contacted";
+    public const CANCELLED = "cancelled";
+    public const WON = "won";
 
 
     /**
@@ -18,8 +20,10 @@ class LeadStatusEnums
     public static function getKeyValuePairs(): array
     {
         return [
-            self::NEW => ucfirst(self::NEW),
-            self::PROCESSED => ucfirst(self::PROCESSED),
+            self::NEW => 'Neu',
+            self::CONTACTED => 'Kontakt aufgenommen',
+            self::CANCELLED => 'Abgesagt',
+            self::WON => 'Gewonnen',
         ];
     }
 }

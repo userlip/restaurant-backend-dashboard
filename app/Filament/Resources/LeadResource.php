@@ -74,7 +74,14 @@ class LeadResource extends Resource
                         Forms\Components\Select::make('status')
                             ->options(LeadStatusEnums::getKeyValuePairs())
                             ->required()
-                            ->default(LeadStatusEnums::NEW)
+                            ->default(LeadStatusEnums::NEW),
+
+                        Forms\Components\Select::make('sales_person_id')
+                            ->label('Sales Person')
+                            ->relationship('salesPerson', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->nullable(),
                     ])
             ]);
     }
@@ -110,11 +117,19 @@ class LeadResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state) => match($state) {
-                        LeadStatusEnums::PROCESSED => Color::Green,
-                        default => Color::Yellow,
+                        LeadStatusEnums::NEW => Color::Yellow,
+                        LeadStatusEnums::CONTACTED => Color::Blue,
+                        LeadStatusEnums::CANCELLED => Color::Red,
+                        LeadStatusEnums::WON => Color::Green,
+                        default => Color::Gray,
                     })
-                    ->formatStateUsing(fn (string $state) => ucfirst($state))
+                    ->formatStateUsing(fn (string $state) => LeadStatusEnums::getKeyValuePairs()[$state] ?? $state)
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('salesPerson.name')
+                    ->label('Sales Person')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('search_term')

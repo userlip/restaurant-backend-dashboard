@@ -34,6 +34,7 @@ class FetchPotentialLeadsFromAPIUsingQuery implements ShouldQueue
         $service = app(LeadService::class);
         $data = $service->fetchLeads($this->query);
 
+
         foreach ($data['items'] as $restaurant) {
             // If Website is null or contains "facebook"
             if ($restaurant['website'] == null || strpos($restaurant['website'], 'facebook') !== false) {

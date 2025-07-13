@@ -25,7 +25,7 @@ class LeadService
 
             $isLeadUpdateSuccess = $lead->update([
                 'customer_id' => $customer->id,
-                'status' => LeadStatusEnums::PROCESSED,
+                'status' => LeadStatusEnums::WON,
             ]);
 
             return $isLeadUpdateSuccess && $customer !== null;
@@ -42,9 +42,11 @@ class LeadService
         $curl = curl_init();
 
         $query = urlencode($searchTerm);
+        $apiKey = env('SCRAPPA_API_KEY');
+        $url = "https://app.scrappa.co/api/maps/advance-search?zoom=13&query=" . $query;
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://app.scrappa.co/api/maps/advance-search?zoom=13&query=" . $query,
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -52,23 +54,63 @@ class LeadService
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
-                "x-api-key: " . env('SCRAPPA_API_KEY')
+                "x-api-key: " . $apiKey
             ],
         ]);
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
 
         if ($err) {
+            \Log::error('Scrappa API cURL Error', [
+                'error' => $err,
+                'query' => $searchTerm
+            ]);
             throw new \Exception("cURL Error #:" . $err);
         }
+
+        // Log raw response for debugging
+        \Log::info('Scrappa API Raw Response', [
+            'query' => $searchTerm,
+            'http_code' => $httpCode,
+            'response_length' => strlen($response),
+            'response_preview' => substr($response, 0, 500)
+        ]);
 
         $data = json_decode($response, true);
 
         if ($data === null) {
-            throw new \Exception("Failed to decode API response");
+            \Log::error('Scrappa API JSON Decode Error', [
+                'query' => $searchTerm,
+                'response' => $response,
+                'json_error' => json_last_error_msg()
+            ]);
+            throw new \Exception("Failed to decode API response: " . json_last_error_msg());
+        }
+
+        // Check for error responses
+        if ($httpCode !== 200) {
+            \Log::error('Scrappa API Error Response', [
+                'query' => $searchTerm,
+                'http_code' => $httpCode,
+                'response' => $data
+            ]);
+            
+            $errorMessage = isset($data['message']) ? $data['message'] : 'Unknown API error';
+            throw new \Exception("Scrappa API Error (HTTP $httpCode): $errorMessage");
+        }
+
+        // Validate response structure
+        if (!isset($data['items'])) {
+            \Log::error('Scrappa API Invalid Response Structure', [
+                'query' => $searchTerm,
+                'response_keys' => array_keys($data),
+                'response' => $data
+            ]);
+            throw new \Exception("Invalid Scrappa API response structure - missing 'items' key");
         }
 
         return $data;
