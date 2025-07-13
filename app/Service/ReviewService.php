@@ -52,17 +52,44 @@ class ReviewService
             do {
                 $reviews = $this->fetchReviewsPage($lead->google_business_id, $nextPageToken);
                 
-                if (!$reviews || empty($reviews['data'])) {
+                if (!$reviews) {
+                    Log::error("Failed to fetch reviews for lead {$lead->id} with business ID: {$lead->google_business_id}");
                     break;
                 }
+                
+                if (empty($reviews['data'])) {
+                    Log::info("No reviews found for lead {$lead->id} on page {$pageCount}");
+                    break;
+                }
+                
+                Log::info("Fetched " . count($reviews['data']) . " reviews for lead {$lead->id} on page {$pageCount}");
 
                 foreach ($reviews['data'] as $review) {
-                    // Handle different possible field names for rating
-                    $rating = (int) ($review['rating'] ?? $review['star_rating'] ?? 0);
+                    // The rating might be in a nested user_review object
+                    $rating = null;
+                    
+                    // Check for rating in main review object
+                    if (isset($review['rating'])) {
+                        $rating = (int)$review['rating'];
+                    } 
+                    // Check for rating in user_review sub-object
+                    elseif (isset($review['user_review']['rating'])) {
+                        $rating = (int)$review['user_review']['rating'];
+                    }
+                    // Check other possible field names
+                    elseif (isset($review['star_rating'])) {
+                        $rating = (int)$review['star_rating'];
+                    }
+                    elseif (isset($review['stars'])) {
+                        $rating = (int)$review['stars'];
+                    }
+                    
                     if ($rating >= 1 && $rating <= 5) {
                         $reviewCounts[$rating]++;
                         $totalRating += $rating;
                         $totalReviews++;
+                    } else {
+                        Log::debug("Invalid or missing rating for review in lead {$lead->id}: " . json_encode($review));
                     }
                 }
 
@@ -131,10 +158,18 @@ class ReviewService
             ])->get($this->baseUrl, $params);
 
             if ($response->successful()) {
-                return $response->json();
+                $data = $response->json();
+                
+                // Log the first response structure for debugging
+                if (!$nextPageToken && !empty($data['data'])) {
+                    Log::debug("Scrappa API response structure for business {$businessId}: " . json_encode(array_keys($data)));
+                    Log::debug("First review structure: " . json_encode(array_keys($data['data'][0] ?? [])));
+                }
+                
+                return $data;
             }
 
-            Log::error("Scrappa API error: " . $response->body());
+            Log::error("Scrappa API error for business {$businessId}: HTTP {$response->status()} - " . $response->body());
             return null;
 
         } catch (Exception $e) {
