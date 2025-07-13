@@ -113,7 +113,7 @@ class ReviewService
     {
         try {
             $response = Http::withHeaders([
-                'x-rapidapi-key' => $this->apiKey,
+                'x-api-key' => $this->apiKey,
             ])->get($this->baseUrl, [
                 'business_id' => $businessId,
                 'sort' => 1, // Sort by newest
