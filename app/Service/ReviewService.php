@@ -181,8 +181,8 @@ class ReviewService
                         
                         if ($consoleOutput) {
                             $consoleOutput->error($message);
-                            $consoleOutput->line("  Response type: " . gettype($data));
-                            $consoleOutput->line("  Response: " . substr(json_encode($data), 0, 200) . "...");
+                            $consoleOutput->writeln("  Response type: " . gettype($data));
+                            $consoleOutput->writeln("  Response: " . substr(json_encode($data), 0, 200) . "...");
                         }
                         
                         if ($attempt < $maxRetries) {
@@ -206,11 +206,11 @@ class ReviewService
                         
                         if ($consoleOutput) {
                             $consoleOutput->error($message);
-                            $consoleOutput->line("  Response keys: " . implode(', ', array_keys($data)));
+                            $consoleOutput->writeln("  Response keys: " . implode(', ', array_keys($data)));
                             if (count($data) < 10) {
-                                $consoleOutput->line("  Full response: " . json_encode($data));
+                                $consoleOutput->writeln("  Full response: " . json_encode($data));
                             } else {
-                                $consoleOutput->line("  Response sample: " . substr(json_encode($data), 0, 200) . "...");
+                                $consoleOutput->writeln("  Response sample: " . substr(json_encode($data), 0, 200) . "...");
                             }
                         }
                         
@@ -264,7 +264,7 @@ class ReviewService
                     
                     if ($attempt < $maxRetries) {
                         if ($consoleOutput) {
-                            $consoleOutput->line("  Waiting " . ($retryDelay * 2) . " seconds before retry...");
+                            $consoleOutput->writeln("  Waiting " . ($retryDelay * 2) . " seconds before retry...");
                         }
                         sleep($retryDelay * 2); // Double delay for rate limits
                         continue;
@@ -278,7 +278,7 @@ class ReviewService
                     
                     if ($consoleOutput) {
                         $consoleOutput->error($message);
-                        $consoleOutput->line("  Response: " . substr($body, 0, 100));
+                        $consoleOutput->writeln("  Response: " . substr($body, 0, 100));
                     }
                     
                     return null; // Don't retry auth errors
@@ -292,7 +292,7 @@ class ReviewService
                     
                     if ($consoleOutput) {
                         $consoleOutput->error($message);
-                        $consoleOutput->line("  Response: " . substr($body, 0, 200) . "...");
+                        $consoleOutput->writeln("  Response: " . substr($body, 0, 200) . "...");
                     }
                     
                     if ($attempt < $maxRetries) {
@@ -312,7 +312,7 @@ class ReviewService
                     
                     if ($consoleOutput) {
                         $consoleOutput->error($message);
-                        $consoleOutput->line("  Response: " . substr($body, 0, 200) . "...");
+                        $consoleOutput->writeln("  Response: " . substr($body, 0, 200) . "...");
                     }
                 }
                 
