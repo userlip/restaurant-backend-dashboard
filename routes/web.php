@@ -22,3 +22,16 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', \App\Livewire\Template::class);
 Route::get('/', \App\Livewire\WebsitePageRenderContent::class);
 Route::get('/preview/{website:uuid}', WebsiteThemePreview::class)->name('website-theme-preview');
+
+// Legal pages
+Route::get('/impressum', function () {
+    return view('impressum');
+})->name('impressum');
+
+Route::get('/datenschutz', function () {
+    return view('datenschutz');
+})->name('datenschutz');
+
+Route::get('/agb', function () {
+    return view('agb');
+})->name('agb');
