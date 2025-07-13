@@ -71,6 +71,12 @@ class LeadResource extends Resource
                             ->placeholder('Enter the address')
                             ->maxLength(255),
 
+                        Forms\Components\TextInput::make('google_business_id')
+                            ->label('Google Business ID')
+                            ->placeholder('e.g., 0x3bae179ad3b6da99:0xd823b05add6a7fae')
+                            ->helperText('This will be auto-extracted from the link if possible')
+                            ->maxLength(255),
+
                         Forms\Components\Select::make('status')
                             ->options(LeadStatusEnums::getKeyValuePairs())
                             ->required()
@@ -125,6 +131,49 @@ class LeadResource extends Resource
                     })
                     ->formatStateUsing(fn (string $state) => LeadStatusEnums::getKeyValuePairs()[$state] ?? $state)
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('one_star_count')
+                    ->label('1★')
+                    ->badge()
+                    ->color(Color::Red)
+                    ->sortable()
+                    ->alignCenter(),
+
+                Tables\Columns\TextColumn::make('two_star_count')
+                    ->label('2★')
+                    ->badge()
+                    ->color(Color::Orange)
+                    ->sortable()
+                    ->alignCenter(),
+
+                Tables\Columns\TextColumn::make('three_star_count')
+                    ->label('3★')
+                    ->badge()
+                    ->color(Color::Yellow)
+                    ->sortable()
+                    ->alignCenter(),
+
+                Tables\Columns\TextColumn::make('total_reviews')
+                    ->label('Total Reviews')
+                    ->badge()
+                    ->color(Color::Blue)
+                    ->sortable()
+                    ->alignCenter(),
+
+                Tables\Columns\TextColumn::make('average_rating')
+                    ->label('Avg Rating')
+                    ->badge()
+                    ->color(fn (?float $state) => match(true) {
+                        $state === null => Color::Gray,
+                        $state >= 4.5 => Color::Green,
+                        $state >= 4.0 => Color::Blue,
+                        $state >= 3.0 => Color::Yellow,
+                        $state >= 2.0 => Color::Orange,
+                        default => Color::Red,
+                    })
+                    ->formatStateUsing(fn (?float $state) => $state ? number_format($state, 1) . '★' : '-')
+                    ->sortable()
+                    ->alignCenter(),
 
                 Tables\Columns\TextColumn::make('salesPerson.name')
                     ->label('Sales Person')
@@ -199,10 +248,66 @@ class LeadResource extends Resource
                                 ->send();
                         }
                     }),
+                Tables\Actions\Action::make('update_reviews')
+                    ->label('Update Reviews')
+                    ->icon('heroicon-o-star')
+                    ->color(Color::Blue)
+                    ->requiresConfirmation()
+                    ->modalHeading('Update Reviews')
+                    ->modalDescription('This will fetch the latest reviews from Google for this lead.')
+                    ->modalWidth(MaxWidth::Small)
+                    ->action(function (Lead $record) {
+                        $reviewService = app(\App\Service\ReviewService::class);
+                        
+                        if ($reviewService->fetchAndUpdateReviews($record)) {
+                            $record->refresh();
+                            
+                            Notification::make()
+                                ->title('Reviews Updated Successfully!')
+                                ->body("Total Reviews: {$record->total_reviews}, Average Rating: " . ($record->average_rating ?? 'N/A'))
+                                ->success()
+                                ->send();
+                        } else {
+                            Notification::make()
+                                ->title('Failed to Update Reviews')
+                                ->body('Please check the logs for more information.')
+                                ->danger()
+                                ->send();
+                        }
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('bulk_update_reviews')
+                        ->label('Update Reviews')
+                        ->icon('heroicon-o-star')
+                        ->color(Color::Blue)
+                        ->requiresConfirmation()
+                        ->modalHeading('Update Reviews for Selected Leads')
+                        ->modalDescription('This will fetch the latest reviews from Google for all selected leads. This may take some time.')
+                        ->deselectRecordsAfterCompletion()
+                        ->action(function ($records) {
+                            $reviewService = app(\App\Service\ReviewService::class);
+                            $successCount = 0;
+                            $failCount = 0;
+                            
+                            foreach ($records as $record) {
+                                if ($reviewService->fetchAndUpdateReviews($record)) {
+                                    $successCount++;
+                                } else {
+                                    $failCount++;
+                                }
+                                // Small delay to avoid rate limiting
+                                sleep(1);
+                            }
+                            
+                            Notification::make()
+                                ->title('Reviews Update Complete')
+                                ->body("Success: {$successCount}, Failed: {$failCount}")
+                                ->success()
+                                ->send();
+                        }),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

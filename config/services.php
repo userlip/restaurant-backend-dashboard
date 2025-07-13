@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'scrappa' => [
+        'api_key' => env('SCRAPPA_API_KEY'),
+    ],
+
 ];

@@ -23,6 +23,9 @@ function closeDrawer() {
   drawer.classList.remove("translate-y-0")
 }
 
+// Export closeDrawer so it can be used elsewhere
+window.closeDrawer = closeDrawer
+
 function initializeDrawerButton() {
   const drawerButton = document.getElementById("drawer-button")
   if (drawerButton) {
@@ -44,10 +47,21 @@ function initializeLanguageButton() {
   }
 }
 
+function initializeMenuLinks() {
+  // Close drawer when clicking on menu links
+  const menuLinks = document.querySelectorAll('#drawer a[href^="#"]')
+  menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeDrawer()
+    })
+  })
+}
+
 function initialize() {
   initializeDrawerButton()
   initializeCloseButton()
   initializeLanguageButton()
+  initializeMenuLinks()
 }
 
 function getUserLang() {

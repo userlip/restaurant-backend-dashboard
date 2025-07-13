@@ -28,8 +28,27 @@ class Lead extends Model
         'address',
         'phone',
         'link',
+        'google_business_id',
         'search_term',
         'status',
+        'one_star_count',
+        'two_star_count',
+        'three_star_count',
+        'four_star_count',
+        'five_star_count',
+        'total_reviews',
+        'average_rating',
+        'reviews_last_updated_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'reviews_last_updated_at' => 'datetime',
+        'average_rating' => 'float',
     ];
 
     /**
