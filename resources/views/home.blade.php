@@ -1,7 +1,7 @@
 @php
   $languageThreeLetterCode = App\Helper\Helper::getLanguageThreeLetterCode(App::getLocale());
 @endphp
-<section>
+<section id="hero">
   <div
     class="hero relative tablet:pb-[6rem] big-tablet:pb-[10rem] laptop:pb-[12rem] gap-[2.5rem] max-w-[100vw]">
     <header
@@ -139,14 +139,14 @@
     </div>
     <div
       class="flex flex-col items-start text-[1.625rem] desktop:text-[3.75rem] tablet:text-[2.5rem] gap-[1.25rem] p-[0rem_0.875rem] self-stretch tablet:p-[0rem_5.625rem] tablet:gap-[0.625rem] big-tablet:p-[0rem_12.5rem] desktop:p-[0rem_15rem]">
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.home') }}</a>
-      <a href="#"
+      <a href="#hero" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.home') }}</a>
+      <a href="#benefits"
          class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.benefits_of_a_website') }}</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.prices') }}</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.contact') }}</a>
-      <a href="#"
+      <a href="#prices" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.prices') }}</a>
+      <a href="#contact" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.contact') }}</a>
+      <a href="#questions"
          class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.questions_and_answers') }}</a>
-      <a href="#" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.about_us') }}</a>
+      <a href="#about" class="font-alt font-bold uppercase hover:text-black/80">{{ __('pages/home.about_us') }}</a>
     </div>
     <div
       class="flex flex-col items-start gap-[1.875rem] self-stretch p-[0rem_0.875rem] tablet:p-0 tablet:pl-[1.875rem] big-tablet:pl-[3.75rem] laptop:pl-[2.5rem]">
@@ -176,7 +176,7 @@
       </div>
     </div>
   </div>
-  <div
+  <div id="benefits"
     class="flex relative overflow-hidden mx-auto max-w-[92.5rem flex-col justify-center items-center gap-[3.75rem] tablet:gap-[5.625rem] self-stretch p-[0rem_0.875rem] tablet:p-[0rem_2.5rem] desktop:p-[0rem_16.75rem] my-[5.625rem] tablet:my-[7.5rem] big-tablet:my-[10rem] desktop:my-[11.25rem] tablet:max-w-[120rem]">
     <button class="absolute desktop:block top-[1px] desktop:left-[156px] hidden">
       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -407,7 +407,7 @@
       </div>
     </div>
   </div>
-  <div
+  <div id="prices"
     class="relative overflow-hidden self-stretch items-center flex w-full flex-col p-[6.25rem_0.875rem] tablet:p-[6.25rem_2.5rem] big-tablet:p-[6.25rem_3.75rem] desktop:p-[6.25rem_6rem] gap-[3.75rem] bg-black">
     <svg xmlns="http://www.w3.org/2000/svg"
          class="absolute -z-0 inset-0 tablet:right-0 tablet:inset-auto tablet:inset-y-0" width="393" height="694"
@@ -509,7 +509,7 @@
       </button>
     </div>
   </div>
-  <div
+  <div id="contact"
     class="flex mx-auto my-[5.625rem] tablet:my-[7.5rem] big-tablet:my-[10rem] desktop:my-[11.25rem] max-w-[92.5rem] gap-[3.75rem] items-start flex-col self-stretch p-[0rem_0.875rem] tablet:p-[0rem_2.5rem] big-tablet:p-[0rem_3.75rem]">
     <div class="flex flex-col gap-[1.875rem] self-stretch">
       <div
@@ -668,7 +668,7 @@
       </div>
     </div>
   </div>
-  <div
+  <div id="questions"
     class="mx-auto w-full flex p-[6.25rem_0rem] flex-col justify-center items-center gap-[0.625rem] self-stretch bg-[#F8F8F8]">
     <div
       class="mx-auto flex gap-[3.75rem] self-stretch p-[0rem_0.875rem] tablet:p-[0rem_2.5rem] big-tablet:p-[0rem_3.75rem] tablet:gap-[5.625rem] flex-col max-w-[92.5rem] justify-center items-center">
@@ -730,7 +730,7 @@
       </button>
     </div>
   </div>
-  <div
+  <div id="about"
     class="mx-auto flex big-tablet:flex-row big-tablet:gap-[5.625rem] big-tablet:items-center big-tablet:content-center flex-col my-[5.625rem] tablet:my-[7.5rem] big-tablet:my-[10rem] desktop:my-[11.25rem] max-w-[92.5rem] p-[0rem_0.875rem] tablet:p-[0rem_3.75rem] items-start gap-[0.625rem] self-stretch">
     <div
       class="mx-auto flex flex-col big-tablet:items-start items-center flex-1 gap-[3.75rem] p-[2.5rem_0rem] min-w-[20.75rem] max-w-[47.5rem]">

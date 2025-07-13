@@ -2,7 +2,7 @@
 
 return [
 
-    'welcome_to_app_name' => "WELCOME TO :app_name",
+    'welcome_to_app_name' => "WILLKOMMEN BEI :app_name",
     'contact_us' => "Kontaktiere uns",
     'websites' => "Web sites",
     'for_restaurants' => "Für Restaurants",

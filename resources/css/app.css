@@ -5,6 +5,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add some scroll padding to account for fixed headers */
+html {
+  scroll-padding-top: 2rem;
+}
+
 @layer base {
     @font-face {
     font-family: "Involve";
