@@ -46,7 +46,7 @@
         <p class="mb-4">Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
         <p class="mb-4">
           Marin Solutions UG (haftungsbeschränkt)<br>
-          Nahariyastr. 12<br>
+          Nahariyastr. 34<br>
           12309 Berlin<br>
           E-Mail: contact.simpleeats@gmail.com
         </p>

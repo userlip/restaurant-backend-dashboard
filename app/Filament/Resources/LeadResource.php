@@ -130,6 +130,26 @@ class LeadResource extends Resource
                     ->label('Sales Person')
                     ->sortable()
                     ->searchable(),
+
+                Tables\Columns\TextColumn::make('notes_count')
+                    ->label('Notes')
+                    ->counts('notes')
+                    ->badge()
+                    ->color(fn (int $state) => $state > 0 ? Color::Blue : Color::Gray)
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('latest_note')
+                    ->label('Latest Note')
+                    ->getStateUsing(function (Lead $record) {
+                        $latestNote = $record->notes()->latest()->first();
+                        return $latestNote ? $latestNote->note : '-';
+                    })
+                    ->limit(50)
+                    ->tooltip(function (Lead $record) {
+                        $latestNote = $record->notes()->latest()->first();
+                        return $latestNote ? $latestNote->note : null;
+                    })
+                    ->wrap(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('search_term')

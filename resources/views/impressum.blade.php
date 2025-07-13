@@ -9,7 +9,7 @@
       <div>
         <h2 class="text-2xl font-semibold mb-2">Angaben gemäß § 5 TMG</h2>
         <p>Marin Solutions UG (haftungsbeschränkt)<br>
-        Nahariyastr. 12<br>
+        Nahariyastr. 34<br>
         12309 Berlin<br>
         Deutschland</p>
       </div>
@@ -41,7 +41,7 @@
         <h2 class="text-2xl font-semibold mb-2">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
         <p>Marin Delija<br>
         Marin Solutions UG (haftungsbeschränkt)<br>
-        Nahariyastr. 12<br>
+        Nahariyastr. 34<br>
         12309 Berlin</p>
       </div>
 

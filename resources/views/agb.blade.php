@@ -8,7 +8,7 @@
     <div class="space-y-6 text-gray-700">
       <div>
         <h2 class="text-2xl font-semibold mb-2">§ 1 Geltungsbereich</h2>
-        <p class="mb-4">(1) Diese Allgemeinen Geschäftsbedingungen (nachfolgend "AGB") der Marin Solutions UG (haftungsbeschränkt), Nahariyastr. 12, 12309 Berlin (nachfolgend "Anbieter"), gelten für alle Verträge über die Erstellung und Pflege von Websites für Restaurants, die zwischen dem Anbieter und seinen Kunden (nachfolgend "Kunde") geschlossen werden.</p>
+        <p class="mb-4">(1) Diese Allgemeinen Geschäftsbedingungen (nachfolgend "AGB") der Marin Solutions UG (haftungsbeschränkt), Nahariyastr. 34, 12309 Berlin (nachfolgend "Anbieter"), gelten für alle Verträge über die Erstellung und Pflege von Websites für Restaurants, die zwischen dem Anbieter und seinen Kunden (nachfolgend "Kunde") geschlossen werden.</p>
         <p class="mb-4">(2) Abweichende, entgegenstehende oder ergänzende Allgemeine Geschäftsbedingungen des Kunden werden nur dann und insoweit Vertragsbestandteil, als der Anbieter ihrer Geltung ausdrücklich zugestimmt hat.</p>
       </div>
 
@@ -78,7 +78,7 @@
       <div class="mt-8 p-4 bg-gray-100 rounded">
         <p class="text-sm">Stand: Januar 2024<br>
         Marin Solutions UG (haftungsbeschränkt)<br>
-        Nahariyastr. 12<br>
+        Nahariyastr. 34<br>
         12309 Berlin</p>
       </div>
     </div>
