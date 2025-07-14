@@ -153,6 +153,20 @@ class LeadResource extends Resource
                     ->sortable()
                     ->alignCenter(),
 
+                Tables\Columns\TextColumn::make('four_star_count')
+                    ->label('4★')
+                    ->badge()
+                    ->color(Color::Blue)
+                    ->sortable()
+                    ->alignCenter(),
+
+                Tables\Columns\TextColumn::make('five_star_count')
+                    ->label('5★')
+                    ->badge()
+                    ->color(Color::Green)
+                    ->sortable()
+                    ->alignCenter(),
+
                 Tables\Columns\TextColumn::make('total_reviews')
                     ->label('Total Reviews')
                     ->badge()

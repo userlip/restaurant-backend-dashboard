@@ -81,15 +81,32 @@ class ReviewService
                     $consoleOutput->info("Lead {$lead->id} ({$lead->name}): Processing reviews...");
                 }
 
+                // Count reviews by rating for this page
+                $pageReviewCounts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
+                $pageReviews = 0;
+                
                 foreach ($reviewsArray as $review) {
                     // Rating is at the main level
                     $rating = isset($review['rating']) ? (int)$review['rating'] : null;
                     
                     if ($rating >= 1 && $rating <= 5) {
                         $reviewCounts[$rating]++;
+                        $pageReviewCounts[$rating]++;
                         $totalRating += $rating;
                         $totalReviews++;
+                        $pageReviews++;
                     }
+                }
+                
+                // Output progress for this page
+                if ($consoleOutput && $pageReviews > 0) {
+                    $pageNum = $pageCount + 1;
+                    $pageCountsStr = implode(', ', array_map(
+                        fn($stars) => "{$stars}★: {$pageReviewCounts[$stars]}",
+                        [1, 2, 3, 4, 5]
+                    ));
+                    $consoleOutput->info("  Page {$pageNum}: Found {$pageReviews} reviews ({$pageCountsStr})");
+                    $consoleOutput->info("  Running total: {$totalReviews} reviews");
                 }
 
                 // Get next page token
@@ -127,6 +144,20 @@ class ReviewService
                 'average_rating' => $averageRating,
                 'reviews_last_updated_at' => now(),
             ]);
+
+            // Output final summary
+            if ($consoleOutput) {
+                $consoleOutput->success("Lead {$lead->id} ({$lead->name}): Update complete!");
+                $finalCountsStr = implode(', ', array_map(
+                    fn($stars) => "{$stars}★: {$reviewCounts[$stars]}",
+                    [1, 2, 3, 4, 5]
+                ));
+                $consoleOutput->info("  Final counts: {$finalCountsStr}");
+                $consoleOutput->info("  Total reviews: {$totalReviews}");
+                $consoleOutput->info("  Average rating: " . ($averageRating ?? 'N/A'));
+                $consoleOutput->info("  Pages processed: {$pageCount}");
+                $consoleOutput->line(''); // Empty line for readability
+            }
 
             Log::info("Successfully updated reviews for lead: {$lead->id}. Total: {$totalReviews}");
             return true;
