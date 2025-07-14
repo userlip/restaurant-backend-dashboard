@@ -11,7 +11,7 @@ return [
     'prices' => "Preise",
     'contact' => 'Kontakt',
     'questions_and_answers' => 'Fragen und Antworten',
-    'about_us' => 'Über uns',
+    'about_us' => 'Über Uns',
     'language' => 'Sprache',
     'menu' => 'Menü',
     'hero_title' => 'Sie machen das Essen - wir die Website',
@@ -36,9 +36,9 @@ return [
     'are_you_unsure' => 'Sie sind unsicher?',
     'are_you_unsure_description' => 'Schreiben Sie eine Email und wir werden Ihnen innerhalb von 24 Stunden einen unverbindlichen Terminvorschlag unterbreiten.',
     'price' => 'Preis',
-    'price_header' => 'Starten Sie jetzt mit Ihrem persönlichem Rundum sorglos Paket ab 39,99€ /',
-    'price_per_month' => 'Monat Festpreis!',
-    'price_description' => 'Bei Uns gibt es keine versteckten Kosten. Wir haben ein Paket mit Rundumservice und sind monatlich flexibel. Du hast eine Frage, schreib Uns direkt ?',
+    'price_header' => 'Starten Sie jetzt mit Ihrem persönlichem Rundum sorglos Paket ab',
+    'price_per_month' => '39,99€ /Monat Festpreis!',
+    'price_description' => 'Bei Uns gibt es keine versteckten Kosten. Wir haben ein Paket mit Rundumservice und sind monatlich flexibel. Sie haben eine Frage, schreib Uns direkt ?',
     'do_you_have_a_question' => 'Sie haben eine Frage?',
     'contact_us_description' => "Lassen Sie uns gemeinsam über Ihr Projekt sprechen",
 
@@ -58,11 +58,11 @@ return [
     'how_does_my_company_benefit' => 'WAS HAT MEIN UNTERNEHMEN DAVON ?',
     'how_does_my_company_benefit_description' => 'Mehr Besucherzahlen, durch Online Präsenz  =  mehr Gäste.',
 
-    'ask_us_what' => 'Frag Uns Was',
+    'ask_us_what' => 'Fragen Sie uns etwas',
 
-    'about_us_header' => 'Wir helfen Dir ein höheres Level im Restaurant Business zu erreichen',
+    'about_us_header' => 'Wir helfen Ihnen ein höheres Level im Restaurant Business zu erreichen',
     'about_us_header_description' => 'EIN RESTAURANT ZU FÜHREN IST NICHT LEICHT UND WIRD OFT UNTERSCHÄTZT, MAN HAT ALLE HÄNDE VOLL ZU TUN UND GENAU DA KOMMEN WIR INS SPIEL.',
     'about_us_header_subtext' => 'Wir kümmern Uns um Deine Online- Präsenz. Erstellen eine individuelle Website für Dich und behalten alles im Auge, damit Du Dich um Deine Gäste  kümmern kannst.',
 
-    'footer_text' => 'Wir freuen Uns Dich kennenzulernen und gemeinsam Dein Restaurant auf das nächste Level zu bringen!',
+    'footer_text' => 'Wir freuen uns Sie kennenzulernen und gemeinsam Ihr Restaurant auf das nächste Level zu bringen!',
 ];
