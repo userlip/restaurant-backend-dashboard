@@ -72,6 +72,7 @@ class ReviewService
                     $message = "No reviews found for lead {$lead->id} on page {$pageCount}";
                     Log::info($message);
                     if ($consoleOutput && $pageCount === 1) {
+                        $consoleOutput->write("\033[2K\r");
                         $consoleOutput->warning("Lead {$lead->id} ({$lead->name}): No reviews found");
                     }
                     break;
@@ -99,14 +100,25 @@ class ReviewService
                 }
                 
                 // Output progress for this page
-                if ($consoleOutput && $pageReviews > 0) {
+                if ($consoleOutput) {
                     $pageNum = $pageCount + 1;
-                    $pageCountsStr = implode(', ', array_map(
-                        fn($stars) => "{$stars}★: {$pageReviewCounts[$stars]}",
+                    
+                    // Show cumulative counts on a single updating line
+                    $cumulativeCountsStr = implode(', ', array_map(
+                        fn($stars) => "{$stars}★: {$reviewCounts[$stars]}",
                         [1, 2, 3, 4, 5]
                     ));
-                    $consoleOutput->info("  Page {$pageNum}: Found {$pageReviews} reviews ({$pageCountsStr})");
-                    $consoleOutput->info("  Running total: {$totalReviews} reviews");
+                    
+                    // Check if console output supports write method (for dynamic updates)
+                    if (method_exists($consoleOutput, 'write')) {
+                        // Use write instead of writeln to stay on the same line
+                        // \033[2K clears the entire line, \r returns to start of line
+                        $consoleOutput->write("\033[2K\r");
+                        $consoleOutput->write("  <info>Page {$pageNum}: Processing... Total: {$totalReviews} reviews ({$cumulativeCountsStr})</info>");
+                    } else {
+                        // Fallback to regular output if write is not supported
+                        $consoleOutput->info("  Page {$pageNum}: Found {$pageReviews} reviews - Total: {$totalReviews} ({$cumulativeCountsStr})");
+                    }
                 }
 
                 // Get next page token
@@ -147,6 +159,12 @@ class ReviewService
 
             // Output final summary
             if ($consoleOutput) {
+                // Clear the updating line and move to a new line if we were using dynamic updates
+                if (method_exists($consoleOutput, 'write')) {
+                    $consoleOutput->write("\033[2K\r");
+                    $consoleOutput->writeln(''); // New line after the updating display
+                }
+                
                 $consoleOutput->success("Lead {$lead->id} ({$lead->name}): Update complete!");
                 $finalCountsStr = implode(', ', array_map(
                     fn($stars) => "{$stars}★: {$reviewCounts[$stars]}",
@@ -156,7 +174,11 @@ class ReviewService
                 $consoleOutput->info("  Total reviews: {$totalReviews}");
                 $consoleOutput->info("  Average rating: " . ($averageRating ?? 'N/A'));
                 $consoleOutput->info("  Pages processed: {$pageCount}");
-                $consoleOutput->line(''); // Empty line for readability
+                
+                // Add empty line if line method exists
+                if (method_exists($consoleOutput, 'line')) {
+                    $consoleOutput->line(''); // Empty line for readability
+                }
             }
 
             Log::info("Successfully updated reviews for lead: {$lead->id}. Total: {$totalReviews}");
