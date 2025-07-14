@@ -11,7 +11,7 @@ return [
     'prices' => "Preise",
     'contact' => 'Kontakt',
     'questions_and_answers' => 'Fragen und Antworten',
-    'about_us' => 'Über Uns',
+    'about_us' => 'Über uns',
     'language' => 'Sprache',
     'menu' => 'Menü',
     'hero_title' => 'Sie machen das Essen - wir die Website',
@@ -62,7 +62,7 @@ return [
 
     'about_us_header' => 'Wir helfen Ihnen ein höheres Level im Restaurant Business zu erreichen',
     'about_us_header_description' => 'EIN RESTAURANT ZU FÜHREN IST NICHT LEICHT UND WIRD OFT UNTERSCHÄTZT, MAN HAT ALLE HÄNDE VOLL ZU TUN UND GENAU DA KOMMEN WIR INS SPIEL.',
-    'about_us_header_subtext' => 'Wir kümmern Uns um Deine Online- Präsenz. Erstellen eine individuelle Website für Dich und behalten alles im Auge, damit Du Dich um Deine Gäste  kümmern kannst.',
+    'about_us_header_subtext' => 'Wir kümmern uns um Ihre Online-Präsenz. Erstellen eine individuelle Website für Sie und behalten alles im Auge, damit Sie sich um Ihre Gäste kümmern können.',
 
     'footer_text' => 'Wir freuen uns Sie kennenzulernen und gemeinsam Ihr Restaurant auf das nächste Level zu bringen!',
 ];

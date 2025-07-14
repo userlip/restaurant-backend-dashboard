@@ -456,9 +456,9 @@
             class="text-white hidden tablet:block text-center laptop:text-[2.5rem] text-[2.125rem] font-bold leading-[120%]">
             {{ __('pages/home.price_header') }}
             <span class="text-[#FC1919]">
-              ab 39,99 €
+              39,99€
             </span>
-            / {{ __('pages/home.price_per_month') }}
+            /Monat Festpreis!
           </h1>
         </div>
         <p class="font-light leading-[160%] text-[0.875rem] tablet:text-[1rem] text-center text-white">
