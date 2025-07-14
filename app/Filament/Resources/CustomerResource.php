@@ -90,6 +90,12 @@ class CustomerResource extends Resource
                     ->sortable()
                     ->searchable(),
 
+                Tables\Columns\TextColumn::make('vat_id')
+                    ->label('VAT ID')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+
                 Tables\Columns\TextColumn::make('contact_person')
                     ->limit(20)
                     ->sortable()
@@ -187,59 +193,33 @@ class CustomerResource extends Resource
                                     ->columns(2)
                                     ->maxLength(255),
 
-                                Forms\Components\TextInput::make('state')
-                                    ->required()
-                                    ->placeholder('Enter the state')
-                                    ->columns(2)
-                                    ->maxLength(255),
-
                                 Forms\Components\TextInput::make('postal_code')
                                     ->required()
                                     ->numeric()
-                                    ->placeholder('Enter the postal_code')
+                                    ->placeholder('Enter the postal code')
                                     ->columns(2)
                                     ->maxLength(255),
 
                                 Forms\Components\Select::make('country')
                                     ->options(CountryHelper::getAllCountries())
                                     ->required(),
+                                
+                                Forms\Components\TextInput::make('vat_id')
+                                    ->label('VAT ID')
+                                    ->placeholder('Enter the VAT ID (optional)')
+                                    ->columnSpanFull()
+                                    ->maxLength(255),
                             ]),
 
                         Forms\Components\Section::make('Contact')
                             ->columns()
                             ->schema([
-                                Forms\Components\TextInput::make('area_code')
-                                    ->required()
-                                    ->live(),
-
                                 PhoneInput::make('phone')
                                     ->autoInsertDialCode()
                                     ->countryStatePath('phone_country')
                                     ->required()
                                     ->placeholder("Enter the customer phone")
-                                    ->defaultCountry('DE')
-                                    ->live()
-                                    ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set) {
-                                        if (
-                                            ($countryCode = $get('phone_country')) &&
-                                            $phoneNumber = $get('phone')
-                                        ) {
-                                            try {
-                                                $phoneUtil = PhoneNumberUtil::getInstance();
-                                                $number = $phoneUtil->parse($phoneNumber, $countryCode);
-
-                                                $set('area_code', '+' . $number->getCountryCode());
-                                            } catch (NumberParseException $exception) {
-                                                throw ValidationException::withMessages([
-                                                    'data.phone' => $exception->getMessage(),
-                                                ]);
-                                            }
-                                        }
-                                    }),
-
-                                PhoneInput::make('whatsapp_number')
-                                    ->required()
-                                    ->placeholder("Enter the customer whatsapp"),
+                                    ->defaultCountry('DE'),
 
                                 Forms\Components\TextInput::make('contact_person')
                                     ->required()

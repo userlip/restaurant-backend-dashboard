@@ -20,17 +20,15 @@ class Customer extends Model
         'email',
         'phone',
         'address',
-        'area_code',
         'city',
-        'state',
         'postal_code',
         'country',
+        'vat_id',
         'contact_person',
         'next_payment_date',
         'is_invoice',
         'agreed_price',
         'impressum',
-        'whatsapp_number',
     ];
 
     protected $casts = [
@@ -108,6 +106,14 @@ class Customer extends Model
             $this->phone
         );
 
-        return "{$this->area_code}.{$phone}";
+        // Extract country code from the phone number if it starts with +
+        if (str_starts_with($phone, '+')) {
+            // Most common country codes are 1-4 digits after the +
+            // This is a simple approach - you might need to adjust based on your needs
+            return $phone;
+        }
+
+        // Default to German country code if no country code is present
+        return "+49.{$phone}";
     }
 }

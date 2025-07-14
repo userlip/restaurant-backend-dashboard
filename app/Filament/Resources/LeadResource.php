@@ -236,7 +236,6 @@ class LeadResource extends Resource
                         'name' => $record->name,
                         'address' => $record->address,
                         'phone' => $record->phone,
-                        'whatsapp_number' => $record->phone,
                     ])
                     ->form([
                         CustomerResource::getFormSchema()
