@@ -71,17 +71,13 @@ class ReviewService
                 if (empty($reviewsArray)) {
                     $message = "No reviews found for lead {$lead->id} on page {$pageCount}";
                     Log::info($message);
-                    if ($consoleOutput && $pageCount === 1) {
+                    if ($consoleOutput && $pageCount === 0) {
                         $consoleOutput->write("\033[2K\r");
                         $consoleOutput->warning("Lead {$lead->id} ({$lead->name}): No reviews found");
                     }
                     break;
                 }
                 
-                if ($consoleOutput && $pageCount === 1) {
-                    $consoleOutput->info("Lead {$lead->id} ({$lead->name}): Processing reviews...");
-                }
-
                 // Count reviews by rating for this page
                 $pageReviewCounts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
                 $pageReviews = 0;
@@ -99,10 +95,13 @@ class ReviewService
                     }
                 }
                 
+                if ($consoleOutput && $pageCount === 0) {
+                    $consoleOutput->info("Lead {$lead->id} ({$lead->name}): Processing reviews...");
+                }
+                
                 // Output progress for this page
                 if ($consoleOutput) {
                     $pageNum = $pageCount + 1;
-                    
                     // Show cumulative counts on a single updating line
                     $cumulativeCountsStr = implode(', ', array_map(
                         fn($stars) => "{$stars}★: {$reviewCounts[$stars]}",
@@ -117,17 +116,38 @@ class ReviewService
                         $consoleOutput->write("  <info>Page {$pageNum}: Processing... Total: {$totalReviews} reviews ({$cumulativeCountsStr})</info>");
                     } else {
                         // Fallback to regular output if write is not supported
-                        $consoleOutput->info("  Page {$pageNum}: Found {$pageReviews} reviews - Total: {$totalReviews} ({$cumulativeCountsStr})");
+                        $consoleOutput->info("  Page {$pageNum}: Found {$pageReviews} new reviews - Total: {$totalReviews} ({$cumulativeCountsStr})");
                     }
                 }
 
                 // Get next page token
+                $previousToken = $nextPageToken;
                 $nextPageToken = $reviews['nextPage'] ?? null;
                 $pageCount++;
+                
+                // Debug: Log what we're getting back
+                if ($pageCount === 1) {
+                    Log::info("First page response structure for lead {$lead->id}", [
+                        'has_nextPage_key' => isset($reviews['nextPage']),
+                        'nextPage_value' => substr($reviews['nextPage'] ?? 'null', 0, 50) . '...',
+                        'response_keys' => array_keys($reviews),
+                        'items_count' => count($reviewsArray)
+                    ]);
+                }
+                
+                // Log pagination details for debugging
+                if ($pageCount <= 3 || $pageCount % 50 == 0) {
+                    Log::info("Pagination debug for lead {$lead->id} page {$pageCount}", [
+                        'previous_token' => substr($previousToken ?? 'null', 0, 20) . '...',
+                        'next_token' => substr($nextPageToken ?? 'null', 0, 20) . '...',
+                        'reviews_in_page' => count($reviewsArray),
+                        'total_so_far' => $totalReviews
+                    ]);
+                }
 
                 // Safety limit to prevent infinite loops
                 if ($pageCount > 500) {
-                    Log::warning("Review fetching stopped at page 100 for lead: {$lead->id}");
+                    Log::warning("Review fetching stopped at page 500 for lead: {$lead->id}");
                     break;
                 }
             } while ($nextPageToken);
@@ -211,7 +231,19 @@ class ReviewService
 
                 // Add next page token if available
                 if ($nextPageToken) {
-                    $params['nextPage'] = $nextPageToken;
+                    $params['page'] = $nextPageToken;
+                }
+                
+                // Log API request for first few pages
+                static $requestCount = 0;
+                $requestCount++;
+                if ($requestCount <= 5 || $requestCount % 100 == 0) {
+                    Log::info("Scrappa API request #{$requestCount}", [
+                        'business_id' => $businessId,
+                        'has_page_param' => isset($params['page']),
+                        'page_token' => substr($params['page'] ?? 'none', 0, 50) . '...',
+                        'url' => $this->baseUrl
+                    ]);
                 }
 
                 $response = Http::timeout(30)
