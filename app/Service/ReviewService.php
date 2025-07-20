@@ -55,7 +55,7 @@ class ReviewService
 
             do {
                 $reviews = $this->fetchReviewsPage($lead->google_business_id, $nextPageToken, $consoleOutput);
-                
+
                 if (!$reviews) {
                     $message = "Failed to fetch reviews for lead {$lead->id} with business ID: {$lead->google_business_id}";
                     Log::error($message);
@@ -64,10 +64,10 @@ class ReviewService
                     }
                     break;
                 }
-                
+
                 // Check for 'items' key (used by Scrappa API)
                 $reviewsArray = $reviews['items'] ?? $reviews['data'] ?? [];
-                
+
                 if (empty($reviewsArray)) {
                     $message = "No reviews found for lead {$lead->id} on page {$pageCount}";
                     Log::info($message);
@@ -77,15 +77,15 @@ class ReviewService
                     }
                     break;
                 }
-                
+
                 // Count reviews by rating for this page
                 $pageReviewCounts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
                 $pageReviews = 0;
-                
+
                 foreach ($reviewsArray as $review) {
                     // Rating is at the main level
                     $rating = isset($review['rating']) ? (int)$review['rating'] : null;
-                    
+
                     if ($rating >= 1 && $rating <= 5) {
                         $reviewCounts[$rating]++;
                         $pageReviewCounts[$rating]++;
@@ -94,11 +94,11 @@ class ReviewService
                         $pageReviews++;
                     }
                 }
-                
+
                 if ($consoleOutput && $pageCount === 0) {
                     $consoleOutput->info("Lead {$lead->id} ({$lead->name}): Processing reviews...");
                 }
-                
+
                 // Output progress for this page
                 if ($consoleOutput) {
                     $pageNum = $pageCount + 1;
@@ -107,7 +107,7 @@ class ReviewService
                         fn($stars) => "{$stars}★: {$reviewCounts[$stars]}",
                         [1, 2, 3, 4, 5]
                     ));
-                    
+
                     // Check if console output supports write method (for dynamic updates)
                     if (method_exists($consoleOutput, 'write')) {
                         // Use write instead of writeln to stay on the same line
@@ -124,7 +124,7 @@ class ReviewService
                 $previousToken = $nextPageToken;
                 $nextPageToken = $reviews['nextPage'] ?? null;
                 $pageCount++;
-                
+
                 // Debug: Log what we're getting back
                 if ($pageCount === 1) {
                     Log::info("First page response structure for lead {$lead->id}", [
@@ -134,7 +134,7 @@ class ReviewService
                         'items_count' => count($reviewsArray)
                     ]);
                 }
-                
+
                 // Log pagination details for debugging
                 if ($pageCount <= 3 || $pageCount % 50 == 0) {
                     Log::info("Pagination debug for lead {$lead->id} page {$pageCount}", [
@@ -184,7 +184,7 @@ class ReviewService
                     $consoleOutput->write("\033[2K\r");
                     $consoleOutput->writeln(''); // New line after the updating display
                 }
-                
+
                 $consoleOutput->success("Lead {$lead->id} ({$lead->name}): Update complete!");
                 $finalCountsStr = implode(', ', array_map(
                     fn($stars) => "{$stars}★: {$reviewCounts[$stars]}",
@@ -194,7 +194,7 @@ class ReviewService
                 $consoleOutput->info("  Total reviews: {$totalReviews}");
                 $consoleOutput->info("  Average rating: " . ($averageRating ?? 'N/A'));
                 $consoleOutput->info("  Pages processed: {$pageCount}");
-                
+
                 // Add empty line if line method exists
                 if (method_exists($consoleOutput, 'line')) {
                     $consoleOutput->line(''); // Empty line for readability
@@ -203,7 +203,6 @@ class ReviewService
 
             Log::info("Successfully updated reviews for lead: {$lead->id}. Total: {$totalReviews}");
             return true;
-
         } catch (Exception $e) {
             Log::error("Error fetching reviews for lead {$lead->id}: " . $e->getMessage());
             return false;
@@ -221,19 +220,20 @@ class ReviewService
     {
         $maxRetries = 3;
         $retryDelay = 2; // seconds
-        
+
         for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
             try {
                 $params = [
                     'business_id' => $businessId,
                     'sort' => 1, // Sort by most relevant
+                    'limit' => 20,
                 ];
 
                 // Add next page token if available
                 if ($nextPageToken) {
                     $params['page'] = $nextPageToken;
                 }
-                
+
                 // Log API request for first few pages
                 static $requestCount = 0;
                 $requestCount++;
@@ -254,7 +254,7 @@ class ReviewService
 
                 if ($response->successful()) {
                     $data = $response->json();
-                    
+
                     // Validate response structure
                     if (!is_array($data)) {
                         $message = "Scrappa API returned non-array response for business {$businessId}";
@@ -263,13 +263,13 @@ class ReviewService
                             'response' => substr(json_encode($data), 0, 500),
                             'attempt' => $attempt
                         ]);
-                        
+
                         if ($consoleOutput) {
                             $consoleOutput->error($message);
                             $consoleOutput->writeln("  Response type: " . gettype($data));
                             $consoleOutput->writeln("  Response: " . substr(json_encode($data), 0, 200) . "...");
                         }
-                        
+
                         if ($attempt < $maxRetries) {
                             if ($consoleOutput) {
                                 $consoleOutput->warning("  Retrying in {$retryDelay} seconds...");
@@ -279,7 +279,7 @@ class ReviewService
                         }
                         return null;
                     }
-                    
+
                     // Check for expected structure
                     if (!isset($data['items']) && !isset($data['data'])) {
                         $message = "Scrappa API response missing items/data key for business {$businessId}";
@@ -288,7 +288,7 @@ class ReviewService
                             'response_sample' => substr(json_encode($data), 0, 500),
                             'attempt' => $attempt
                         ]);
-                        
+
                         if ($consoleOutput) {
                             $consoleOutput->error($message);
                             $consoleOutput->writeln("  Response keys: " . implode(', ', array_keys($data)));
@@ -298,7 +298,7 @@ class ReviewService
                                 $consoleOutput->writeln("  Response sample: " . substr(json_encode($data), 0, 200) . "...");
                             }
                         }
-                        
+
                         // Check if it's an error response
                         if (isset($data['error']) || isset($data['message'])) {
                             $errorMsg = $data['error'] ?? $data['message'] ?? 'Unknown error';
@@ -307,12 +307,12 @@ class ReviewService
                                 'error' => $errorMsg,
                                 'attempt' => $attempt
                             ]);
-                            
+
                             if ($consoleOutput) {
                                 $consoleOutput->error("  API Error: " . $errorMsg);
                             }
                         }
-                        
+
                         if ($attempt < $maxRetries) {
                             if ($consoleOutput) {
                                 $consoleOutput->warning("  Retrying in {$retryDelay} seconds...");
@@ -322,7 +322,7 @@ class ReviewService
                         }
                         return null;
                     }
-                    
+
                     // Log if we get an empty response
                     $itemsCount = count($data['items'] ?? $data['data'] ?? []);
                     if ($itemsCount === 0 && !$nextPageToken) {
@@ -331,22 +331,22 @@ class ReviewService
                             'response_keys' => array_keys($data)
                         ]);
                     }
-                    
+
                     return $data;
                 }
 
                 // Log different types of HTTP errors
                 $statusCode = $response->status();
                 $body = $response->body();
-                
+
                 if ($statusCode === 429) {
                     $message = "Scrappa API rate limit hit for business {$businessId}";
                     Log::warning($message . ", attempt {$attempt}/{$maxRetries}");
-                    
+
                     if ($consoleOutput) {
                         $consoleOutput->warning($message);
                     }
-                    
+
                     if ($attempt < $maxRetries) {
                         if ($consoleOutput) {
                             $consoleOutput->writeln("  Waiting " . ($retryDelay * 2) . " seconds before retry...");
@@ -360,12 +360,12 @@ class ReviewService
                         'business_id' => $businessId,
                         'response' => substr($body, 0, 200)
                     ]);
-                    
+
                     if ($consoleOutput) {
                         $consoleOutput->error($message);
                         $consoleOutput->writeln("  Response: " . substr($body, 0, 100));
                     }
-                    
+
                     return null; // Don't retry auth errors
                 } elseif ($statusCode >= 500) {
                     $message = "Scrappa API server error (HTTP {$statusCode}) for business {$businessId}";
@@ -374,12 +374,12 @@ class ReviewService
                         'response' => substr($body, 0, 500),
                         'attempt' => $attempt
                     ]);
-                    
+
                     if ($consoleOutput) {
                         $consoleOutput->error($message);
                         $consoleOutput->writeln("  Response: " . substr($body, 0, 200) . "...");
                     }
-                    
+
                     if ($attempt < $maxRetries) {
                         if ($consoleOutput) {
                             $consoleOutput->warning("  Retrying in {$retryDelay} seconds...");
@@ -394,36 +394,35 @@ class ReviewService
                         'response' => substr($body, 0, 500),
                         'attempt' => $attempt
                     ]);
-                    
+
                     if ($consoleOutput) {
                         $consoleOutput->error($message);
                         $consoleOutput->writeln("  Response: " . substr($body, 0, 200) . "...");
                     }
                 }
-                
+
                 if ($attempt < $maxRetries) {
                     sleep($retryDelay);
                     continue;
                 }
-                
-                return null;
 
+                return null;
             } catch (Exception $e) {
                 Log::error("Exception calling Scrappa API for business {$businessId}", [
                     'error' => $e->getMessage(),
                     'attempt' => $attempt,
                     'class' => get_class($e)
                 ]);
-                
+
                 if ($attempt < $maxRetries) {
                     sleep($retryDelay);
                     continue;
                 }
-                
+
                 return null;
             }
         }
-        
+
         Log::error("Failed to fetch reviews after {$maxRetries} attempts for business {$businessId}");
         return null;
     }
